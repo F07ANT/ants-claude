@@ -1,6 +1,10 @@
 #pragma once
 
-// shared between driver and usermode — keep in sync
+#ifdef _WIN32
+#ifndef CTL_CODE
+#include <winioctl.h>
+#endif
+#endif
 
 #define R6DRV_DEVICE_TYPE 0x8000
 
