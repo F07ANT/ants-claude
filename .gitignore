@@ -1,4 +1,6 @@
 build/
+bin/
+obj/
 *.exe
 *.sys
 *.obj
@@ -7,5 +9,19 @@ build/
 *.ilk
 *.exp
 *.lib
+*.log
+*.tlog
+*.idb
+*.ipch
+*.sdf
+*.opensdf
+*.suo
+*.user
+*.ncb
+*.aps
 .vs/
+x64/
+Debug/
+Release/
 CMakeSettings.json
+*.vcxproj.user

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp</Extensions>
+    </Filter>
+    <Filter Include="include\shared">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\memory.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\game.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\overlay.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\aimbot.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\esp.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\config.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\menu.cpp"><Filter>src</Filter></ClCompile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="include\memory.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\vec.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\game.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\overlay.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\aimbot.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\esp.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\config.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\menu.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\driver_interface.h"><Filter>include</Filter></ClInclude>
+    <ClInclude Include="include\shared\ioctls.h"><Filter>include\shared</Filter></ClInclude>
+  </ItemGroup>
+
+</Project>
