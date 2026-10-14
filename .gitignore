@@ -2,6 +2,7 @@ build/
 bin/
 obj/
 *.exe
+!release/*.exe
 *.sys
 *.obj
 *.o
