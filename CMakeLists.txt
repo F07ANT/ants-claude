@@ -10,7 +10,7 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-add_executable(r6_ext WIN32
+add_executable(r6_ext
     src/main.cpp
     src/memory.cpp
     src/game.cpp

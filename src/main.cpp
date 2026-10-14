@@ -7,10 +7,8 @@
 #include "config.h"
 #include <cstdio>
 
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
-    AllocConsole();
+int main() {
     SetConsoleTitleW(L"R6 External");
-    freopen("CONOUT$", "w", stdout);
 
     std::printf("=============================\n");
     std::printf("  R6 External  -  by odil9\n");
@@ -25,10 +23,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     std::printf("[*] start the game, this will attach automatically\n");
     while (!mem.attach(L"RainbowSix.exe")) {
         Sleep(1000);
-        if (GetAsyncKeyState(VK_END) & 0x8000) {
-            FreeConsole();
-            return 0;
-        }
+        if (GetAsyncKeyState(VK_END) & 0x8000) return 0;
     }
     std::printf("[+] attached (mode: %s)\n",
                 mem.mode() == ReadMode::DRIVER ? "KERNEL" : "RPM");
@@ -58,7 +53,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             return;
         }
 
-        // menu toggle
         static bool menu_held = false;
         if (GetAsyncKeyState(cfg.menu_key) & 0x8000) {
             if (!menu_held) {
@@ -69,7 +63,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             menu_held = false;
         }
 
-        // exit key
         if (GetAsyncKeyState(VK_END) & 0x8000) {
             cfg.running = false;
             PostQuitMessage(0);
@@ -78,11 +71,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         if (!game.refresh()) return;
 
-        // features run even with menu open
         aimbot.tick(game, cfg);
         esp.render(rt, game, cfg);
-
-        // menu renders on top
         menu.render(rt, cfg);
     });
 
@@ -93,7 +83,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     overlay.shutdown();
     cfg.save("config.ini");
     mem.detach();
-    FreeConsole();
 
     return ret;
 }
