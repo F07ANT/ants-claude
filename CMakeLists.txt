@@ -4,7 +4,11 @@ project(r6_ext LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_compile_options(/W4 /permissive-)
+if(MSVC)
+    add_compile_options(/W4 /permissive-)
+else()
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
 add_executable(r6_ext WIN32
     src/main.cpp
@@ -17,4 +21,4 @@ add_executable(r6_ext WIN32
 )
 
 target_include_directories(r6_ext PRIVATE include)
-target_link_libraries(r6_ext PRIVATE d3d11 d2d1 dwrite dwmapi)
+target_link_libraries(r6_ext PRIVATE d2d1 dwrite dwmapi ole32 uuid)

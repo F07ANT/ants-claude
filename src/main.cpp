@@ -6,7 +6,7 @@
 #include "config.h"
 #include <cstdio>
 
-int WINAPI wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int) {
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     Config cfg;
     cfg.load("config.ini");
 

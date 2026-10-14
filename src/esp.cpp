@@ -73,8 +73,8 @@ void ESP::render(ID2D1RenderTarget* rt, const Game& game, const Config& cfg) {
                 head_screen.x + box_w * 0.5f,
                 head_screen.y
             };
-            rt->DrawTextW(winfo, static_cast<UINT32>(wcslen(winfo)),
-                          text_fmt_, text_rect, brush_white_);
+            rt->DrawText(winfo, static_cast<UINT32>(wcslen(winfo)),
+                         text_fmt_, text_rect, brush_white_);
         }
     }
 }

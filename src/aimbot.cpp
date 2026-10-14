@@ -40,7 +40,7 @@ int Aimbot::find_target(const Game& game, const Config& cfg) const {
 
         float dx = screen_pos.x - cx;
         float dy = screen_pos.y - cy;
-        float dist = std::sqrtf(dx * dx + dy * dy);
+        float dist = sqrtf(dx * dx + dy * dy);
 
         if (dist > cfg.aim_fov) continue;
         if (dist < best_dist) {
