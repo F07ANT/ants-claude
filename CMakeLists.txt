@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.20)
+project(r6_ext LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_compile_options(/W4 /permissive-)
+
+add_executable(r6_ext WIN32
+    src/main.cpp
+    src/memory.cpp
+    src/game.cpp
+    src/overlay.cpp
+    src/aimbot.cpp
+    src/esp.cpp
+    src/config.cpp
+)
+
+target_include_directories(r6_ext PRIVATE include)
+target_link_libraries(r6_ext PRIVATE d3d11 d2d1 dwrite dwmapi)
