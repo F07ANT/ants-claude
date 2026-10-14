@@ -8,17 +8,31 @@
 #include <cstdio>
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+    AllocConsole();
+    SetConsoleTitleW(L"R6 External");
+    freopen("CONOUT$", "w", stdout);
+
+    std::printf("=============================\n");
+    std::printf("  R6 External  -  by odil9\n");
+    std::printf("  press END to quit anytime\n");
+    std::printf("=============================\n\n");
+
     Config cfg;
     cfg.load("config.ini");
 
     Memory mem;
     std::printf("[*] waiting for RainbowSix.exe...\n");
+    std::printf("[*] start the game, this will attach automatically\n");
     while (!mem.attach(L"RainbowSix.exe")) {
         Sleep(1000);
-        if (GetAsyncKeyState(VK_END) & 0x8000) return 0;
+        if (GetAsyncKeyState(VK_END) & 0x8000) {
+            FreeConsole();
+            return 0;
+        }
     }
     std::printf("[+] attached (mode: %s)\n",
                 mem.mode() == ReadMode::DRIVER ? "KERNEL" : "RPM");
+    std::printf("[+] launching overlay... press INSERT for menu\n");
 
     Game game(mem);
     Aimbot aimbot;
@@ -79,6 +93,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     overlay.shutdown();
     cfg.save("config.ini");
     mem.detach();
+    FreeConsole();
 
     return ret;
 }
