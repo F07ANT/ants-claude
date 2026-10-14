@@ -18,6 +18,7 @@ add_executable(r6_ext WIN32
     src/aimbot.cpp
     src/esp.cpp
     src/config.cpp
+    src/menu.cpp
 )
 
 target_include_directories(r6_ext PRIVATE include)

@@ -3,6 +3,7 @@
 #include "overlay.h"
 #include "aimbot.h"
 #include "esp.h"
+#include "menu.h"
 #include "config.h"
 #include <cstdio>
 
@@ -16,11 +17,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         Sleep(1000);
         if (GetAsyncKeyState(VK_END) & 0x8000) return 0;
     }
-    std::printf("[+] attached pid %lu\n", GetCurrentProcessId());
+    std::printf("[+] attached (mode: %s)\n",
+                mem.mode() == ReadMode::DRIVER ? "KERNEL" : "RPM");
 
     Game game(mem);
     Aimbot aimbot;
     ESP esp;
+    Menu menu;
     Overlay overlay;
 
     if (!overlay.init(game.screen_w(), game.screen_h())) {
@@ -29,11 +32,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     }
 
     bool esp_inited = false;
+    bool menu_inited = false;
 
     overlay.set_render_callback([&](ID2D1RenderTarget* rt, IDWriteFactory* dw) {
-        if (!esp_inited) {
-            esp_inited = esp.init(rt, dw);
-        }
+        if (!esp_inited) esp_inited = esp.init(rt, dw);
+        if (!menu_inited) menu_inited = menu.init(rt, dw);
 
         if (!mem.is_attached()) {
             cfg.running = false;
@@ -41,15 +44,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             return;
         }
 
-        // toggle key
-        static bool insert_held = false;
+        // menu toggle
+        static bool menu_held = false;
         if (GetAsyncKeyState(cfg.menu_key) & 0x8000) {
-            if (!insert_held) {
-                cfg.esp_enabled = !cfg.esp_enabled;
-                insert_held = true;
+            if (!menu_held) {
+                menu.toggle();
+                menu_held = true;
             }
         } else {
-            insert_held = false;
+            menu_held = false;
         }
 
         // exit key
@@ -61,12 +64,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         if (!game.refresh()) return;
 
+        // features run even with menu open
         aimbot.tick(game, cfg);
         esp.render(rt, game, cfg);
+
+        // menu renders on top
+        menu.render(rt, cfg);
     });
 
     int ret = overlay.run();
 
+    menu.release();
     esp.release();
     overlay.shutdown();
     cfg.save("config.ini");
