@@ -4,6 +4,7 @@ local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local Lighting = game:GetService("Lighting")
+local HttpService = game:GetService("HttpService")
 local Camera = workspace.CurrentCamera
 local LP = Players.LocalPlayer
 local Mouse = LP:GetMouse()
@@ -1218,26 +1219,48 @@ accentGrad.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0.5, TH.AccentAlt),
     ColorSequenceKeypoint.new(1, TH.Accent),
 })
+task.spawn(function()
+    while SG and SG.Parent do
+        TweenService:Create(accentGrad, TweenInfo.new(2, Enum.EasingStyle.Linear), {Offset = Vector2.new(1, 0)}):Play()
+        task.wait(2)
+        accentGrad.Offset = Vector2.new(-1, 0)
+    end
+end)
 
 local Hdr = Instance.new("Frame", Main)
 Hdr.Size = UDim2.new(1, 0, 0, HH)
 Hdr.Position = UDim2.new(0, 0, 0, 2)
 Hdr.BackgroundColor3 = TH.Header; Hdr.BorderSizePixel = 0
 
-local logoFrame = Instance.new("Frame", Hdr)
-logoFrame.Size = UDim2.new(0, 22, 0, 22)
-logoFrame.Position = UDim2.new(0, 10, 0.5, -11)
-logoFrame.BackgroundColor3 = TH.Accent; logoFrame.BorderSizePixel = 0
-Instance.new("UICorner", logoFrame).CornerRadius = UDim.new(1, 0)
-local logoGrad = Instance.new("UIGradient", logoFrame)
-logoGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
-logoGrad.Rotation = 135
-local logoLbl = Instance.new("TextLabel", logoFrame)
-logoLbl.Text = "L"; logoLbl.Font = Enum.Font.GothamBlack; logoLbl.TextSize = math.floor(13 * SC)
-logoLbl.TextColor3 = Color3.new(1, 1, 1); logoLbl.BackgroundTransparency = 1; logoLbl.Size = UDim2.new(1, 0, 1, 0)
+local logoWrap = Instance.new("Frame", Hdr)
+logoWrap.Size = UDim2.new(0, 24, 0, 24); logoWrap.Position = UDim2.new(0, 9, 0.5, -12)
+logoWrap.BackgroundTransparency = 1; logoWrap.BorderSizePixel = 0; logoWrap.ClipsDescendants = true
+local logoMoon = Instance.new("Frame", logoWrap)
+logoMoon.Size = UDim2.new(0, 20, 0, 20); logoMoon.Position = UDim2.new(0, 2, 0, 2)
+logoMoon.BackgroundColor3 = TH.Accent; logoMoon.BorderSizePixel = 0
+Instance.new("UICorner", logoMoon).CornerRadius = UDim.new(1, 0)
+local logoMoonGrad = Instance.new("UIGradient", logoMoon)
+logoMoonGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt); logoMoonGrad.Rotation = 135
+local logoCut = Instance.new("Frame", logoMoon)
+logoCut.Size = UDim2.new(0, 15, 0, 15); logoCut.Position = UDim2.new(0, 7, 0, 2)
+logoCut.BackgroundColor3 = TH.Header; logoCut.BorderSizePixel = 0; logoCut.ZIndex = 2
+Instance.new("UICorner", logoCut).CornerRadius = UDim.new(1, 0)
+local logoGlow = Instance.new("Frame", logoWrap)
+logoGlow.Size = UDim2.new(0, 20, 0, 20); logoGlow.Position = UDim2.new(0, 2, 0, 2)
+logoGlow.BackgroundColor3 = TH.Accent; logoGlow.BackgroundTransparency = 0.7; logoGlow.BorderSizePixel = 0; logoGlow.ZIndex = 0
+Instance.new("UICorner", logoGlow).CornerRadius = UDim.new(1, 0)
+task.spawn(function()
+    while SG and SG.Parent do
+        TweenService:Create(logoGlow, TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
+            Size = UDim2.new(0, 28, 0, 28), Position = UDim2.new(0, -2, 0, -2), BackgroundTransparency = 1
+        }):Play()
+        task.wait(1.5)
+        logoGlow.Size = UDim2.new(0, 20, 0, 20); logoGlow.Position = UDim2.new(0, 2, 0, 2); logoGlow.BackgroundTransparency = 0.7
+    end
+end)
 
 local tLbl = Instance.new("TextLabel", Hdr)
-tLbl.Text = "lunarix"; tLbl.Font = Enum.Font.GothamBold; tLbl.TextSize = math.floor(14 * SC)
+tLbl.Text = "lunarix"; tLbl.Font = Enum.Font.FredokaOne; tLbl.TextSize = math.floor(16 * SC)
 tLbl.TextColor3 = TH.Text; tLbl.BackgroundTransparency = 1
 tLbl.Position = UDim2.new(0, 38, 0, 0); tLbl.Size = UDim2.new(0, 70, 1, 0)
 tLbl.TextXAlignment = Enum.TextXAlignment.Left
@@ -1304,19 +1327,22 @@ local sLogo = Instance.new("Frame", TabBar)
 sLogo.Size = UDim2.new(1, 0, 0, 48); sLogo.Position = UDim2.new(0, 0, 1, -48)
 sLogo.BackgroundTransparency = 1; sLogo.BorderSizePixel = 0
 
-local sIcon = Instance.new("Frame", sLogo)
-sIcon.Size = UDim2.new(0, 18, 0, 18); sIcon.Position = UDim2.new(0.5, -9, 0, 4)
-sIcon.BackgroundColor3 = TH.Accent; sIcon.BackgroundTransparency = 0.35; sIcon.BorderSizePixel = 0
-Instance.new("UICorner", sIcon).CornerRadius = UDim.new(1, 0)
-local sIconGrad = Instance.new("UIGradient", sIcon)
-sIconGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
-
-local sIconLbl = Instance.new("TextLabel", sIcon)
-sIconLbl.Text = "L"; sIconLbl.Font = Enum.Font.GothamBlack; sIconLbl.TextSize = math.floor(10 * SC)
-sIconLbl.TextColor3 = Color3.new(1, 1, 1); sIconLbl.BackgroundTransparency = 1; sIconLbl.Size = UDim2.new(1, 0, 1, 0)
+local sIconWrap = Instance.new("Frame", sLogo)
+sIconWrap.Size = UDim2.new(0, 18, 0, 18); sIconWrap.Position = UDim2.new(0.5, -9, 0, 4)
+sIconWrap.BackgroundTransparency = 1; sIconWrap.BorderSizePixel = 0; sIconWrap.ClipsDescendants = true
+local sMoon = Instance.new("Frame", sIconWrap)
+sMoon.Size = UDim2.new(0, 15, 0, 15); sMoon.Position = UDim2.new(0, 1, 0, 1)
+sMoon.BackgroundColor3 = TH.Accent; sMoon.BorderSizePixel = 0
+Instance.new("UICorner", sMoon).CornerRadius = UDim.new(1, 0)
+local sMoonGrad = Instance.new("UIGradient", sMoon)
+sMoonGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt); sMoonGrad.Rotation = 135
+local sCut = Instance.new("Frame", sMoon)
+sCut.Size = UDim2.new(0, 11, 0, 11); sCut.Position = UDim2.new(0, 5, 0, 1)
+sCut.BackgroundColor3 = TH.Tab; sCut.BorderSizePixel = 0; sCut.ZIndex = 2
+Instance.new("UICorner", sCut).CornerRadius = UDim.new(1, 0)
 
 local sName = Instance.new("TextLabel", sLogo)
-sName.Text = "lunarix"; sName.Font = Enum.Font.GothamBold; sName.TextSize = math.floor(8 * SC)
+sName.Text = "lunarix"; sName.Font = Enum.Font.FredokaOne; sName.TextSize = math.floor(9 * SC)
 sName.TextColor3 = TH.Dim; sName.BackgroundTransparency = 1
 sName.Size = UDim2.new(1, 0, 0, 14); sName.Position = UDim2.new(0, 0, 0, 24)
 
@@ -1472,7 +1498,7 @@ local function Toggle(tabName, label, tbl, key)
     btn.MouseButton1Click:Connect(function()
         tbl[key] = not tbl[key]; local on = tbl[key]
         TweenService:Create(track, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {BackgroundColor3 = on and TH.On or TH.Off}):Play()
-        TweenService:Create(knob, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {
+        TweenService:Create(knob, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
             Position = on and UDim2.new(1, -12, 0.5, -5) or UDim2.new(0, 2, 0.5, -5)
         }):Play()
     end)
@@ -1827,6 +1853,81 @@ Slider("settings", "Animation Speed", CFG.GUI, "AnimSpeed", 0.05, 0.5, 0.01, "s"
 Toggle("settings", "Blur Background", CFG.GUI, "BlurBackground")
 ColorPick("settings", "Accent", CFG.GUI, "Accent")
 ColorPick("settings", "Accent Alt", CFG.GUI, "AccentAlt")
+
+Section("settings", "config")
+
+local CONFIG_FILE = "lunarix_cfg.json"
+
+local function saveConfig()
+    local ok, err = pcall(function()
+        writefile(CONFIG_FILE, HttpService:JSONEncode(CFG))
+    end)
+    return ok, err
+end
+
+local function loadConfig()
+    local ok, err = pcall(function()
+        if isfile and isfile(CONFIG_FILE) then
+            local raw = readfile(CONFIG_FILE)
+            local data = HttpService:JSONDecode(raw)
+            local function merge(dst, src)
+                for k, v in pairs(src) do
+                    if type(v) == "table" and type(dst[k]) == "table" then merge(dst[k], v)
+                    else dst[k] = v end
+                end
+            end
+            merge(CFG, data)
+        end
+    end)
+    return ok, err
+end
+
+do
+    local savePage = tabs["settings"].page
+    local saveFrame = Instance.new("Frame", savePage)
+    saveFrame.Size = UDim2.new(1, 0, 0, 28); saveFrame.BackgroundTransparency = 1; saveFrame.BorderSizePixel = 0
+
+    local saveBtn = Instance.new("TextButton", saveFrame)
+    saveBtn.Size = UDim2.new(0.48, 0, 0, 24); saveBtn.Position = UDim2.new(0, 0, 0, 2)
+    saveBtn.BackgroundColor3 = TH.Accent; saveBtn.BorderSizePixel = 0; saveBtn.Text = "Save Config"
+    saveBtn.Font = Enum.Font.GothamMedium; saveBtn.TextSize = math.floor(10 * SC); saveBtn.TextColor3 = Color3.new(1, 1, 1)
+    Instance.new("UICorner", saveBtn).CornerRadius = UDim.new(0, 4)
+
+    local loadBtn = Instance.new("TextButton", saveFrame)
+    loadBtn.Size = UDim2.new(0.48, 0, 0, 24); loadBtn.Position = UDim2.new(0.52, 0, 0, 2)
+    loadBtn.BackgroundColor3 = TH.Off; loadBtn.BorderSizePixel = 0; loadBtn.Text = "Load Config"
+    loadBtn.Font = Enum.Font.GothamMedium; loadBtn.TextSize = math.floor(10 * SC); loadBtn.TextColor3 = TH.Text
+    Instance.new("UICorner", loadBtn).CornerRadius = UDim.new(0, 4)
+
+    saveBtn.MouseButton1Click:Connect(function()
+        local ok = saveConfig()
+        saveBtn.Text = ok and "Saved!" or "Failed!"
+        TweenService:Create(saveBtn, TweenInfo.new(0.15), {BackgroundColor3 = ok and Color3.fromRGB(40, 180, 80) or Color3.fromRGB(220, 50, 50)}):Play()
+        task.delay(1.2, function()
+            saveBtn.Text = "Save Config"
+            TweenService:Create(saveBtn, TweenInfo.new(0.15), {BackgroundColor3 = TH.Accent}):Play()
+        end)
+    end)
+
+    loadBtn.MouseButton1Click:Connect(function()
+        local ok = loadConfig()
+        loadBtn.Text = ok and "Loaded!" or "Failed!"
+        TweenService:Create(loadBtn, TweenInfo.new(0.15), {BackgroundColor3 = ok and Color3.fromRGB(40, 180, 80) or Color3.fromRGB(220, 50, 50)}):Play()
+        task.delay(1.2, function()
+            loadBtn.Text = "Load Config"
+            TweenService:Create(loadBtn, TweenInfo.new(0.15), {BackgroundColor3 = TH.Off}):Play()
+        end)
+    end)
+
+    saveBtn.MouseEnter:Connect(function() TweenService:Create(saveBtn, TweenInfo.new(0.1), {BackgroundColor3 = TH.AccentAlt}):Play() end)
+    saveBtn.MouseLeave:Connect(function() TweenService:Create(saveBtn, TweenInfo.new(0.1), {BackgroundColor3 = TH.Accent}):Play() end)
+    loadBtn.MouseEnter:Connect(function() TweenService:Create(loadBtn, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
+    loadBtn.MouseLeave:Connect(function() TweenService:Create(loadBtn, TweenInfo.new(0.1), {BackgroundColor3 = TH.Off}):Play() end)
+end
+
+pcall(function()
+    if isfile and isfile(CONFIG_FILE) then loadConfig() end
+end)
 
 switchTab("aimbot")
 
