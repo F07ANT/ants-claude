@@ -1689,6 +1689,12 @@ function Spectate.prev()
 end
 
 local Draw = {}
+local Notify = {}
+local flyActive = false
+local noclipActive = false
+local currentTarget = nil
+local enableFly, disableFly, enableNoclip, disableNoclip, killChams
+local SG
 
 local KillFeed = {}
 KillFeed.entries = {}
@@ -3181,7 +3187,7 @@ function RageBotEngine.scoreTarget(player, cfg)
     local fovDist = on and U.dist2d(sp, ctr) or 9999
     if fovDist > cfg.FOV and cfg.FOV < 360 then return -1 end
     if not cfg.AutoWall then
-        if not U.visCheck(rp.Position) then return -1 end
+        if not U.visCheck(U.myPos(), rp.Position) then return -1 end
     end
     local score = 10000
     local priority = cfg.Priority or "ThreatLevel"
@@ -4037,7 +4043,7 @@ function CustomCrosshairRenderer.render()
             Draw.line(rotPoint(-(gap + sz), 0), rotPoint(-gap, 0), oc, ot)
             Draw.line(rotPoint(gap, 0), rotPoint(gap + sz, 0), oc, ot)
         elseif style == "Circle" then
-            Draw.circle(ctr, sz, oc, CFG.CustomCH.OutlineAlpha, ot)
+            Draw.circle(ctr, sz, oc, ot, false, 40, CFG.CustomCH.OutlineAlpha)
         elseif style == "Diamond" then
             Draw.line(rotPoint(0, -sz), rotPoint(sz, 0), oc, ot)
             Draw.line(rotPoint(sz, 0), rotPoint(0, sz), oc, ot)
@@ -4055,7 +4061,7 @@ function CustomCrosshairRenderer.render()
         Draw.line(rotPoint(-(gap + sz), 0), rotPoint(-gap, 0), col, thick)
         Draw.line(rotPoint(gap, 0), rotPoint(gap + sz, 0), col, thick)
     elseif style == "Circle" then
-        Draw.circle(ctr, sz, col, CFG.CustomCH.Alpha, thick)
+        Draw.circle(ctr, sz, col, thick, false, 40, CFG.CustomCH.Alpha)
     elseif style == "Diamond" then
         Draw.line(rotPoint(0, -sz), rotPoint(sz, 0), col, thick)
         Draw.line(rotPoint(sz, 0), rotPoint(0, sz), col, thick)
@@ -4063,7 +4069,7 @@ function CustomCrosshairRenderer.render()
         Draw.line(rotPoint(-sz, 0), rotPoint(0, -sz), col, thick)
     end
     if CFG.CustomCH.Dot then
-        Draw.circle(ctr, CFG.CustomCH.DotSize, col, CFG.CustomCH.Alpha, thick)
+        Draw.circle(ctr, CFG.CustomCH.DotSize, col, thick, true, 20, CFG.CustomCH.Alpha)
     end
 end
 
@@ -4095,7 +4101,7 @@ function TargetPriorityEngine.score(player)
         if ch then
             local hrp = ch:FindFirstChild("HumanoidRootPart")
             if hrp then
-                local vis = U.wallCheck and U.wallCheck(U.myPos(), hrp.Position) or true
+                local vis = not U.wallCheck or U.wallCheck(U.myPos(), hrp.Position)
                 score = score + (vis and 1 or 0) * cfg.VisibleWeight
             end
         end
@@ -4279,7 +4285,6 @@ else
     Draw.WmBG = nil; Draw.WmBorder = nil; Draw.WmAccent = nil; Draw.WmText = nil
 end
 
-local Notify = {}
 Notify.queue = {}
 Notify.maxVisible = 5
 Notify.holder = nil
@@ -4545,7 +4550,7 @@ local function setXRay(p)
     if not occ.Parent or occ.Adornee ~= ch then occ.Adornee = ch; occ.Parent = ch end
 end
 
-local function killChams(p)
+killChams = function(p)
     clearGlow(p)
     if hlCache[p] then pcall(function() hlCache[p]:Destroy() end); hlCache[p] = nil end
     if xrayVisCache[p] then pcall(function() xrayVisCache[p]:Destroy() end); xrayVisCache[p] = nil end
@@ -4591,7 +4596,6 @@ local BONES_R6 = {
 local function getBones(ch) return ch:FindFirstChild("UpperTorso") and BONES_R15 or BONES_R6 end
 
 local silentTarget = nil
-local currentTarget = nil
 local stickyTarget = nil
 local aimHeld = false
 local lastAutoFire = 0
@@ -5052,15 +5056,13 @@ end
 
 local flyBV = nil
 local flyBG = nil
-local flyActive = false
 local noclipConn = nil
-local noclipActive = false
 local infJumpConn = nil
 local origFog = nil
 local origAmbient = nil
 local origBrightness = nil
 
-local function enableFly()
+enableFly = function()
     local root = U.myRoot()
     if not root then return end
     local hum = U.myHumanoid()
@@ -5081,7 +5083,7 @@ local function enableFly()
     flyActive = true
 end
 
-local function disableFly()
+disableFly = function()
     flyActive = false
     if flyBV then pcall(function() flyBV:Destroy() end); flyBV = nil end
     if flyBG then pcall(function() flyBG:Destroy() end); flyBG = nil end
@@ -5113,7 +5115,7 @@ local function updateFly()
     end
 end
 
-local function enableNoclip()
+enableNoclip = function()
     if noclipConn then return end
     noclipActive = true
     noclipConn = RunService.Stepped:Connect(function()
@@ -5128,7 +5130,7 @@ local function enableNoclip()
     end)
 end
 
-local function disableNoclip()
+disableNoclip = function()
     noclipActive = false
     if noclipConn then noclipConn:Disconnect(); noclipConn = nil end
 end
@@ -5661,7 +5663,7 @@ LP.CharacterAdded:Connect(function(ch)
     end
 end)
 
-local SG = Instance.new("ScreenGui")
+SG = Instance.new("ScreenGui")
 SG.Name = "LX_" .. tostring(math.random(10000, 99999))
 SG.ResetOnSpawn = false
 SG.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -9573,7 +9575,7 @@ Button("misc", "Streamer Mode", function(btn)
     CFG.Aimbot.Smoothness = 0.12
     CFG.Aimbot.FOV = 60
     CFG.Chams.On = false
-    CFG.Visual.Watermark = false
+    CFG.Watermark.On = false
     CFG.NameESP.On = false
     CFG.Tracers.On = false
     btn.Text = "Applied!"
