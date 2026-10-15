@@ -177,8 +177,8 @@ local CFG = {
         Scale = 1.0,
         Opacity = 0.97,
         AnimSpeed = 0.25,
-        Accent = {130, 60, 255},
-        AccentAlt = {90, 200, 255},
+        Accent = {232, 67, 147},
+        AccentAlt = {255, 105, 180},
         BlurBackground = true,
     },
 }
@@ -362,7 +362,7 @@ if ENV.Drawing then
     Draw.WmText.Outline = true; Draw.WmText.Center = false
 else
     local bbgFolder = Instance.new("Folder")
-    bbgFolder.Name = "AX_E"; bbgFolder.Parent = workspace.CurrentCamera
+    bbgFolder.Name = "LX_E"; bbgFolder.Parent = workspace.CurrentCamera
     local bbgCache = {}
     Draw.flush = function()
         for _, v in pairs(bbgCache) do
@@ -463,7 +463,7 @@ local function updateGlow(p)
                 end
 
                 local clone = Instance.new("Part")
-                clone.Name = "AX_G"
+                clone.Name = "LX_G"
                 clone.Anchored = false
                 clone.CanCollide = false
                 clone.CanTouch = false
@@ -832,7 +832,7 @@ local function renderWatermark()
         Draw.WmAccent.Visible = false; Draw.WmText.Visible = false
         return
     end
-    local parts = {"AXIOM"}
+    local parts = {"LUNARIX"}
     if CFG.Watermark.ShowFPS then
         fpsIdx = (fpsIdx % FPS_SAMPLES) + 1
         fpsBuffer[fpsIdx] = 1 / (RunService.RenderStepped:Wait() + 0.001)
@@ -1137,8 +1137,9 @@ end)
 
 Players.PlayerRemoving:Connect(function(p) killChams(p) end)
 
+
 local SG = Instance.new("ScreenGui")
-SG.Name = "AX_" .. tostring(math.random(10000, 99999))
+SG.Name = "LX_" .. tostring(math.random(10000, 99999))
 SG.ResetOnSpawn = false
 SG.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 SG.DisplayOrder = 999
@@ -1162,51 +1163,55 @@ local menuOpen = false
 local SC = CFG.GUI.Scale
 
 local TH = {
-    BG       = Color3.fromRGB(8, 8, 12),
-    Panel    = Color3.fromRGB(16, 16, 22),
-    Header   = Color3.fromRGB(14, 14, 20),
+    BG       = Color3.fromRGB(12, 12, 16),
+    Panel    = Color3.fromRGB(20, 20, 27),
+    Header   = Color3.fromRGB(15, 15, 20),
     Accent   = Color3.fromRGB(CFG.GUI.Accent[1], CFG.GUI.Accent[2], CFG.GUI.Accent[3]),
-    AccentD  = Color3.fromRGB(80, 30, 160),
+    AccentD  = Color3.fromRGB(180, 40, 110),
     AccentAlt = Color3.fromRGB(CFG.GUI.AccentAlt[1], CFG.GUI.AccentAlt[2], CFG.GUI.AccentAlt[3]),
-    Text     = Color3.fromRGB(225, 225, 235),
-    Sub      = Color3.fromRGB(100, 100, 120),
-    Dim      = Color3.fromRGB(65, 65, 80),
-    On       = Color3.fromRGB(70, 220, 50),
-    Off      = Color3.fromRGB(45, 45, 58),
-    SlBG     = Color3.fromRGB(26, 26, 36),
+    Text     = Color3.fromRGB(218, 218, 228),
+    Sub      = Color3.fromRGB(100, 100, 118),
+    Dim      = Color3.fromRGB(56, 56, 70),
+    On       = Color3.fromRGB(232, 67, 147),
+    Off      = Color3.fromRGB(36, 36, 46),
+    SlBG     = Color3.fromRGB(28, 28, 36),
     SlFill   = Color3.fromRGB(CFG.GUI.Accent[1], CFG.GUI.Accent[2], CFG.GUI.Accent[3]),
-    Bdr      = Color3.fromRGB(30, 30, 42),
-    Tab      = Color3.fromRGB(11, 11, 16),
-    TabHov   = Color3.fromRGB(22, 22, 32),
-    Sep      = Color3.fromRGB(28, 28, 40),
-    Hover    = Color3.fromRGB(24, 24, 34),
-    Input    = Color3.fromRGB(20, 20, 28),
+    Bdr      = Color3.fromRGB(36, 36, 48),
+    Tab      = Color3.fromRGB(13, 13, 17),
+    TabHov   = Color3.fromRGB(24, 24, 32),
+    Sep      = Color3.fromRGB(28, 28, 38),
+    Hover    = Color3.fromRGB(26, 26, 34),
+    Input    = Color3.fromRGB(22, 22, 29),
 }
 
-local MW = math.floor(560 * SC)
-local MH = math.floor(640 * SC)
-local TW = math.floor(130 * SC)
-local HH = math.floor(48 * SC)
+local MW = math.floor(640 * SC)
+local MH = math.floor(420 * SC)
+local TW = math.floor(110 * SC)
+local HH = math.floor(34 * SC)
 
 local Main = Instance.new("Frame", SG)
 Main.Size = UDim2.new(0, MW, 0, MH)
 Main.Position = UDim2.new(0.5, -MW / 2, 0.5, -MH / 2)
 Main.BackgroundColor3 = TH.BG
 Main.BackgroundTransparency = 1 - CFG.GUI.Opacity
-Main.BorderSizePixel = 0; Main.Visible = false; Main.ClipsDescendants = true
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
+Main.BorderSizePixel = 0
+Main.Visible = false
+Main.ClipsDescendants = true
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 6)
 local mainStroke = Instance.new("UIStroke", Main)
-mainStroke.Color = TH.Bdr; mainStroke.Thickness = 1
+mainStroke.Color = TH.Accent; mainStroke.Thickness = 1; mainStroke.Transparency = 0.55
 
 local shadow = Instance.new("ImageLabel", Main)
-shadow.Size = UDim2.new(1, 40, 1, 40); shadow.Position = UDim2.new(0, -20, 0, -20)
+shadow.Size = UDim2.new(1, 40, 1, 40)
+shadow.Position = UDim2.new(0, -20, 0, -20)
 shadow.BackgroundTransparency = 1; shadow.ImageTransparency = 0.5
 shadow.Image = "rbxassetid://6014261993"; shadow.ImageColor3 = Color3.new(0, 0, 0)
 shadow.ScaleType = Enum.ScaleType.Slice; shadow.SliceCenter = Rect.new(49, 49, 450, 450)
 shadow.ZIndex = 0
 
 local accentBar = Instance.new("Frame", Main)
-accentBar.Size = UDim2.new(1, 0, 0, 2); accentBar.BackgroundColor3 = TH.Accent; accentBar.BorderSizePixel = 0; accentBar.ZIndex = 10
+accentBar.Size = UDim2.new(1, 0, 0, 2)
+accentBar.BackgroundColor3 = TH.Accent; accentBar.BorderSizePixel = 0; accentBar.ZIndex = 10
 local accentGrad = Instance.new("UIGradient", accentBar)
 accentGrad.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0, TH.Accent),
@@ -1215,42 +1220,53 @@ accentGrad.Color = ColorSequence.new({
 })
 
 local Hdr = Instance.new("Frame", Main)
-Hdr.Size = UDim2.new(1, 0, 0, HH); Hdr.Position = UDim2.new(0, 0, 0, 2)
+Hdr.Size = UDim2.new(1, 0, 0, HH)
+Hdr.Position = UDim2.new(0, 0, 0, 2)
 Hdr.BackgroundColor3 = TH.Header; Hdr.BorderSizePixel = 0
 
 local logoFrame = Instance.new("Frame", Hdr)
-logoFrame.Size = UDim2.new(0, 28, 0, 28); logoFrame.Position = UDim2.new(0, 12, 0.5, -14)
+logoFrame.Size = UDim2.new(0, 22, 0, 22)
+logoFrame.Position = UDim2.new(0, 10, 0.5, -11)
 logoFrame.BackgroundColor3 = TH.Accent; logoFrame.BorderSizePixel = 0
-Instance.new("UICorner", logoFrame).CornerRadius = UDim.new(0, 6)
+Instance.new("UICorner", logoFrame).CornerRadius = UDim.new(1, 0)
 local logoGrad = Instance.new("UIGradient", logoFrame)
 logoGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
-logoGrad.Rotation = 45
+logoGrad.Rotation = 135
 local logoLbl = Instance.new("TextLabel", logoFrame)
-logoLbl.Text = "A"; logoLbl.Font = Enum.Font.GothamBlack; logoLbl.TextSize = math.floor(16 * SC)
+logoLbl.Text = "L"; logoLbl.Font = Enum.Font.GothamBlack; logoLbl.TextSize = math.floor(13 * SC)
 logoLbl.TextColor3 = Color3.new(1, 1, 1); logoLbl.BackgroundTransparency = 1; logoLbl.Size = UDim2.new(1, 0, 1, 0)
 
 local tLbl = Instance.new("TextLabel", Hdr)
-tLbl.Text = "AXIOM"; tLbl.Font = Enum.Font.GothamBlack; tLbl.TextSize = math.floor(18 * SC)
+tLbl.Text = "lunarix"; tLbl.Font = Enum.Font.GothamBold; tLbl.TextSize = math.floor(14 * SC)
 tLbl.TextColor3 = TH.Text; tLbl.BackgroundTransparency = 1
-tLbl.Position = UDim2.new(0, 48, 0, 4); tLbl.Size = UDim2.new(0, 100, 0, 20)
+tLbl.Position = UDim2.new(0, 38, 0, 0); tLbl.Size = UDim2.new(0, 70, 1, 0)
 tLbl.TextXAlignment = Enum.TextXAlignment.Left
 
-local subLbl = Instance.new("TextLabel", Hdr)
-subLbl.Text = "UNIVERSAL"; subLbl.Font = Enum.Font.GothamBold; subLbl.TextSize = math.floor(9 * SC)
-subLbl.TextColor3 = TH.Accent; subLbl.BackgroundTransparency = 1
-subLbl.Position = UDim2.new(0, 48, 0, 24); subLbl.Size = UDim2.new(0, 100, 0, 14)
-subLbl.TextXAlignment = Enum.TextXAlignment.Left
-
 local verLbl = Instance.new("TextLabel", Hdr)
-verLbl.Text = "v3.1"; verLbl.Font = Enum.Font.Gotham; verLbl.TextSize = math.floor(10 * SC)
+verLbl.Text = "[v1.0]"; verLbl.Font = Enum.Font.Gotham; verLbl.TextSize = math.floor(10 * SC)
 verLbl.TextColor3 = TH.Dim; verLbl.BackgroundTransparency = 1
-verLbl.Position = UDim2.new(1, -50, 0, 0); verLbl.Size = UDim2.new(0, 40, 1, 0)
-verLbl.TextXAlignment = Enum.TextXAlignment.Right
+verLbl.Position = UDim2.new(0, 108, 0, 0); verLbl.Size = UDim2.new(0, 36, 1, 0)
+verLbl.TextXAlignment = Enum.TextXAlignment.Left
 
-local statusDot = Instance.new("Frame", Hdr)
-statusDot.Size = UDim2.new(0, 6, 0, 6); statusDot.Position = UDim2.new(1, -12, 0.5, -3)
-statusDot.BackgroundColor3 = TH.On; statusDot.BorderSizePixel = 0
-Instance.new("UICorner", statusDot).CornerRadius = UDim.new(1, 0)
+local hSepTxt = Instance.new("TextLabel", Hdr)
+hSepTxt.Text = "|"; hSepTxt.Font = Enum.Font.Gotham; hSepTxt.TextSize = math.floor(10 * SC)
+hSepTxt.TextColor3 = TH.Dim; hSepTxt.BackgroundTransparency = 1
+hSepTxt.Position = UDim2.new(0, 146, 0, 0); hSepTxt.Size = UDim2.new(0, 10, 1, 0)
+
+local devLbl = Instance.new("TextLabel", Hdr)
+devLbl.RichText = true
+devLbl.Text = 'developed by <font color="#e84393"><b>f07ant</b></font>'
+devLbl.Font = Enum.Font.Gotham; devLbl.TextSize = math.floor(10 * SC)
+devLbl.TextColor3 = TH.Sub; devLbl.BackgroundTransparency = 1
+devLbl.Position = UDim2.new(0, 158, 0, 0); devLbl.Size = UDim2.new(0, 150, 1, 0)
+devLbl.TextXAlignment = Enum.TextXAlignment.Left
+
+local dateLbl = Instance.new("TextLabel", Hdr)
+dateLbl.Text = string.lower(os.date("%A, %d %b %Y"))
+dateLbl.Font = Enum.Font.Gotham; dateLbl.TextSize = math.floor(10 * SC)
+dateLbl.TextColor3 = TH.Dim; dateLbl.BackgroundTransparency = 1
+dateLbl.Position = UDim2.new(1, -160, 0, 0); dateLbl.Size = UDim2.new(0, 150, 1, 0)
+dateLbl.TextXAlignment = Enum.TextXAlignment.Right
 
 local hDiv = Instance.new("Frame", Main)
 hDiv.Size = UDim2.new(1, 0, 0, 1); hDiv.Position = UDim2.new(0, 0, 0, HH + 2)
@@ -1277,10 +1293,32 @@ TabBar.Size = UDim2.new(0, TW, 1, -(HH + 3))
 TabBar.Position = UDim2.new(0, 0, 0, HH + 3)
 TabBar.BackgroundColor3 = TH.Tab; TabBar.BorderSizePixel = 0; TabBar.ClipsDescendants = true
 
-local tabLay = Instance.new("UIListLayout", TabBar)
+local tabContainer = Instance.new("Frame", TabBar)
+tabContainer.Size = UDim2.new(1, 0, 1, -52); tabContainer.BackgroundTransparency = 1; tabContainer.BorderSizePixel = 0
+local tabLay = Instance.new("UIListLayout", tabContainer)
 tabLay.SortOrder = Enum.SortOrder.LayoutOrder; tabLay.Padding = UDim.new(0, 1)
-local tabPad = Instance.new("UIPadding", TabBar)
-tabPad.PaddingTop = UDim.new(0, 8); tabPad.PaddingLeft = UDim.new(0, 6); tabPad.PaddingRight = UDim.new(0, 6)
+local tabPad = Instance.new("UIPadding", tabContainer)
+tabPad.PaddingTop = UDim.new(0, 6); tabPad.PaddingLeft = UDim.new(0, 4); tabPad.PaddingRight = UDim.new(0, 4)
+
+local sLogo = Instance.new("Frame", TabBar)
+sLogo.Size = UDim2.new(1, 0, 0, 48); sLogo.Position = UDim2.new(0, 0, 1, -48)
+sLogo.BackgroundTransparency = 1; sLogo.BorderSizePixel = 0
+
+local sIcon = Instance.new("Frame", sLogo)
+sIcon.Size = UDim2.new(0, 18, 0, 18); sIcon.Position = UDim2.new(0.5, -9, 0, 4)
+sIcon.BackgroundColor3 = TH.Accent; sIcon.BackgroundTransparency = 0.35; sIcon.BorderSizePixel = 0
+Instance.new("UICorner", sIcon).CornerRadius = UDim.new(1, 0)
+local sIconGrad = Instance.new("UIGradient", sIcon)
+sIconGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
+
+local sIconLbl = Instance.new("TextLabel", sIcon)
+sIconLbl.Text = "L"; sIconLbl.Font = Enum.Font.GothamBlack; sIconLbl.TextSize = math.floor(10 * SC)
+sIconLbl.TextColor3 = Color3.new(1, 1, 1); sIconLbl.BackgroundTransparency = 1; sIconLbl.Size = UDim2.new(1, 0, 1, 0)
+
+local sName = Instance.new("TextLabel", sLogo)
+sName.Text = "lunarix"; sName.Font = Enum.Font.GothamBold; sName.TextSize = math.floor(8 * SC)
+sName.TextColor3 = TH.Dim; sName.BackgroundTransparency = 1
+sName.Size = UDim2.new(1, 0, 0, 14); sName.Position = UDim2.new(0, 0, 0, 24)
 
 local tDiv = Instance.new("Frame", Main)
 tDiv.Size = UDim2.new(0, 1, 1, -(HH + 3))
@@ -1294,32 +1332,44 @@ ContentArea.BackgroundTransparency = 1; ContentArea.BorderSizePixel = 0; Content
 
 local tabs = {}
 local activeTab = nil
+local activeDropdown = nil
 
 local TAB_DEFS = {
-    {name = "Aimbot",   ico = ""},
-    {name = "Silent",   ico = ""},
-    {name = "ESP",      ico = ""},
-    {name = "Chams",    ico = ""},
-    {name = "Visuals",  ico = ""},
-    {name = "Settings", ico = ""},
+    {name = "aimbot"},
+    {name = "silent"},
+    {name = "esp"},
+    {name = "chams"},
+    {name = "visuals"},
+    {name = "settings"},
 }
+
+local function closeActiveDropdown()
+    if activeDropdown then
+        TweenService:Create(activeDropdown.f, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {
+            Size = UDim2.new(1, 0, 0, activeDropdown.ch)
+        }):Play()
+        activeDropdown.open = false
+        activeDropdown = nil
+    end
+end
 
 local function switchTab(name)
     if activeTab == name then return end
+    closeActiveDropdown()
     activeTab = name
     for tName, tData in pairs(tabs) do
         local isAct = tName == name
         tData.page.Visible = isAct
-        local indicator = tData.btn:FindFirstChild("Indicator")
-        TweenService:Create(tData.btn, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {
+        local ind = tData.btn:FindFirstChild("Indicator")
+        TweenService:Create(tData.btn, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {
             BackgroundColor3 = isAct and TH.Hover or TH.Tab,
             BackgroundTransparency = isAct and 0 or 1
         }):Play()
-        TweenService:Create(tData.lbl, TweenInfo.new(0.15), {
-            TextColor3 = isAct and Color3.new(1, 1, 1) or TH.Sub
+        TweenService:Create(tData.lbl, TweenInfo.new(0.1), {
+            TextColor3 = isAct and TH.Accent or TH.Sub
         }):Play()
-        if indicator then
-            TweenService:Create(indicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {
+        if ind then
+            TweenService:Create(ind, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {
                 BackgroundTransparency = isAct and 0 or 1
             }):Play()
         end
@@ -1327,34 +1377,33 @@ local function switchTab(name)
 end
 
 for idx, def in ipairs(TAB_DEFS) do
-    local btn = Instance.new("TextButton", TabBar)
-    btn.Size = UDim2.new(1, 0, 0, math.floor(34 * SC))
+    local btn = Instance.new("TextButton", tabContainer)
+    btn.Size = UDim2.new(1, 0, 0, math.floor(28 * SC))
     btn.BackgroundColor3 = TH.Tab; btn.BackgroundTransparency = 1
     btn.BorderSizePixel = 0; btn.Text = ""; btn.LayoutOrder = idx; btn.AutoButtonColor = false
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 4)
 
-    local indicator = Instance.new("Frame", btn)
-    indicator.Name = "Indicator"
-    indicator.Size = UDim2.new(0, 3, 0.6, 0); indicator.Position = UDim2.new(0, 0, 0.2, 0)
-    indicator.BackgroundColor3 = TH.Accent; indicator.BorderSizePixel = 0; indicator.BackgroundTransparency = 1
-    Instance.new("UICorner", indicator).CornerRadius = UDim.new(0, 2)
+    local ind = Instance.new("Frame", btn)
+    ind.Name = "Indicator"
+    ind.Size = UDim2.new(0, 2, 0.55, 0); ind.Position = UDim2.new(0, 0, 0.225, 0)
+    ind.BackgroundColor3 = TH.Accent; ind.BorderSizePixel = 0; ind.BackgroundTransparency = 1
+    Instance.new("UICorner", ind).CornerRadius = UDim.new(0, 1)
 
     local lbl = Instance.new("TextLabel", btn)
-    lbl.Text = def.name; lbl.Font = Enum.Font.GothamBold; lbl.TextSize = math.floor(12 * SC)
+    lbl.Text = def.name; lbl.Font = Enum.Font.Gotham; lbl.TextSize = math.floor(11 * SC)
     lbl.TextColor3 = TH.Sub; lbl.BackgroundTransparency = 1
-    lbl.Size = UDim2.new(1, -8, 1, 0); lbl.Position = UDim2.new(0, 8, 0, 0)
+    lbl.Size = UDim2.new(1, -12, 1, 0); lbl.Position = UDim2.new(0, 12, 0, 0)
     lbl.TextXAlignment = Enum.TextXAlignment.Left
 
     local page = Instance.new("ScrollingFrame", ContentArea)
     page.Size = UDim2.new(1, 0, 1, 0); page.BackgroundTransparency = 1
-    page.ScrollBarThickness = 3; page.ScrollBarImageColor3 = TH.Accent
+    page.ScrollBarThickness = 2; page.ScrollBarImageColor3 = TH.Accent
     page.BorderSizePixel = 0; page.CanvasSize = UDim2.new(0, 0, 0, 0)
     page.AutomaticCanvasSize = Enum.AutomaticSize.Y; page.Visible = false
     page.ClipsDescendants = true; page.ScrollingDirection = Enum.ScrollingDirection.Y
     page.TopImage = "rbxassetid://7766642222"; page.MidImage = "rbxassetid://7766642222"; page.BottomImage = "rbxassetid://7766642222"
-
     local pLay = Instance.new("UIListLayout", page)
-    pLay.SortOrder = Enum.SortOrder.LayoutOrder; pLay.Padding = UDim.new(0, 3)
+    pLay.SortOrder = Enum.SortOrder.LayoutOrder; pLay.Padding = UDim.new(0, 2)
     local pPad = Instance.new("UIPadding", page)
     pPad.PaddingTop = UDim.new(0, 6); pPad.PaddingBottom = UDim.new(0, 12)
     pPad.PaddingLeft = UDim.new(0, 8); pPad.PaddingRight = UDim.new(0, 8)
@@ -1363,12 +1412,12 @@ for idx, def in ipairs(TAB_DEFS) do
 
     btn.MouseEnter:Connect(function()
         if activeTab ~= def.name then
-            TweenService:Create(btn, TweenInfo.new(0.12), {BackgroundTransparency = 0, BackgroundColor3 = TH.TabHov}):Play()
+            TweenService:Create(btn, TweenInfo.new(0.1), {BackgroundTransparency = 0, BackgroundColor3 = TH.TabHov}):Play()
         end
     end)
     btn.MouseLeave:Connect(function()
         if activeTab ~= def.name then
-            TweenService:Create(btn, TweenInfo.new(0.12), {BackgroundTransparency = 1}):Play()
+            TweenService:Create(btn, TweenInfo.new(0.1), {BackgroundTransparency = 1}):Play()
         end
     end)
     btn.MouseButton1Click:Connect(function() switchTab(def.name) end)
@@ -1381,37 +1430,40 @@ end
 local function Section(tabName, name)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 28); f.BackgroundTransparency = 1; f.LayoutOrder = order
+    f.Size = UDim2.new(1, 0, 0, 22); f.BackgroundTransparency = 1; f.LayoutOrder = order
     local line = Instance.new("Frame", f)
-    line.Size = UDim2.new(1, -70, 0, 1); line.Position = UDim2.new(0, 0, 0.5, 0)
+    line.Size = UDim2.new(1, 0, 0, 1); line.Position = UDim2.new(0, 0, 0.5, 0)
     line.BackgroundColor3 = TH.Sep; line.BorderSizePixel = 0
-    local l = Instance.new("TextLabel", f)
-    l.Text = string.upper(name); l.Font = Enum.Font.GothamBold; l.TextSize = math.floor(10 * SC)
+    local lbg = Instance.new("Frame", f)
+    local textW = #name * 6.5 + 10
+    lbg.Size = UDim2.new(0, textW, 0, 14); lbg.Position = UDim2.new(0, 2, 0.5, -7)
+    lbg.BackgroundColor3 = TH.BG; lbg.BorderSizePixel = 0
+    local l = Instance.new("TextLabel", lbg)
+    l.Text = string.lower(name); l.Font = Enum.Font.GothamBold; l.TextSize = math.floor(9 * SC)
     l.TextColor3 = TH.Accent; l.BackgroundTransparency = 1
-    l.Size = UDim2.new(0, 70, 1, 0); l.Position = UDim2.new(1, -70, 0, 0)
-    l.TextXAlignment = Enum.TextXAlignment.Right
+    l.Size = UDim2.new(1, 0, 1, 0); l.TextXAlignment = Enum.TextXAlignment.Center
 end
 
 local function Toggle(tabName, label, tbl, key)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 32); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
-    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
+    f.Size = UDim2.new(1, 0, 0, 28); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
+    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 4)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(13 * SC)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(11 * SC)
     l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 12, 0, 0); l.Size = UDim2.new(0.7, 0, 1, 0)
+    l.Position = UDim2.new(0, 10, 0, 0); l.Size = UDim2.new(0.7, 0, 1, 0)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local track = Instance.new("Frame", f)
-    track.Size = UDim2.new(0, 40, 0, 20); track.Position = UDim2.new(1, -52, 0.5, -10)
+    track.Size = UDim2.new(0, 30, 0, 14); track.Position = UDim2.new(1, -42, 0.5, -7)
     track.BackgroundColor3 = tbl[key] and TH.On or TH.Off; track.BorderSizePixel = 0
     Instance.new("UICorner", track).CornerRadius = UDim.new(1, 0)
 
     local knob = Instance.new("Frame", track)
-    knob.Size = UDim2.new(0, 16, 0, 16)
-    knob.Position = tbl[key] and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)
+    knob.Size = UDim2.new(0, 10, 0, 10)
+    knob.Position = tbl[key] and UDim2.new(1, -12, 0.5, -5) or UDim2.new(0, 2, 0.5, -5)
     knob.BackgroundColor3 = Color3.new(1, 1, 1); knob.BorderSizePixel = 0
     Instance.new("UICorner", knob).CornerRadius = UDim.new(1, 0)
 
@@ -1419,36 +1471,35 @@ local function Toggle(tabName, label, tbl, key)
     btn.Size = UDim2.new(1, 0, 1, 0); btn.BackgroundTransparency = 1; btn.Text = ""; btn.ZIndex = 5
     btn.MouseButton1Click:Connect(function()
         tbl[key] = not tbl[key]; local on = tbl[key]
-        TweenService:Create(track, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {BackgroundColor3 = on and TH.On or TH.Off}):Play()
-        TweenService:Create(knob, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {
-            Position = on and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)
+        TweenService:Create(track, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {BackgroundColor3 = on and TH.On or TH.Off}):Play()
+        TweenService:Create(knob, TweenInfo.new(0.15, Enum.EasingStyle.Quart), {
+            Position = on and UDim2.new(1, -12, 0.5, -5) or UDim2.new(0, 2, 0.5, -5)
         }):Play()
     end)
-
-    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
-    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
 local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
     sfx = sfx or ""; stp = stp or 1
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 46); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
-    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
+    f.Size = UDim2.new(1, 0, 0, 38); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
+    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 4)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(12 * SC)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(10 * SC)
     l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 12, 0, 3); l.Size = UDim2.new(0.5, 0, 0, 16)
+    l.Position = UDim2.new(0, 10, 0, 1); l.Size = UDim2.new(0.5, 0, 0, 14)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local vl = Instance.new("TextLabel", f)
-    vl.Font = Enum.Font.GothamBold; vl.TextSize = math.floor(12 * SC); vl.TextColor3 = TH.Accent
-    vl.BackgroundTransparency = 1; vl.Position = UDim2.new(0.5, 0, 0, 3)
-    vl.Size = UDim2.new(0.5, -12, 0, 16); vl.TextXAlignment = Enum.TextXAlignment.Right
+    vl.Font = Enum.Font.GothamBold; vl.TextSize = math.floor(10 * SC); vl.TextColor3 = TH.Accent
+    vl.BackgroundTransparency = 1; vl.Position = UDim2.new(0.5, 0, 0, 1)
+    vl.Size = UDim2.new(0.5, -10, 0, 14); vl.TextXAlignment = Enum.TextXAlignment.Right
 
     local trk = Instance.new("Frame", f)
-    trk.Size = UDim2.new(1, -24, 0, 6); trk.Position = UDim2.new(0, 12, 0, 30)
+    trk.Size = UDim2.new(1, -20, 0, 4); trk.Position = UDim2.new(0, 10, 0, 24)
     trk.BackgroundColor3 = TH.SlBG; trk.BorderSizePixel = 0
     Instance.new("UICorner", trk).CornerRadius = UDim.new(1, 0)
 
@@ -1459,11 +1510,11 @@ local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
     fillGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
 
     local knob = Instance.new("Frame", trk)
-    knob.Size = UDim2.new(0, 12, 0, 12); knob.AnchorPoint = Vector2.new(0.5, 0.5)
+    knob.Size = UDim2.new(0, 10, 0, 10); knob.AnchorPoint = Vector2.new(0.5, 0.5)
     knob.Position = UDim2.new(0, 0, 0.5, 0); knob.BackgroundColor3 = Color3.new(1, 1, 1); knob.BorderSizePixel = 0
     Instance.new("UICorner", knob).CornerRadius = UDim.new(1, 0)
     local knobStroke = Instance.new("UIStroke", knob)
-    knobStroke.Color = TH.Accent; knobStroke.Thickness = 2
+    knobStroke.Color = TH.Accent; knobStroke.Thickness = 1.5
 
     local function upd(v)
         v = math.clamp(v, mn, mx); v = math.floor(v / stp + 0.5) * stp; tbl[key] = v
@@ -1488,94 +1539,108 @@ local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
             upd(mn + (mx - mn) * math.clamp((i.Position.X - trk.AbsolutePosition.X) / trk.AbsoluteSize.X, 0, 1))
         end
     end)
-
-    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
-    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
-local activeDropdown = nil
 local function Dropdown(tabName, label, tbl, key, options)
     local page, order = getPage(tabName)
+    local COL_H = 28
+    local ITEM_H = 22
+    local EXP_H = COL_H + 4 + (#options * ITEM_H) + 4
+    local isOpen = false
+
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 32); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0
-    f.LayoutOrder = order; f.ClipsDescendants = false; f.ZIndex = 2
-    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
+    f.Size = UDim2.new(1, 0, 0, COL_H); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0
+    f.LayoutOrder = order; f.ClipsDescendants = true
+    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 4)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(12 * SC)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(11 * SC)
     l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 12, 0, 0); l.Size = UDim2.new(0.5, 0, 1, 0)
+    l.Position = UDim2.new(0, 10, 0, 0); l.Size = UDim2.new(0.45, 0, 0, COL_H)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local dbtn = Instance.new("TextButton", f)
-    dbtn.Size = UDim2.new(0.42, 0, 0, 24); dbtn.Position = UDim2.new(0.56, 0, 0.5, -12)
+    dbtn.Size = UDim2.new(0.45, 0, 0, 20); dbtn.Position = UDim2.new(0.52, 0, 0, 4)
     dbtn.BackgroundColor3 = TH.Input; dbtn.BorderSizePixel = 0
-    dbtn.Font = Enum.Font.Gotham; dbtn.TextSize = math.floor(11 * SC)
+    dbtn.Font = Enum.Font.Gotham; dbtn.TextSize = math.floor(10 * SC)
     dbtn.TextColor3 = TH.Text; dbtn.Text = tostring(tbl[key]) .. "  ▾"; dbtn.AutoButtonColor = false
-    Instance.new("UICorner", dbtn).CornerRadius = UDim.new(0, 5)
+    Instance.new("UICorner", dbtn).CornerRadius = UDim.new(0, 4)
     Instance.new("UIStroke", dbtn).Color = TH.Bdr
 
-    local dropFrame = Instance.new("Frame", f)
-    dropFrame.Size = UDim2.new(0.42, 0, 0, #options * 26 + 6)
-    dropFrame.Position = UDim2.new(0.56, 0, 1, 4)
-    dropFrame.BackgroundColor3 = TH.Header; dropFrame.BorderSizePixel = 0
-    dropFrame.Visible = false; dropFrame.ZIndex = 100; dropFrame.ClipsDescendants = true
-    Instance.new("UICorner", dropFrame).CornerRadius = UDim.new(0, 6)
-    local ds = Instance.new("UIStroke", dropFrame); ds.Color = TH.Accent; ds.Thickness = 1
-
-    local dLay = Instance.new("UIListLayout", dropFrame)
-    dLay.SortOrder = Enum.SortOrder.LayoutOrder; dLay.Padding = UDim.new(0, 0)
-    local dPad = Instance.new("UIPadding", dropFrame)
-    dPad.PaddingTop = UDim.new(0, 3); dPad.PaddingBottom = UDim.new(0, 3)
-
+    local optBtns = {}
     for oi, opt in ipairs(options) do
-        local ob = Instance.new("TextButton", dropFrame)
-        ob.Size = UDim2.new(1, -6, 0, 26); ob.Position = UDim2.new(0, 3, 0, 0)
-        ob.BackgroundColor3 = TH.Header; ob.BackgroundTransparency = 1
-        ob.BorderSizePixel = 0; ob.Font = Enum.Font.Gotham; ob.TextSize = math.floor(11 * SC)
-        ob.TextColor3 = TH.Text; ob.Text = opt; ob.LayoutOrder = oi; ob.ZIndex = 101; ob.AutoButtonColor = false
-        Instance.new("UICorner", ob).CornerRadius = UDim.new(0, 4)
+        local ob = Instance.new("TextButton", f)
+        ob.Size = UDim2.new(1, -8, 0, ITEM_H)
+        ob.Position = UDim2.new(0, 4, 0, COL_H + 4 + (oi - 1) * ITEM_H)
+        ob.BackgroundTransparency = 1; ob.BackgroundColor3 = TH.Panel
+        ob.BorderSizePixel = 0; ob.Font = Enum.Font.Gotham; ob.TextSize = math.floor(10 * SC)
+        ob.TextColor3 = tbl[key] == opt and TH.Accent or TH.Text
+        ob.Text = opt; ob.AutoButtonColor = false; ob.ZIndex = 5
+        Instance.new("UICorner", ob).CornerRadius = UDim.new(0, 3)
+        optBtns[oi] = ob
+
         ob.MouseEnter:Connect(function()
-            TweenService:Create(ob, TweenInfo.new(0.1), {BackgroundTransparency = 0, BackgroundColor3 = TH.Accent}):Play()
+            TweenService:Create(ob, TweenInfo.new(0.08), {BackgroundTransparency = 0, BackgroundColor3 = TH.Accent}):Play()
+            ob.TextColor3 = Color3.new(1, 1, 1)
         end)
         ob.MouseLeave:Connect(function()
-            TweenService:Create(ob, TweenInfo.new(0.1), {BackgroundTransparency = 1}):Play()
+            TweenService:Create(ob, TweenInfo.new(0.08), {BackgroundTransparency = 1}):Play()
+            ob.TextColor3 = tbl[key] == opt and TH.Accent or TH.Text
         end)
         ob.MouseButton1Click:Connect(function()
-            tbl[key] = opt; dbtn.Text = opt .. "  ▾"; dropFrame.Visible = false; activeDropdown = nil
+            tbl[key] = opt; dbtn.Text = opt .. "  ▾"
+            for _, b in ipairs(optBtns) do b.TextColor3 = b.Text == opt and TH.Accent or TH.Text end
+            isOpen = false; activeDropdown = nil
+            TweenService:Create(f, TweenInfo.new(0.18, Enum.EasingStyle.Quart), {
+                Size = UDim2.new(1, 0, 0, COL_H)
+            }):Play()
         end)
     end
 
     dbtn.MouseButton1Click:Connect(function()
-        if activeDropdown and activeDropdown ~= dropFrame then activeDropdown.Visible = false end
-        dropFrame.Visible = not dropFrame.Visible
-        activeDropdown = dropFrame.Visible and dropFrame or nil
+        if activeDropdown and activeDropdown.f ~= f then
+            TweenService:Create(activeDropdown.f, TweenInfo.new(0.12, Enum.EasingStyle.Quart), {
+                Size = UDim2.new(1, 0, 0, activeDropdown.ch)
+            }):Play()
+            activeDropdown.open = false; activeDropdown = nil
+        end
+        isOpen = not isOpen
+        activeDropdown = isOpen and {f = f, ch = COL_H, open = true} or nil
+        TweenService:Create(f, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
+            Size = UDim2.new(1, 0, 0, isOpen and EXP_H or COL_H)
+        }):Play()
     end)
 
-    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
-    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
+    f.MouseEnter:Connect(function()
+        if not isOpen then TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Hover}):Play() end
+    end)
+    f.MouseLeave:Connect(function()
+        if not isOpen then TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Panel}):Play() end
+    end)
 end
 
 local function ColorPick(tabName, label, tbl, key)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 58); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
-    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
+    f.Size = UDim2.new(1, 0, 0, 52); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
+    Instance.new("UICorner", f).CornerRadius = UDim.new(0, 4)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(12 * SC)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(10 * SC)
     l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 12, 0, 3); l.Size = UDim2.new(0.5, 0, 0, 16)
+    l.Position = UDim2.new(0, 10, 0, 2); l.Size = UDim2.new(0.5, 0, 0, 14)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local prev = Instance.new("Frame", f)
-    prev.Size = UDim2.new(0, 24, 0, 14); prev.Position = UDim2.new(1, -40, 0, 4)
+    prev.Size = UDim2.new(0, 20, 0, 12); prev.Position = UDim2.new(1, -34, 0, 4)
     prev.BackgroundColor3 = U.c3(tbl[key]); prev.BorderSizePixel = 0
-    Instance.new("UICorner", prev).CornerRadius = UDim.new(0, 4)
+    Instance.new("UICorner", prev).CornerRadius = UDim.new(0, 3)
     Instance.new("UIStroke", prev).Color = TH.Bdr
 
     local hBar = Instance.new("Frame", f)
-    hBar.Size = UDim2.new(1, -24, 0, 8); hBar.Position = UDim2.new(0, 12, 0, 22)
+    hBar.Size = UDim2.new(1, -20, 0, 6); hBar.Position = UDim2.new(0, 10, 0, 20)
     hBar.BackgroundColor3 = Color3.new(1, 1, 1); hBar.BorderSizePixel = 0
     Instance.new("UICorner", hBar).CornerRadius = UDim.new(1, 0)
     local hGrad = Instance.new("UIGradient", hBar)
@@ -1584,12 +1649,12 @@ local function ColorPick(tabName, label, tbl, key)
     hGrad.Color = ColorSequence.new(pts)
 
     local sBar = Instance.new("Frame", f)
-    sBar.Size = UDim2.new(0.47, -12, 0, 8); sBar.Position = UDim2.new(0, 12, 0, 38)
+    sBar.Size = UDim2.new(0.47, -10, 0, 6); sBar.Position = UDim2.new(0, 10, 0, 34)
     sBar.BackgroundColor3 = Color3.new(1, 1, 1); sBar.BorderSizePixel = 0
     Instance.new("UICorner", sBar).CornerRadius = UDim.new(1, 0)
 
     local bBar = Instance.new("Frame", f)
-    bBar.Size = UDim2.new(0.47, -12, 0, 8); bBar.Position = UDim2.new(0.53, 0, 0, 38)
+    bBar.Size = UDim2.new(0.47, -10, 0, 6); bBar.Position = UDim2.new(0.53, 0, 0, 34)
     bBar.BackgroundColor3 = Color3.new(1, 1, 1); bBar.BorderSizePixel = 0
     Instance.new("UICorner", bBar).CornerRadius = UDim.new(1, 0)
 
@@ -1614,163 +1679,162 @@ local function ColorPick(tabName, label, tbl, key)
         if dS then cS = math.clamp((i.Position.X - sBar.AbsolutePosition.X) / sBar.AbsoluteSize.X, 0, 1); apply() end
         if dV then cV = math.clamp((i.Position.X - bBar.AbsolutePosition.X) / bBar.AbsoluteSize.X, 0, 1); apply() end
     end)
-
-    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
-    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.08), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
-Section("Aimbot", "Aimbot")
-Toggle("Aimbot", "Enabled", CFG.Aimbot, "On")
-Dropdown("Aimbot", "Mode", CFG.Aimbot, "Mode", {"Smooth", "Snap"})
-Dropdown("Aimbot", "Target Part", CFG.Aimbot, "Part", {"Head", "Torso", "Closest"})
-Dropdown("Aimbot", "Priority", CFG.Aimbot, "Priority", {"FOV", "Distance", "Health"})
-Slider("Aimbot", "FOV Radius", CFG.Aimbot, "FOV", 20, 600, 5, "px")
-Slider("Aimbot", "Smoothness", CFG.Aimbot, "Smoothness", 0.01, 1.0, 0.01, "")
-Slider("Aimbot", "Max Distance", CFG.Aimbot, "MaxDist", 100, 5000, 50, "m")
-Toggle("Aimbot", "Show FOV Circle", CFG.Aimbot, "ShowFOV")
-Toggle("Aimbot", "Prediction", CFG.Aimbot, "Predict")
-Slider("Aimbot", "Predict Scale", CFG.Aimbot, "PredictScale", 0.01, 0.5, 0.005, "")
-Toggle("Aimbot", "Team Check", CFG.Aimbot, "TeamCheck")
-Toggle("Aimbot", "Wall Check", CFG.Aimbot, "WallCheck")
-Toggle("Aimbot", "Visibility Check", CFG.Aimbot, "VisCheck")
-Section("Aimbot", "FOV Style")
-Slider("Aimbot", "Thickness", CFG.Aimbot, "FOVThick", 0.5, 5, 0.1, "")
-Slider("Aimbot", "Opacity", CFG.Aimbot, "FOVAlpha", 0.1, 1.0, 0.05, "")
-Slider("Aimbot", "Sides", CFG.Aimbot, "FOVSides", 12, 128, 1, "")
-Toggle("Aimbot", "Filled", CFG.Aimbot, "FOVFilled")
-ColorPick("Aimbot", "FOV Color", CFG.Aimbot, "FOVColor")
+Section("aimbot", "aimbot")
+Toggle("aimbot", "Enabled", CFG.Aimbot, "On")
+Dropdown("aimbot", "Mode", CFG.Aimbot, "Mode", {"Smooth", "Snap"})
+Dropdown("aimbot", "Target Part", CFG.Aimbot, "Part", {"Head", "Torso", "Closest"})
+Dropdown("aimbot", "Priority", CFG.Aimbot, "Priority", {"FOV", "Distance", "Health"})
+Slider("aimbot", "FOV Radius", CFG.Aimbot, "FOV", 20, 600, 5, "px")
+Slider("aimbot", "Smoothness", CFG.Aimbot, "Smoothness", 0.01, 1.0, 0.01, "")
+Slider("aimbot", "Max Distance", CFG.Aimbot, "MaxDist", 100, 5000, 50, "m")
+Toggle("aimbot", "Show FOV Circle", CFG.Aimbot, "ShowFOV")
+Toggle("aimbot", "Prediction", CFG.Aimbot, "Predict")
+Slider("aimbot", "Predict Scale", CFG.Aimbot, "PredictScale", 0.01, 0.5, 0.005, "")
+Toggle("aimbot", "Team Check", CFG.Aimbot, "TeamCheck")
+Toggle("aimbot", "Wall Check", CFG.Aimbot, "WallCheck")
+Toggle("aimbot", "Visibility Check", CFG.Aimbot, "VisCheck")
+Section("aimbot", "fov style")
+Slider("aimbot", "Thickness", CFG.Aimbot, "FOVThick", 0.5, 5, 0.1, "")
+Slider("aimbot", "Opacity", CFG.Aimbot, "FOVAlpha", 0.1, 1.0, 0.05, "")
+Slider("aimbot", "Sides", CFG.Aimbot, "FOVSides", 12, 128, 1, "")
+Toggle("aimbot", "Filled", CFG.Aimbot, "FOVFilled")
+ColorPick("aimbot", "FOV Color", CFG.Aimbot, "FOVColor")
 
-Section("Silent", "Silent Aim")
-Toggle("Silent", "Enabled", CFG.SilentAim, "On")
-Dropdown("Silent", "Target Part", CFG.SilentAim, "Part", {"Head", "Torso", "Closest"})
-Slider("Silent", "FOV Radius", CFG.SilentAim, "FOV", 20, 500, 5, "px")
-Slider("Silent", "Hit Chance", CFG.SilentAim, "HitChance", 1, 100, 1, "%")
-Toggle("Silent", "Show FOV", CFG.SilentAim, "ShowFOV")
-Toggle("Silent", "Prediction", CFG.SilentAim, "Predict")
-Slider("Silent", "Predict Scale", CFG.SilentAim, "PredictScale", 0.01, 0.5, 0.005, "")
-Toggle("Silent", "Wall Check", CFG.SilentAim, "WallCheck")
-Toggle("Silent", "Team Check", CFG.SilentAim, "TeamCheck")
-Section("Silent", "FOV Style")
-Slider("Silent", "Thickness", CFG.SilentAim, "FOVThick", 0.5, 5, 0.1, "")
-Slider("Silent", "Opacity", CFG.SilentAim, "FOVAlpha", 0.1, 1.0, 0.05, "")
-ColorPick("Silent", "FOV Color", CFG.SilentAim, "FOVColor")
+Section("silent", "silent aim")
+Toggle("silent", "Enabled", CFG.SilentAim, "On")
+Dropdown("silent", "Target Part", CFG.SilentAim, "Part", {"Head", "Torso", "Closest"})
+Slider("silent", "FOV Radius", CFG.SilentAim, "FOV", 20, 500, 5, "px")
+Slider("silent", "Hit Chance", CFG.SilentAim, "HitChance", 1, 100, 1, "%")
+Toggle("silent", "Show FOV", CFG.SilentAim, "ShowFOV")
+Toggle("silent", "Prediction", CFG.SilentAim, "Predict")
+Slider("silent", "Predict Scale", CFG.SilentAim, "PredictScale", 0.01, 0.5, 0.005, "")
+Toggle("silent", "Wall Check", CFG.SilentAim, "WallCheck")
+Toggle("silent", "Team Check", CFG.SilentAim, "TeamCheck")
+Section("silent", "fov style")
+Slider("silent", "Thickness", CFG.SilentAim, "FOVThick", 0.5, 5, 0.1, "")
+Slider("silent", "Opacity", CFG.SilentAim, "FOVAlpha", 0.1, 1.0, 0.05, "")
+ColorPick("silent", "FOV Color", CFG.SilentAim, "FOVColor")
 
-Section("ESP", "Box ESP")
-Toggle("ESP", "Enabled", CFG.BoxESP, "On")
-Dropdown("ESP", "Style", CFG.BoxESP, "Mode", {"Full", "Corner", "3D"})
-Toggle("ESP", "Names", CFG.BoxESP, "Name")
-Toggle("ESP", "Health Bars", CFG.BoxESP, "Health")
-Toggle("ESP", "Health Numbers", CFG.BoxESP, "HealthNum")
-Toggle("ESP", "Distance", CFG.BoxESP, "Dist")
-Toggle("ESP", "Weapon", CFG.BoxESP, "Weapon")
-Toggle("ESP", "Teammates", CFG.BoxESP, "ShowTeam")
-Toggle("ESP", "Outline", CFG.BoxESP, "Outline")
-Slider("ESP", "Max Distance", CFG.BoxESP, "MaxDist", 100, 5000, 50, "m")
-Slider("ESP", "Thickness", CFG.BoxESP, "Thick", 0.5, 5, 0.1, "")
-Slider("ESP", "Name Size", CFG.BoxESP, "NameSize", 8, 22, 1, "")
-Slider("ESP", "Corner Length", CFG.BoxESP, "CornerLength", 2, 20, 1, "")
-Slider("ESP", "Fill Opacity", CFG.BoxESP, "FillAlpha", 0, 1, 0.05, "")
-ColorPick("ESP", "Enemy Color", CFG.BoxESP, "EnemyColor")
-ColorPick("ESP", "Team Color", CFG.BoxESP, "TeamColor")
-ColorPick("ESP", "Enemy Fill", CFG.BoxESP, "EnemyFill")
-ColorPick("ESP", "Team Fill", CFG.BoxESP, "TeamFill")
-ColorPick("ESP", "Outline Color", CFG.BoxESP, "OutlineColor")
-Section("ESP", "Tracers")
-Toggle("ESP", "Enabled", CFG.Tracers, "On")
-Dropdown("ESP", "Origin", CFG.Tracers, "Origin", {"Bottom", "Center", "Mouse"})
-Toggle("ESP", "Teammates", CFG.Tracers, "ShowTeam")
-Slider("ESP", "Thickness", CFG.Tracers, "Thick", 0.5, 4, 0.1, "")
-Slider("ESP", "Max Distance", CFG.Tracers, "MaxDist", 100, 5000, 50, "m")
-ColorPick("ESP", "Enemy", CFG.Tracers, "EnemyColor")
-ColorPick("ESP", "Team", CFG.Tracers, "TeamColor")
-Section("ESP", "Snaplines")
-Toggle("ESP", "Enabled", CFG.Snaplines, "On")
-Dropdown("ESP", "Part", CFG.Snaplines, "Part", {"Head", "Torso", "Closest"})
-Slider("ESP", "Thickness", CFG.Snaplines, "Thick", 0.3, 3, 0.1, "")
-ColorPick("ESP", "Color", CFG.Snaplines, "Color")
-Section("ESP", "Skeleton")
-Toggle("ESP", "Enabled", CFG.Skeleton, "On")
-Toggle("ESP", "Teammates", CFG.Skeleton, "ShowTeam")
-Slider("ESP", "Max Distance", CFG.Skeleton, "MaxDist", 100, 3000, 50, "m")
-Slider("ESP", "Thickness", CFG.Skeleton, "Thick", 0.3, 4, 0.1, "")
-ColorPick("ESP", "Enemy Bones", CFG.Skeleton, "EnemyColor")
-ColorPick("ESP", "Team Bones", CFG.Skeleton, "TeamColor")
-Section("ESP", "Items")
-Toggle("ESP", "Enabled", CFG.ItemESP, "On")
-Toggle("ESP", "Names", CFG.ItemESP, "Names")
-Toggle("ESP", "Distance", CFG.ItemESP, "Dist")
-Toggle("ESP", "Tracers", CFG.ItemESP, "Tracers")
-Toggle("ESP", "Icons", CFG.ItemESP, "Icon")
-Slider("ESP", "Max Distance", CFG.ItemESP, "MaxDist", 50, 2000, 50, "m")
-Slider("ESP", "Name Size", CFG.ItemESP, "NameSize", 8, 20, 1, "")
-ColorPick("ESP", "Item Color", CFG.ItemESP, "Color")
-ColorPick("ESP", "Tracer Color", CFG.ItemESP, "TracerColor")
+Section("esp", "box esp")
+Toggle("esp", "Enabled", CFG.BoxESP, "On")
+Dropdown("esp", "Style", CFG.BoxESP, "Mode", {"Full", "Corner", "3D"})
+Toggle("esp", "Names", CFG.BoxESP, "Name")
+Toggle("esp", "Health Bars", CFG.BoxESP, "Health")
+Toggle("esp", "Health Numbers", CFG.BoxESP, "HealthNum")
+Toggle("esp", "Distance", CFG.BoxESP, "Dist")
+Toggle("esp", "Weapon", CFG.BoxESP, "Weapon")
+Toggle("esp", "Teammates", CFG.BoxESP, "ShowTeam")
+Toggle("esp", "Outline", CFG.BoxESP, "Outline")
+Slider("esp", "Max Distance", CFG.BoxESP, "MaxDist", 100, 5000, 50, "m")
+Slider("esp", "Thickness", CFG.BoxESP, "Thick", 0.5, 5, 0.1, "")
+Slider("esp", "Name Size", CFG.BoxESP, "NameSize", 8, 22, 1, "")
+Slider("esp", "Corner Length", CFG.BoxESP, "CornerLength", 2, 20, 1, "")
+Slider("esp", "Fill Opacity", CFG.BoxESP, "FillAlpha", 0, 1, 0.05, "")
+ColorPick("esp", "Enemy Color", CFG.BoxESP, "EnemyColor")
+ColorPick("esp", "Team Color", CFG.BoxESP, "TeamColor")
+ColorPick("esp", "Enemy Fill", CFG.BoxESP, "EnemyFill")
+ColorPick("esp", "Team Fill", CFG.BoxESP, "TeamFill")
+ColorPick("esp", "Outline Color", CFG.BoxESP, "OutlineColor")
+Section("esp", "tracers")
+Toggle("esp", "Enabled", CFG.Tracers, "On")
+Dropdown("esp", "Origin", CFG.Tracers, "Origin", {"Bottom", "Center", "Mouse"})
+Toggle("esp", "Teammates", CFG.Tracers, "ShowTeam")
+Slider("esp", "Thickness", CFG.Tracers, "Thick", 0.5, 4, 0.1, "")
+Slider("esp", "Max Distance", CFG.Tracers, "MaxDist", 100, 5000, 50, "m")
+ColorPick("esp", "Enemy", CFG.Tracers, "EnemyColor")
+ColorPick("esp", "Team", CFG.Tracers, "TeamColor")
+Section("esp", "snaplines")
+Toggle("esp", "Enabled", CFG.Snaplines, "On")
+Dropdown("esp", "Part", CFG.Snaplines, "Part", {"Head", "Torso", "Closest"})
+Slider("esp", "Thickness", CFG.Snaplines, "Thick", 0.3, 3, 0.1, "")
+ColorPick("esp", "Color", CFG.Snaplines, "Color")
+Section("esp", "skeleton")
+Toggle("esp", "Enabled", CFG.Skeleton, "On")
+Toggle("esp", "Teammates", CFG.Skeleton, "ShowTeam")
+Slider("esp", "Max Distance", CFG.Skeleton, "MaxDist", 100, 3000, 50, "m")
+Slider("esp", "Thickness", CFG.Skeleton, "Thick", 0.3, 4, 0.1, "")
+ColorPick("esp", "Enemy Bones", CFG.Skeleton, "EnemyColor")
+ColorPick("esp", "Team Bones", CFG.Skeleton, "TeamColor")
+Section("esp", "items")
+Toggle("esp", "Enabled", CFG.ItemESP, "On")
+Toggle("esp", "Names", CFG.ItemESP, "Names")
+Toggle("esp", "Distance", CFG.ItemESP, "Dist")
+Toggle("esp", "Tracers", CFG.ItemESP, "Tracers")
+Toggle("esp", "Icons", CFG.ItemESP, "Icon")
+Slider("esp", "Max Distance", CFG.ItemESP, "MaxDist", 50, 2000, 50, "m")
+Slider("esp", "Name Size", CFG.ItemESP, "NameSize", 8, 20, 1, "")
+ColorPick("esp", "Item Color", CFG.ItemESP, "Color")
+ColorPick("esp", "Tracer Color", CFG.ItemESP, "TracerColor")
 
-Section("Chams", "Chams")
-Toggle("Chams", "Enabled", CFG.Chams, "On")
-Dropdown("Chams", "Mode", CFG.Chams, "Mode", {"Glow", "Highlight", "X-Ray", "Neon", "Rainbow"})
-Dropdown("Chams", "Depth", CFG.Chams, "DepthMode", {"AlwaysOnTop", "Occluded"})
-Toggle("Chams", "Team Colors", CFG.Chams, "TeamCheck")
-Section("Chams", "Glow / Neon")
-Slider("Chams", "Glow Transparency", CFG.Chams, "GlowAlpha", 0, 1, 0.05, "")
-Slider("Chams", "Glow Size", CFG.Chams, "GlowSize", 0.01, 0.3, 0.01, "")
-Slider("Chams", "Neon Transparency", CFG.Chams, "NeonAlpha", 0, 1, 0.05, "")
-ColorPick("Chams", "Glow Color", CFG.Chams, "GlowColor")
-ColorPick("Chams", "Neon Color", CFG.Chams, "NeonColor")
-Section("Chams", "Highlight")
-Slider("Chams", "Fill Alpha", CFG.Chams, "HighlightFillAlpha", 0, 1, 0.05, "")
-Slider("Chams", "Outline Alpha", CFG.Chams, "HighlightOutAlpha", 0, 1, 0.05, "")
-ColorPick("Chams", "Fill", CFG.Chams, "HighlightFill")
-ColorPick("Chams", "Outline", CFG.Chams, "HighlightOut")
-Section("Chams", "X-Ray")
-Slider("Chams", "Visible Alpha", CFG.Chams, "XRayVisibleAlpha", 0, 1, 0.05, "")
-Slider("Chams", "Occluded Alpha", CFG.Chams, "XRayOccludedAlpha", 0, 1, 0.05, "")
-ColorPick("Chams", "Visible Color", CFG.Chams, "XRayVisibleFill")
-ColorPick("Chams", "Occluded Color", CFG.Chams, "XRayOccludedFill")
-Section("Chams", "Team / Rainbow")
-Slider("Chams", "Rainbow Speed", CFG.Chams, "RainbowSpeed", 0.1, 5, 0.1, "x")
-ColorPick("Chams", "Enemy Color", CFG.Chams, "EnemyColor")
-ColorPick("Chams", "Team Color", CFG.Chams, "TeamColor")
+Section("chams", "chams")
+Toggle("chams", "Enabled", CFG.Chams, "On")
+Dropdown("chams", "Mode", CFG.Chams, "Mode", {"Glow", "Highlight", "X-Ray", "Neon", "Rainbow"})
+Dropdown("chams", "Depth", CFG.Chams, "DepthMode", {"AlwaysOnTop", "Occluded"})
+Toggle("chams", "Team Colors", CFG.Chams, "TeamCheck")
+Section("chams", "glow / neon")
+Slider("chams", "Glow Transparency", CFG.Chams, "GlowAlpha", 0, 1, 0.05, "")
+Slider("chams", "Glow Size", CFG.Chams, "GlowSize", 0.01, 0.3, 0.01, "")
+Slider("chams", "Neon Transparency", CFG.Chams, "NeonAlpha", 0, 1, 0.05, "")
+ColorPick("chams", "Glow Color", CFG.Chams, "GlowColor")
+ColorPick("chams", "Neon Color", CFG.Chams, "NeonColor")
+Section("chams", "highlight")
+Slider("chams", "Fill Alpha", CFG.Chams, "HighlightFillAlpha", 0, 1, 0.05, "")
+Slider("chams", "Outline Alpha", CFG.Chams, "HighlightOutAlpha", 0, 1, 0.05, "")
+ColorPick("chams", "Fill", CFG.Chams, "HighlightFill")
+ColorPick("chams", "Outline", CFG.Chams, "HighlightOut")
+Section("chams", "x-ray")
+Slider("chams", "Visible Alpha", CFG.Chams, "XRayVisibleAlpha", 0, 1, 0.05, "")
+Slider("chams", "Occluded Alpha", CFG.Chams, "XRayOccludedAlpha", 0, 1, 0.05, "")
+ColorPick("chams", "Visible Color", CFG.Chams, "XRayVisibleFill")
+ColorPick("chams", "Occluded Color", CFG.Chams, "XRayOccludedFill")
+Section("chams", "team / rainbow")
+Slider("chams", "Rainbow Speed", CFG.Chams, "RainbowSpeed", 0.1, 5, 0.1, "x")
+ColorPick("chams", "Enemy Color", CFG.Chams, "EnemyColor")
+ColorPick("chams", "Team Color", CFG.Chams, "TeamColor")
 
-Section("Visuals", "Crosshair")
-Toggle("Visuals", "Enabled", CFG.Crosshair, "On")
-Dropdown("Visuals", "Style", CFG.Crosshair, "Style", {"Cross", "Circle", "Dot", "Diamond"})
-Slider("Visuals", "Size", CFG.Crosshair, "Size", 2, 40, 1, "px")
-Slider("Visuals", "Gap", CFG.Crosshair, "Gap", 0, 20, 1, "px")
-Slider("Visuals", "Thickness", CFG.Crosshair, "Thick", 0.5, 5, 0.1, "")
-Toggle("Visuals", "Center Dot", CFG.Crosshair, "Dot")
-Slider("Visuals", "Dot Size", CFG.Crosshair, "DotSize", 1, 6, 0.5, "")
-Toggle("Visuals", "Outline", CFG.Crosshair, "Outline")
-Toggle("Visuals", "Rotate", CFG.Crosshair, "Rotate")
-Slider("Visuals", "Rotate Speed", CFG.Crosshair, "RotateSpeed", 0.5, 10, 0.5, "")
-ColorPick("Visuals", "Color", CFG.Crosshair, "Color")
-Section("Visuals", "FOV Changer")
-Toggle("Visuals", "Enabled", CFG.FOVChanger, "On")
-Slider("Visuals", "Field of View", CFG.FOVChanger, "Value", 30, 120, 1, "")
-Toggle("Visuals", "Smooth", CFG.FOVChanger, "Smooth")
-Slider("Visuals", "Smooth Speed", CFG.FOVChanger, "SmoothSpeed", 0.01, 0.5, 0.01, "")
-Section("Visuals", "Watermark")
-Toggle("Visuals", "Enabled", CFG.Watermark, "On")
-Toggle("Visuals", "FPS", CFG.Watermark, "ShowFPS")
-Toggle("Visuals", "Ping", CFG.Watermark, "ShowPing")
-Toggle("Visuals", "Time", CFG.Watermark, "ShowTime")
-Toggle("Visuals", "Game Name", CFG.Watermark, "ShowGame")
+Section("visuals", "crosshair")
+Toggle("visuals", "Enabled", CFG.Crosshair, "On")
+Dropdown("visuals", "Style", CFG.Crosshair, "Style", {"Cross", "Circle", "Dot", "Diamond"})
+Slider("visuals", "Size", CFG.Crosshair, "Size", 2, 40, 1, "px")
+Slider("visuals", "Gap", CFG.Crosshair, "Gap", 0, 20, 1, "px")
+Slider("visuals", "Thickness", CFG.Crosshair, "Thick", 0.5, 5, 0.1, "")
+Toggle("visuals", "Center Dot", CFG.Crosshair, "Dot")
+Slider("visuals", "Dot Size", CFG.Crosshair, "DotSize", 1, 6, 0.5, "")
+Toggle("visuals", "Outline", CFG.Crosshair, "Outline")
+Toggle("visuals", "Rotate", CFG.Crosshair, "Rotate")
+Slider("visuals", "Rotate Speed", CFG.Crosshair, "RotateSpeed", 0.5, 10, 0.5, "")
+ColorPick("visuals", "Color", CFG.Crosshair, "Color")
+Section("visuals", "fov changer")
+Toggle("visuals", "Enabled", CFG.FOVChanger, "On")
+Slider("visuals", "Field of View", CFG.FOVChanger, "Value", 30, 120, 1, "")
+Toggle("visuals", "Smooth", CFG.FOVChanger, "Smooth")
+Slider("visuals", "Smooth Speed", CFG.FOVChanger, "SmoothSpeed", 0.01, 0.5, 0.01, "")
+Section("visuals", "watermark")
+Toggle("visuals", "Enabled", CFG.Watermark, "On")
+Toggle("visuals", "FPS", CFG.Watermark, "ShowFPS")
+Toggle("visuals", "Ping", CFG.Watermark, "ShowPing")
+Toggle("visuals", "Time", CFG.Watermark, "ShowTime")
+Toggle("visuals", "Game Name", CFG.Watermark, "ShowGame")
 
-Section("Settings", "Menu")
-Slider("Settings", "Scale", CFG.GUI, "Scale", 0.6, 1.5, 0.05, "x")
-Slider("Settings", "Opacity", CFG.GUI, "Opacity", 0.5, 1.0, 0.01, "")
-Slider("Settings", "Animation Speed", CFG.GUI, "AnimSpeed", 0.05, 0.5, 0.01, "s")
-Toggle("Settings", "Blur Background", CFG.GUI, "BlurBackground")
-ColorPick("Settings", "Accent", CFG.GUI, "Accent")
-ColorPick("Settings", "Accent Alt", CFG.GUI, "AccentAlt")
+Section("settings", "menu")
+Slider("settings", "Scale", CFG.GUI, "Scale", 0.6, 1.5, 0.05, "x")
+Slider("settings", "Opacity", CFG.GUI, "Opacity", 0.5, 1.0, 0.01, "")
+Slider("settings", "Animation Speed", CFG.GUI, "AnimSpeed", 0.05, 0.5, 0.01, "s")
+Toggle("settings", "Blur Background", CFG.GUI, "BlurBackground")
+ColorPick("settings", "Accent", CFG.GUI, "Accent")
+ColorPick("settings", "Accent Alt", CFG.GUI, "AccentAlt")
 
-switchTab("Aimbot")
+switchTab("aimbot")
 
 UIS.InputBegan:Connect(function(input, gpe)
     if gpe then return end
     if input.KeyCode == CFG.GUI.MenuKey then
         menuOpen = not menuOpen
-        if activeDropdown then activeDropdown.Visible = false; activeDropdown = nil end
+        closeActiveDropdown()
         if menuOpen then
             Main.Visible = true; Main.BackgroundTransparency = 1
             TweenService:Create(Main, TweenInfo.new(CFG.GUI.AnimSpeed, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
@@ -1805,4 +1869,4 @@ end
 SG.Destroying:Connect(cleanup)
 LP.CharacterRemoving:Connect(function() currentTarget = nil; silentTarget = nil end)
 
-print("[Axiom] Loaded | RCtrl to open")
+print("[Lunarix] Loaded | RCtrl to open")
