@@ -297,7 +297,7 @@ local DEFAULT_CFG = {
         Key = Enum.UserInputType.MouseButton2,
         Part = "Head",
         MultiPoint = false,
-        MultiPointParts = {"Head", "HumanoidRootPart", "UpperTorso", "LeftUpperArm", "RightUpperArm"},
+        MultiPointParts = {Head = true, HumanoidRootPart = true, UpperTorso = true, LeftUpperArm = true, RightUpperArm = true, LowerTorso = false, LeftUpperLeg = false, RightUpperLeg = false},
         AutoWall = false,
         AutoWallMinDamage = 20,
         MinHitChance = 70,
@@ -685,6 +685,31 @@ local DEFAULT_CFG = {
         WallCheck = false,
         TeamCheck = true,
         VisCheck = false,
+        AutoFire = false,
+        AutoFireDelay = 0.15,
+        IgnoreDead = false,
+        IgnoreDowned = false,
+        ShowFOV = false,
+        FOV = 180,
+        FOVThick = 1.2,
+        FOVColor = {0.2, 0.6, 1},
+        Part = "Head",
+        AccRandom = false,
+        MissChance = 0,
+        HeadshotChance = 50,
+        RangeFalloff = false,
+        FalloffStart = 100,
+        FalloffEnd = 500,
+        FilterHealth = false,
+        MinTargetHP = 1,
+        FilterDist = false,
+        MaxTargetDist = 500,
+        FilterVelocity = false,
+        MaxTargetSpeed = 100,
+        HookMethod = "Auto",
+        AntiDetect = false,
+        SpoofRay = false,
+        SpoofMouse = false,
     },
     Visual = {
         AmbientParticles = false,
@@ -692,6 +717,29 @@ local DEFAULT_CFG = {
         ParticleDensity = 20,
         ParticleSpeed = 1,
         ParticleSize = 1,
+        Watermark = true,
+        WatermarkText = "Lunarix",
+        VignetteOn = false,
+        VignetteIntensity = 0.3,
+        VignetteColor = {0, 0, 0},
+        HitMarkerOn = false,
+        HitMarkerSize = 20,
+        HitMarkerDuration = 0.3,
+        HitMarkerColor = {1, 1, 1},
+        KillEffect = "None",
+        KillEffectDuration = 0.5,
+        AmbientColor = {1, 1, 1},
+        FogOn = false,
+        FogStart = 0,
+        FogEnd = 1000,
+        FogColor = {0.5, 0.5, 0.5},
+        Brightness = 1,
+        Contrast = 0,
+        Saturation = 0,
+        SkyboxOn = false,
+        SkyboxID = "",
+        Fullbright = false,
+        NoFog = false,
     },
     Players = {
         TrackPositions = false,
@@ -699,6 +747,9 @@ local DEFAULT_CFG = {
         TrackKills = false,
         TrackDamage = false,
         TrackDistance = false,
+        FollowTarget = nil,
+        AutoFollow = false,
+        FollowDistance = 10,
     },
     Misc = {
         ScriptURL = "",
@@ -3184,7 +3235,8 @@ function RageBotEngine.getBestPart(player, cfg)
         local bestPart = nil
         local bestFOV = math.huge
         local ctr = U.screenCenter()
-        for _, partName in ipairs(cfg.MultiPointParts) do
+        for partName, enabled in pairs(cfg.MultiPointParts) do
+            if not enabled then continue end
             local part = ch:FindFirstChild(partName)
             if part then
                 local sp, on = U.w2s(part.Position)
@@ -3278,7 +3330,7 @@ function TriggerBotSystem.findTarget()
             if not ch then continue end
             local part = ch:FindFirstChild(CFG.TriggerBot.TargetPart) or ch:FindFirstChild("Head")
             if not part then continue end
-            if CFG.TriggerBot.WallCheck and U.wallCheck and not U.wallCheck(part.Position) then continue end
+            if CFG.TriggerBot.WallCheck and U.wallCheck and not U.wallCheck(U.myPos(), part.Position) then continue end
             local sp, on = cam:WorldToViewportPoint(part.Position)
             if not on then continue end
             local d = (Vector2.new(sp.X, sp.Y) - ctr).Magnitude
@@ -3429,7 +3481,10 @@ function AutoWallSystem.canPenetrate(origin, target)
     local hrp = ch:FindFirstChild("HumanoidRootPart")
     if not hrp then return false, 0 end
     local dir = (hrp.Position - origin).Unit
-    local ray = workspace:Raycast(origin, dir * 1000, U.makeRayParams({LP.Character, ch}))
+    local rp = RaycastParams.new()
+    rp.FilterType = Enum.RaycastFilterType.Exclude
+    rp.FilterDescendantsInstances = {LP.Character, ch}
+    local ray = workspace:Raycast(origin, dir * 1000, rp)
     if not ray then return true, 1.0 end
     local distToWall = (ray.Position - origin).Magnitude
     local distToTarget = (hrp.Position - origin).Magnitude
@@ -3440,7 +3495,7 @@ function AutoWallSystem.canPenetrate(origin, target)
     local pos = ray.Position + dir * 0.5
     for i = 1, CFG.AutoWall.MaxPenetration do
         penCount = penCount + 1
-        local exitRay = workspace:Raycast(pos, dir * 20, U.makeRayParams({LP.Character, ch}))
+        local exitRay = workspace:Raycast(pos, dir * 20, rp)
         if exitRay then
             thickness = thickness + (exitRay.Position - pos).Magnitude
             pos = exitRay.Position + dir * 0.5
@@ -4019,7 +4074,7 @@ function TargetPriorityEngine.score(player)
     local cfg = CFG.TargetPriority
     local score = 0
     local hp = U.hp(player) or 100
-    local maxHp = U.maxHp(player) or 100
+    local maxHp = U.getMaxHealth(player) or 100
     local hpNorm = hp / math.max(1, maxHp)
     if cfg.PreferLowHP then
         score = score + (1 - hpNorm) * cfg.HealthWeight
@@ -4040,7 +4095,7 @@ function TargetPriorityEngine.score(player)
         if ch then
             local hrp = ch:FindFirstChild("HumanoidRootPart")
             if hrp then
-                local vis = U.wallCheck and U.wallCheck(hrp.Position) or true
+                local vis = U.wallCheck and U.wallCheck(U.myPos(), hrp.Position) or true
                 score = score + (vis and 1 or 0) * cfg.VisibleWeight
             end
         end
@@ -4540,6 +4595,10 @@ local currentTarget = nil
 local stickyTarget = nil
 local aimHeld = false
 local lastAutoFire = 0
+
+function U.target()
+    return currentTarget or silentTarget
+end
 
 local function getTargetPart(ch, partName)
     if partName == "Closest" then return U.closestPart(ch, Camera.CFrame.Position) end
@@ -5622,10 +5681,10 @@ Notify.init(SG)
 
 local blur
 if CFG.GUI.BlurBackground then
-    pcall(function() blur = Instance.new("BlurEffect"); blur.Size = 0; blur.Parent = Lighting end)
+    pcall(function() blur = Instance.new("BlurEffect"); blur.Size = 8; blur.Parent = Lighting end)
 end
 
-local menuOpen = false
+local menuOpen = true
 local SC = CFG.GUI.Scale
 
 local TH = {
@@ -5664,7 +5723,7 @@ Main.Position = UDim2.new(0.5, -MW / 2, 0.5, -MH / 2)
 Main.BackgroundColor3 = TH.BG
 Main.BackgroundTransparency = 1 - CFG.GUI.Opacity
 Main.BorderSizePixel = 0
-Main.Visible = false
+Main.Visible = true
 Main.ClipsDescendants = true
 Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 6)
 local mainStroke = Instance.new("UIStroke", Main)
@@ -7931,55 +7990,55 @@ Label("silent", "Prediction leads shots based on velocity")
 Separator("silent")
 Section("silent", "weapon profiles")
 Button("silent", "Rifle Profile", function(btn)
-    CFG.Silent.FOV = 35
-    CFG.Silent.Prediction = true
-    CFG.Silent.PredFactor = 0.15
-    CFG.Silent.Part = "UpperTorso"
+    CFG.SilentAim.FOV = 35
+    CFG.SilentAim.Predict = true
+    CFG.SilentAim.PredictScale = 0.15
+    CFG.SilentAim.Part = "UpperTorso"
     btn.Text = "Applied!"
     Notify.send("Profile", "Rifle profile loaded", "success", 2)
     task.delay(1, function() btn.Text = "Rifle Profile" end)
 end)
 Button("silent", "SMG Profile", function(btn)
-    CFG.Silent.FOV = 50
-    CFG.Silent.Prediction = true
-    CFG.Silent.PredFactor = 0.10
-    CFG.Silent.Part = "UpperTorso"
+    CFG.SilentAim.FOV = 50
+    CFG.SilentAim.Predict = true
+    CFG.SilentAim.PredictScale = 0.10
+    CFG.SilentAim.Part = "UpperTorso"
     btn.Text = "Applied!"
     Notify.send("Profile", "SMG profile loaded", "success", 2)
     task.delay(1, function() btn.Text = "SMG Profile" end)
 end)
 Button("silent", "Sniper Profile", function(btn)
-    CFG.Silent.FOV = 15
-    CFG.Silent.Prediction = true
-    CFG.Silent.PredFactor = 0.30
-    CFG.Silent.Part = "Head"
+    CFG.SilentAim.FOV = 15
+    CFG.SilentAim.Predict = true
+    CFG.SilentAim.PredictScale = 0.30
+    CFG.SilentAim.Part = "Head"
     btn.Text = "Applied!"
     Notify.send("Profile", "Sniper profile loaded", "success", 2)
     task.delay(1, function() btn.Text = "Sniper Profile" end)
 end)
 Button("silent", "Shotgun Profile", function(btn)
-    CFG.Silent.FOV = 80
-    CFG.Silent.Prediction = false
-    CFG.Silent.PredFactor = 0.05
-    CFG.Silent.Part = "HumanoidRootPart"
+    CFG.SilentAim.FOV = 80
+    CFG.SilentAim.Predict = false
+    CFG.SilentAim.PredictScale = 0.05
+    CFG.SilentAim.Part = "HumanoidRootPart"
     btn.Text = "Applied!"
     Notify.send("Profile", "Shotgun profile loaded", "success", 2)
     task.delay(1, function() btn.Text = "Shotgun Profile" end)
 end)
 Button("silent", "Pistol Profile", function(btn)
-    CFG.Silent.FOV = 40
-    CFG.Silent.Prediction = true
-    CFG.Silent.PredFactor = 0.08
-    CFG.Silent.Part = "Head"
+    CFG.SilentAim.FOV = 40
+    CFG.SilentAim.Predict = true
+    CFG.SilentAim.PredictScale = 0.08
+    CFG.SilentAim.Part = "Head"
     btn.Text = "Applied!"
     Notify.send("Profile", "Pistol profile loaded", "success", 2)
     task.delay(1, function() btn.Text = "Pistol Profile" end)
 end)
 Button("silent", "LMG Profile", function(btn)
-    CFG.Silent.FOV = 60
-    CFG.Silent.Prediction = true
-    CFG.Silent.PredFactor = 0.12
-    CFG.Silent.Part = "UpperTorso"
+    CFG.SilentAim.FOV = 60
+    CFG.SilentAim.Predict = true
+    CFG.SilentAim.PredictScale = 0.12
+    CFG.SilentAim.Part = "UpperTorso"
     btn.Text = "Applied!"
     Notify.send("Profile", "LMG profile loaded", "success", 2)
     task.delay(1, function() btn.Text = "LMG Profile" end)
@@ -8327,7 +8386,7 @@ Button("visuals", "Default Cross", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "Cross"
     CFG.Crosshair.Size = 6
-    CFG.Crosshair.Thickness = 1.5
+    CFG.Crosshair.Thick = 1.5
     CFG.Crosshair.Gap = 4
     CFG.Crosshair.Dot = true
     CFG.Crosshair.Outline = true
@@ -8346,7 +8405,7 @@ Button("visuals", "Small Cross", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "Cross"
     CFG.Crosshair.Size = 3
-    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Thick = 1
     CFG.Crosshair.Gap = 2
     CFG.Crosshair.Dot = false
     CFG.Crosshair.Outline = true
@@ -8357,7 +8416,7 @@ Button("visuals", "Circle Cross", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "Circle"
     CFG.Crosshair.CircleRadius = 5
-    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Thick = 1
     CFG.Crosshair.Dot = true
     CFG.Crosshair.Outline = true
     btn.Text = "Applied!"
@@ -8367,7 +8426,7 @@ Button("visuals", "T-Shape Cross", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "T"
     CFG.Crosshair.Size = 5
-    CFG.Crosshair.Thickness = 1.5
+    CFG.Crosshair.Thick = 1.5
     CFG.Crosshair.Gap = 3
     CFG.Crosshair.Dot = false
     CFG.Crosshair.Outline = true
@@ -8378,7 +8437,7 @@ Button("visuals", "Diamond Cross", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "Diamond"
     CFG.Crosshair.Size = 4
-    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Thick = 1
     CFG.Crosshair.Dot = false
     CFG.Crosshair.Outline = true
     btn.Text = "Applied!"
@@ -8388,7 +8447,7 @@ Button("visuals", "CS2 Style", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "Cross"
     CFG.Crosshair.Size = 2
-    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Thick = 1
     CFG.Crosshair.Gap = 3
     CFG.Crosshair.Dot = false
     CFG.Crosshair.Outline = false
@@ -8399,7 +8458,7 @@ Button("visuals", "Sniper Cross", function(btn)
     CFG.Crosshair.On = true
     CFG.Crosshair.Style = "Cross"
     CFG.Crosshair.Size = 15
-    CFG.Crosshair.Thickness = 0.5
+    CFG.Crosshair.Thick = 0.5
     CFG.Crosshair.Gap = 8
     CFG.Crosshair.Dot = true
     CFG.Crosshair.DotSize = 1
@@ -8565,7 +8624,7 @@ Separator("movement")
 Section("movement", "movement presets")
 Button("movement", "Legit Movement", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 18
+    CFG.Movement.Speed.Value = 18
     CFG.BunnyHop.On = false
     CFG.Movement.Fly.On = false
     CFG.Movement.Noclip.On = false
@@ -8578,7 +8637,7 @@ Button("movement", "Legit Movement", function(btn)
 end)
 Button("movement", "Speed Demon", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 50
+    CFG.Movement.Speed.Value = 50
     CFG.BunnyHop.On = true
     CFG.BunnyHop.AutoStrafe = true
     CFG.BunnyHop.StrafeSpeed = 3
@@ -8605,7 +8664,7 @@ Button("movement", "Exploration Mode", function(btn)
     CFG.Movement.Fly.Speed = 60
     CFG.Movement.Noclip.On = true
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 30
+    CFG.Movement.Speed.Value = 30
     CFG.Movement.InfJump.On = true
     CFG.Spider.On = true
     CFG.Phase.On = true
@@ -8651,38 +8710,38 @@ Label("movement", "Threshold sets the Y level to trigger")
 Section("movement", "speed profiles")
 Button("movement", "Walk Speed", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 16
+    CFG.Movement.Speed.Value = 16
     btn.Text = "16 studs/s"
     task.delay(1, function() btn.Text = "Walk Speed" end)
 end)
 Button("movement", "Jog Speed", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 24
+    CFG.Movement.Speed.Value = 24
     btn.Text = "24 studs/s"
     task.delay(1, function() btn.Text = "Jog Speed" end)
 end)
 Button("movement", "Sprint Speed", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 36
+    CFG.Movement.Speed.Value = 36
     btn.Text = "36 studs/s"
     task.delay(1, function() btn.Text = "Sprint Speed" end)
 end)
 Button("movement", "Fast Speed", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 60
+    CFG.Movement.Speed.Value = 60
     btn.Text = "60 studs/s"
     task.delay(1, function() btn.Text = "Fast Speed" end)
 end)
 Button("movement", "Ludicrous Speed", function(btn)
     CFG.Movement.Speed.On = true
-    CFG.Movement.Speed.Amount = 150
+    CFG.Movement.Speed.Value = 150
     btn.Text = "150 studs/s"
     Notify.send("Speed", "Ludicrous speed - be careful", "warning", 2)
     task.delay(1, function() btn.Text = "Ludicrous Speed" end)
 end)
 Button("movement", "Reset Speed", function(btn)
     CFG.Movement.Speed.On = false
-    CFG.Movement.Speed.Amount = 16
+    CFG.Movement.Speed.Value = 16
     btn.Text = "Reset!"
     task.delay(1, function() btn.Text = "Reset Speed" end)
 end)
