@@ -5961,6 +5961,7 @@ local function Separator(tabName)
 end
 
 local function Toggle(tabName, label, tbl, key, tooltip)
+    if not tbl then return end
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
     f.Size = UDim2.new(1, 0, 0, 28); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
@@ -6008,6 +6009,8 @@ local function Toggle(tabName, label, tbl, key, tooltip)
 end
 
 local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
+    if not tbl then return end
+    if tbl[key] == nil then tbl[key] = mn end
     sfx = sfx or ""; stp = stp or 1
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
@@ -6071,6 +6074,8 @@ local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
 end
 
 local function Dropdown(tabName, label, tbl, key, options)
+    if not tbl then return end
+    if tbl[key] == nil then tbl[key] = options[1] end
     local page, order = getPage(tabName)
     local COL_H = 28
     local ITEM_H = 22
@@ -6149,6 +6154,7 @@ local function Dropdown(tabName, label, tbl, key, options)
 end
 
 local function KeybindPicker(tabName, label, tbl, key)
+    if not tbl then return end
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
     f.Size = UDim2.new(1, 0, 0, 28); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
@@ -6210,6 +6216,8 @@ local function KeybindPicker(tabName, label, tbl, key)
 end
 
 local function TextInput(tabName, label, tbl, key)
+    if not tbl then return end
+    if tbl[key] == nil then tbl[key] = "" end
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
     f.Size = UDim2.new(1, 0, 0, 28); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
@@ -6286,6 +6294,8 @@ local function ButtonPair(tabName, label1, cb1, label2, cb2)
 end
 
 local function ColorPick(tabName, label, tbl, key)
+    if not tbl then return end
+    if tbl[key] == nil then tbl[key] = {1, 1, 1} end
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
     f.Size = UDim2.new(1, 0, 0, 52); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
