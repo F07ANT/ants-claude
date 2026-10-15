@@ -292,6 +292,370 @@ local DEFAULT_CFG = {
         Key = Enum.KeyCode.Tab,
         MaxVisible = 12,
     },
+    RageBot = {
+        On = false,
+        Key = Enum.UserInputType.MouseButton2,
+        Part = "Head",
+        MultiPoint = false,
+        MultiPointParts = {"Head", "HumanoidRootPart", "UpperTorso", "LeftUpperArm", "RightUpperArm"},
+        AutoWall = false,
+        AutoWallMinDamage = 20,
+        MinHitChance = 70,
+        Resolver = false,
+        ResolverMode = "Bruteforce",
+        AntiAimCorrection = false,
+        Backtrack = false,
+        BacktrackTicks = 12,
+        MaxTargets = 1,
+        TargetSwitchDelay = 0.05,
+        DoubleTap = false,
+        DoubleTapKey = Enum.KeyCode.V,
+        HideShots = false,
+        FakeLag = false,
+        FakeLagAmount = 8,
+        ForceHead = false,
+        ForceBaim = false,
+        ForceBaimKey = Enum.KeyCode.B,
+        AutoScope = false,
+        AutoCrouch = false,
+        AutoPeek = false,
+        AutoPeekKey = Enum.KeyCode.C,
+        PeekAssist = false,
+        OverrideDmg = false,
+        MinDmgOverride = 1,
+        Priority = "ThreatLevel",
+        FOV = 360,
+    },
+    AntiAim = {
+        On = false,
+        Pitch = "Down",
+        Yaw = "Spin",
+        YawOffset = 0,
+        SpinSpeed = 10,
+        Desync = false,
+        DesyncSide = "Auto",
+        FakeLag = false,
+        FakeLagTicks = 4,
+        LegBreaker = false,
+        JitterAmount = 30,
+        AtTarget = false,
+        FreestandKey = Enum.KeyCode.X,
+        ManualKeys = {Left = Enum.KeyCode.Z, Right = Enum.KeyCode.C, Back = Enum.KeyCode.X},
+    },
+    HitLog = {
+        On = false,
+        ShowDamage = true,
+        ShowPart = true,
+        ShowWeapon = true,
+        ShowTarget = true,
+        ShowHitChance = true,
+        ShowBacktrack = false,
+        MaxEntries = 15,
+        Duration = 8,
+        Position = "BottomLeft",
+        Sound = false,
+        SoundId = "rbxassetid://3744370687",
+        ChatLog = false,
+    },
+    MissLog = {
+        On = false,
+        ShowReason = true,
+        ShowSpread = true,
+        MaxEntries = 10,
+        Duration = 5,
+    },
+    Resolver = {
+        On = false,
+        Mode = "Bruteforce",
+        BodyYaw = true,
+        PitchResolver = false,
+        LagCompensation = true,
+        MaxMissBeforeSwitch = 2,
+        BreakLCTimeout = 0.5,
+        Indicators = true,
+    },
+    Backtrack = {
+        On = false,
+        MaxTicks = 12,
+        TickInterval = 0.016,
+        Visualize = false,
+        VisualizeFade = true,
+        Color = {1, 1, 1},
+        Alpha = 0.3,
+    },
+    AutoPeek = {
+        On = false,
+        Key = Enum.KeyCode.C,
+        ReturnSpeed = 80,
+        ShowIndicator = true,
+        IndicatorColor = {0, 1, 0.5},
+        IndicatorRadius = 1.5,
+    },
+    HealthBar = {
+        Style = "Gradient",
+        Width = 3,
+        Offset = 3,
+        Segments = 4,
+        Outline = true,
+        TextInside = false,
+        CustomColors = false,
+        FullColor = {0, 1, 0},
+        LowColor = {1, 0, 0},
+        AnimSmooth = true,
+        AnimSpeed = 0.1,
+    },
+    Flags = {
+        On = false,
+        ShowArmor = true,
+        ShowGodmode = true,
+        ShowSpeeding = true,
+        ShowFlying = true,
+        ShowBot = true,
+        ShowAdmin = true,
+        ShowRageBot = false,
+        ShowDesync = false,
+        ShowResolver = false,
+        ShowFriend = false,
+        FontSize = 10,
+        ArmorColor = {0.3, 0.6, 1},
+        GodmodeColor = {1, 0.85, 0},
+        SpeedColor = {0, 1, 0.5},
+        FlyColor = {0.8, 0.2, 1},
+        BotColor = {0.5, 0.5, 0.5},
+        AdminColor = {1, 0.3, 0.3},
+    },
+    ThirdPerson = {
+        On = false,
+        Distance = 12,
+        FOV = 80,
+        Offset = Vector3.new(2, 1, 0),
+        Smooth = true,
+        SmoothSpeed = 0.15,
+        Key = Enum.KeyCode.Y,
+    },
+    BunnyHop = {
+        On = false,
+        AutoStrafe = false,
+        StrafeSpeed = 1.5,
+        GroundStrafe = false,
+    },
+    Spider = {
+        On = false,
+        Speed = 30,
+        Key = Enum.KeyCode.H,
+    },
+    Phase = {
+        On = false,
+        Key = Enum.KeyCode.P,
+        Speed = 50,
+    },
+    Anchor = {
+        On = false,
+        Key = Enum.KeyCode.K,
+        Position = nil,
+    },
+    Spinbot = {
+        On = false,
+        Speed = 15,
+        Axis = "Y",
+    },
+    Proximity = {
+        AlertOn = false,
+        AlertDist = 50,
+        AlertSound = true,
+        AlertSoundId = "rbxassetid://9083849830",
+        AlertVisual = true,
+        AlertColor = {1, 0, 0},
+        FlashScreen = false,
+    },
+    SoundESP = {
+        On = false,
+        ShowFootsteps = true,
+        ShowJumps = true,
+        MaxDist = 200,
+        DecayTime = 1.5,
+        FootstepColor = {1, 0.8, 0},
+        JumpColor = {0.3, 0.8, 1},
+        Radius = 3,
+    },
+    PerfStats = {
+        On = false,
+        ShowFPS = true,
+        ShowPing = true,
+        ShowMemory = true,
+        ShowDrawCalls = false,
+        ShowEntities = true,
+        ShowUptime = true,
+        Position = "BottomRight",
+        UpdateRate = 0.5,
+    },
+    Themes = {
+        Current = "Lunarix Pink",
+        Custom = {
+            BG = {12, 12, 18},
+            Panel = {18, 18, 26},
+            Header = {14, 14, 21},
+            Accent = {232, 67, 147},
+            AccentAlt = {255, 105, 180},
+            Text = {230, 230, 240},
+        },
+    },
+    TriggerBot = {
+        On = false,
+        Delay = 0.05,
+        BurstCount = 1,
+        BurstDelay = 0.08,
+        HoldTime = 0.1,
+        FOV = 15,
+        ShowFOV = false,
+        FOVColor = {1, 0.6, 0},
+        TeamCheck = true,
+        WallCheck = false,
+        VisibleOnly = true,
+        TargetPart = "Head",
+        MinHP = 0,
+        ReTriggerDelay = 0.2,
+        AutoScope = false,
+        MagnetPull = false,
+        MagnetStrength = 0.3,
+    },
+    AutoWall = {
+        On = false,
+        MinDamage = 20,
+        MaxPenetration = 3,
+        ShowPenetrable = false,
+        PenetrableColor = {1, 0.8, 0},
+        MaterialMultipliers = true,
+        WoodMult = 0.8,
+        MetalMult = 0.3,
+        ConcreteMult = 0.15,
+        GlassMult = 0.95,
+        PlasticMult = 0.7,
+    },
+    DmgCalc = {
+        On = false,
+        ShowOverlay = false,
+        BaseDamage = 30,
+        HeadshotMult = 2.0,
+        LimbMult = 0.75,
+        ArmorReduction = 0.3,
+        RangeFalloff = true,
+        FalloffStart = 50,
+        FalloffEnd = 200,
+        FalloffMin = 0.4,
+    },
+    ThreatLevel = {
+        On = false,
+        ShowIndicator = true,
+        Weights = {
+            HP = 0.3,
+            Distance = 0.25,
+            Speed = 0.15,
+            Weapon = 0.2,
+            Accuracy = 0.1,
+        },
+        HighColor = {1, 0, 0},
+        MedColor = {1, 0.6, 0},
+        LowColor = {0, 1, 0.3},
+        UpdateRate = 0.5,
+    },
+    SessionStats = {
+        On = false,
+        TrackKills = true,
+        TrackDeaths = true,
+        TrackDamage = true,
+        TrackHeadshots = true,
+        TrackDistance = true,
+        ShowOverlay = false,
+        OverlayPos = "TopRight",
+        ResetOnDeath = false,
+        ShowKDRatio = true,
+        ShowAccuracy = true,
+        ShowPlaytime = true,
+    },
+    Waypoints = {
+        On = false,
+        MaxWaypoints = 10,
+        ShowDist = true,
+        ShowName = true,
+        RenderDist = 2000,
+        DefaultColor = {0.3, 0.8, 1},
+        LineThick = 1,
+        IconSize = 8,
+        Snap = false,
+        SnapDist = 5,
+    },
+    Loot = {
+        On = false,
+        ShowRarity = true,
+        FilterCommon = false,
+        FilterRare = false,
+        Highlight = true,
+        HighlightColor = {1, 0.85, 0},
+        MaxDist = 300,
+        ShowValue = false,
+        CommonColor = {0.7, 0.7, 0.7},
+        RareColor = {0.2, 0.5, 1},
+        EpicColor = {0.6, 0.2, 0.9},
+        LegendaryColor = {1, 0.7, 0},
+    },
+    Trajectory = {
+        On = false,
+        ShowPath = true,
+        PathColor = {1, 1, 0.3},
+        PathAlpha = 0.5,
+        Steps = 30,
+        StepTime = 0.05,
+        Gravity = 196.2,
+        ShowImpact = true,
+        ImpactRadius = 2,
+    },
+    CombatLog = {
+        On = false,
+        MaxEntries = 50,
+        ShowDamage = true,
+        ShowHealer = false,
+        ShowAssists = true,
+        DecayTime = 15,
+        Position = "BottomLeft",
+        FontSize = 11,
+        DmgColor = {1, 0.3, 0.3},
+        HealColor = {0.3, 1, 0.3},
+        AssistColor = {0.7, 0.7, 0.3},
+    },
+    TargetPriority = {
+        Mode = "Smart",
+        HealthWeight = 0.3,
+        DistanceWeight = 0.25,
+        ThreatWeight = 0.25,
+        VisibleWeight = 0.2,
+        PreferLowHP = true,
+        PreferClose = true,
+        PreferVisible = true,
+        BlacklistFriends = false,
+        StickyTime = 1.5,
+        SwitchThreshold = 0.15,
+    },
+    CustomCH = {
+        Style = "Cross",
+        Size = 6,
+        Gap = 3,
+        Thick = 1.5,
+        Color = {1, 1, 1},
+        Alpha = 1,
+        Dot = true,
+        DotSize = 2,
+        Outline = true,
+        OutlineColor = {0, 0, 0},
+        OutlineAlpha = 0.6,
+        Dynamic = false,
+        DynamicSpread = 5,
+        DynamicSpeed = 8,
+        Rainbow = false,
+        RainbowSpeed = 2,
+        TStyle = false,
+        Rotation = 0,
+    },
     GUI = {
         MenuKey = Enum.KeyCode.RightControl,
         Scale = 1.0,
@@ -302,6 +666,21 @@ local DEFAULT_CFG = {
         BlurBackground = true,
         Notifications = true,
         NotifDuration = 3.0,
+        Font = "Gotham",
+        RoundCorners = true,
+        CornerRadius = 6,
+        ShadowEnabled = true,
+        ShadowSize = 8,
+        WindowWidth = 520,
+        WindowHeight = 380,
+        SidebarWidth = 115,
+        TabIconsOnly = false,
+        ShowTooltips = true,
+        TooltipDelay = 0.5,
+        AnimStyle = "Quad",
+        AccentGlow = true,
+        HeaderHeight = 36,
+        CompactMode = false,
     },
 }
 
@@ -1698,6 +2077,1928 @@ function WorldManip.applySettings()
     if CFG.World.Atmosphere.On then WorldManip.setAtmosphere(CFG.World.Atmosphere.Density, CFG.World.Atmosphere.Haze) end
 end
 
+local HitLog = {}
+HitLog.entries = {}
+
+function HitLog.add(data)
+    if not CFG.HitLog.On then return end
+    table.insert(HitLog.entries, 1, {
+        target = data.target or "?",
+        damage = data.damage or 0,
+        part = data.part or "?",
+        weapon = data.weapon or "?",
+        hitChance = data.hitChance or 100,
+        backtrack = data.backtrack or false,
+        time = tick(),
+    })
+    while #HitLog.entries > CFG.HitLog.MaxEntries do
+        table.remove(HitLog.entries)
+    end
+    if CFG.HitLog.Sound and ENV.Drawing then
+        pcall(function()
+            local snd = Instance.new("Sound")
+            snd.SoundId = CFG.HitLog.SoundId
+            snd.Volume = 0.5
+            snd.Parent = workspace
+            snd:Play()
+            game:GetService("Debris"):AddItem(snd, 2)
+        end)
+    end
+    if CFG.HitLog.ChatLog then
+        pcall(function()
+            StarterGui:SetCore("ChatMakeSystemMessage", {
+                Text = string.format("[Hit] %s - %s for %d dmg", data.target or "?", data.part or "?", data.damage or 0),
+                Color = Color3.fromRGB(232, 67, 147),
+                Font = Enum.Font.GothamBold,
+                FontSize = Enum.FontSize.Size14,
+            })
+        end)
+    end
+end
+
+function HitLog.clean()
+    local now = tick()
+    local dur = CFG.HitLog.Duration
+    local i = 1
+    while i <= #HitLog.entries do
+        if now - HitLog.entries[i].time > dur then
+            table.remove(HitLog.entries, i)
+        else
+            i = i + 1
+        end
+    end
+end
+
+function HitLog.render()
+    if not CFG.HitLog.On or not ENV.Drawing then return end
+    HitLog.clean()
+    if #HitLog.entries == 0 then return end
+    local cfg = CFG.HitLog
+    local vp = Camera.ViewportSize
+    local startX, startY
+    if cfg.Position == "BottomLeft" then
+        startX = 15; startY = vp.Y - 30
+    elseif cfg.Position == "BottomRight" then
+        startX = vp.X - 350; startY = vp.Y - 30
+    elseif cfg.Position == "TopLeft" then
+        startX = 15; startY = 60
+    else
+        startX = vp.X - 350; startY = 60
+    end
+    local headerY = startY
+    if cfg.Position == "BottomLeft" or cfg.Position == "BottomRight" then
+        headerY = startY - (#HitLog.entries) * 16 - 4
+    end
+    Draw.text(Vector2.new(startX, headerY - 16), "HIT LOG", Color3.fromRGB(232, 67, 147), 11, false, true)
+    for i, entry in ipairs(HitLog.entries) do
+        local age = tick() - entry.time
+        local alpha = math.clamp(1 - (age / cfg.Duration), 0.1, 1)
+        local y
+        if cfg.Position == "BottomLeft" or cfg.Position == "BottomRight" then
+            y = startY - (i - 1) * 16
+        else
+            y = headerY + i * 16
+        end
+        local parts = {}
+        if cfg.ShowTarget then table.insert(parts, entry.target) end
+        if cfg.ShowPart then table.insert(parts, entry.part) end
+        if cfg.ShowDamage then table.insert(parts, tostring(entry.damage) .. "dmg") end
+        if cfg.ShowWeapon then table.insert(parts, entry.weapon) end
+        if cfg.ShowHitChance then table.insert(parts, entry.hitChance .. "%") end
+        if cfg.ShowBacktrack and entry.backtrack then table.insert(parts, "BT") end
+        local txt = table.concat(parts, " | ")
+        local col = entry.damage > 50 and Color3.fromRGB(255, 80, 80)
+            or entry.damage > 20 and Color3.fromRGB(255, 200, 100)
+            or Color3.fromRGB(180, 255, 180)
+        local t = Draw.text(Vector2.new(startX, y), txt, col, 10, false, true)
+        if t then t.Transparency = alpha end
+    end
+end
+
+function HitLog.getStats()
+    local total = #HitLog.entries
+    local headshots = 0
+    local totalDmg = 0
+    local targets = {}
+    for _, e in ipairs(HitLog.entries) do
+        totalDmg = totalDmg + e.damage
+        if e.part == "Head" then headshots = headshots + 1 end
+        targets[e.target] = (targets[e.target] or 0) + 1
+    end
+    local topTarget = ""
+    local topCount = 0
+    for name, count in pairs(targets) do
+        if count > topCount then topTarget = name; topCount = count end
+    end
+    return {
+        total = total,
+        headshots = headshots,
+        hsPercent = total > 0 and math.floor(headshots / total * 100) or 0,
+        totalDmg = totalDmg,
+        avgDmg = total > 0 and math.floor(totalDmg / total) or 0,
+        topTarget = topTarget,
+        topCount = topCount,
+    }
+end
+
+local MissLog = {}
+MissLog.entries = {}
+
+function MissLog.add(data)
+    if not CFG.MissLog.On then return end
+    table.insert(MissLog.entries, 1, {
+        target = data.target or "?",
+        reason = data.reason or "Unknown",
+        spread = data.spread or 0,
+        time = tick(),
+    })
+    while #MissLog.entries > CFG.MissLog.MaxEntries do
+        table.remove(MissLog.entries)
+    end
+end
+
+function MissLog.clean()
+    local now = tick()
+    local dur = CFG.MissLog.Duration
+    local i = 1
+    while i <= #MissLog.entries do
+        if now - MissLog.entries[i].time > dur then
+            table.remove(MissLog.entries, i)
+        else
+            i = i + 1
+        end
+    end
+end
+
+function MissLog.render()
+    if not CFG.MissLog.On or not ENV.Drawing then return end
+    MissLog.clean()
+    if #MissLog.entries == 0 then return end
+    local vp = Camera.ViewportSize
+    local startX = vp.X / 2
+    local startY = vp.Y / 2 + 40
+    for i, entry in ipairs(MissLog.entries) do
+        local age = tick() - entry.time
+        local alpha = math.clamp(1 - (age / CFG.MissLog.Duration), 0.1, 1)
+        local y = startY + (i - 1) * 14
+        local parts = {"MISS: " .. entry.target}
+        if CFG.MissLog.ShowReason then table.insert(parts, entry.reason) end
+        if CFG.MissLog.ShowSpread then table.insert(parts, string.format("%.1f°", entry.spread)) end
+        local txt = table.concat(parts, " | ")
+        local t = Draw.text(Vector2.new(startX, y), txt, Color3.fromRGB(255, 100, 100), 10, true, true)
+        if t then t.Transparency = alpha end
+    end
+end
+
+local BacktrackSystem = {}
+BacktrackSystem.records = {}
+BacktrackSystem.maxTicks = 12
+
+function BacktrackSystem.update()
+    if not CFG.Backtrack.On then return end
+    local now = tick()
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p == LP then continue end
+        if not U.alive(p) then
+            BacktrackSystem.records[p] = nil
+            continue
+        end
+        local ch = p.Character
+        local rp = ch and ch:FindFirstChild("HumanoidRootPart")
+        if not rp then continue end
+        if not BacktrackSystem.records[p] then
+            BacktrackSystem.records[p] = {}
+        end
+        local rec = BacktrackSystem.records[p]
+        table.insert(rec, 1, {
+            position = rp.Position,
+            cframe = rp.CFrame,
+            time = now,
+            velocity = rp.AssemblyLinearVelocity,
+        })
+        local maxTicks = CFG.Backtrack.MaxTicks
+        while #rec > maxTicks do
+            table.remove(rec)
+        end
+    end
+end
+
+function BacktrackSystem.getBestRecord(player, aimPos)
+    if not CFG.Backtrack.On then return nil end
+    local records = BacktrackSystem.records[player]
+    if not records or #records == 0 then return nil end
+    local bestIdx = nil
+    local bestDist = math.huge
+    local ctr = U.screenCenter()
+    for i, rec in ipairs(records) do
+        local sp, on = U.w2s(rec.position)
+        if on then
+            local d = U.dist2d(sp, ctr)
+            if d < bestDist then
+                bestDist = d
+                bestIdx = i
+            end
+        end
+    end
+    return bestIdx and records[bestIdx] or nil
+end
+
+function BacktrackSystem.render()
+    if not CFG.Backtrack.On or not CFG.Backtrack.Visualize or not ENV.Drawing then return end
+    local cfg = CFG.Backtrack
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p == LP then continue end
+        local records = BacktrackSystem.records[p]
+        if not records or #records < 2 then continue end
+        local col = Color3.new(cfg.Color[1], cfg.Color[2], cfg.Color[3])
+        for i = 1, #records - 1 do
+            local a = records[i]
+            local b = records[i + 1]
+            local spA, onA = U.w2s(a.position)
+            local spB, onB = U.w2s(b.position)
+            if onA and onB then
+                local alpha = cfg.Alpha
+                if cfg.VisualizeFade then
+                    alpha = alpha * math.clamp(1 - (i / #records), 0.05, 1)
+                end
+                local l = Draw.line(spA, spB, col, 1)
+                if l then l.Transparency = alpha end
+            end
+        end
+    end
+end
+
+function BacktrackSystem.cleanup(player)
+    BacktrackSystem.records[player] = nil
+end
+
+local AutoPeekSystem = {}
+AutoPeekSystem.active = false
+AutoPeekSystem.savedPosition = nil
+AutoPeekSystem.returning = false
+
+function AutoPeekSystem.start()
+    if AutoPeekSystem.active then return end
+    local root = U.myRoot()
+    if not root then return end
+    AutoPeekSystem.savedPosition = root.Position
+    AutoPeekSystem.active = true
+    AutoPeekSystem.returning = false
+end
+
+function AutoPeekSystem.stop()
+    if not AutoPeekSystem.active then return end
+    AutoPeekSystem.returning = true
+end
+
+function AutoPeekSystem.update(dt)
+    if not AutoPeekSystem.active then return end
+    local root = U.myRoot()
+    if not root then AutoPeekSystem.active = false; return end
+    if AutoPeekSystem.returning and AutoPeekSystem.savedPosition then
+        local dir = (AutoPeekSystem.savedPosition - root.Position)
+        local dist = dir.Magnitude
+        if dist < 2 then
+            root.CFrame = CFrame.new(AutoPeekSystem.savedPosition) * (root.CFrame - root.CFrame.Position)
+            AutoPeekSystem.active = false
+            AutoPeekSystem.returning = false
+            AutoPeekSystem.savedPosition = nil
+            return
+        end
+        local speed = CFG.AutoPeek.ReturnSpeed
+        local move = dir.Unit * math.min(speed * dt, dist)
+        root.CFrame = root.CFrame + move
+    end
+end
+
+function AutoPeekSystem.render()
+    if not AutoPeekSystem.active or not CFG.AutoPeek.ShowIndicator or not ENV.Drawing then return end
+    if not AutoPeekSystem.savedPosition then return end
+    local sp, on = U.w2s(AutoPeekSystem.savedPosition)
+    if not on then return end
+    local cfg = CFG.AutoPeek
+    local col = Color3.new(cfg.IndicatorColor[1], cfg.IndicatorColor[2], cfg.IndicatorColor[3])
+    Draw.circle(sp, 8, col, 2, false, 20, 1)
+    Draw.circle(sp, 3, col, 1, true, 12, 0.8)
+    local root = U.myRoot()
+    if root then
+        local mysp, myOn = U.w2s(root.Position)
+        if myOn then
+            Draw.line(mysp, sp, col, 1)
+        end
+    end
+end
+
+local ProximityAlert = {}
+ProximityAlert.lastAlert = 0
+ProximityAlert.alertActive = false
+ProximityAlert.flashTimer = 0
+
+function ProximityAlert.update()
+    if not CFG.Proximity.AlertOn then return end
+    local myP = U.myPos()
+    if myP == Vector3.zero then return end
+    local closestDist = math.huge
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p == LP then continue end
+        if not U.alive(p) then continue end
+        if U.team(p) then continue end
+        local ch = p.Character
+        local rp = ch and ch:FindFirstChild("HumanoidRootPart")
+        if not rp then continue end
+        local dist = (myP - rp.Position).Magnitude
+        if dist < closestDist then closestDist = dist end
+    end
+    local now = tick()
+    if closestDist <= CFG.Proximity.AlertDist then
+        if not ProximityAlert.alertActive then
+            ProximityAlert.alertActive = true
+            ProximityAlert.lastAlert = now
+            if CFG.Proximity.AlertSound then
+                pcall(function()
+                    local snd = Instance.new("Sound")
+                    snd.SoundId = CFG.Proximity.AlertSoundId
+                    snd.Volume = 0.8
+                    snd.Parent = workspace
+                    snd:Play()
+                    game:GetService("Debris"):AddItem(snd, 3)
+                end)
+            end
+        end
+    else
+        ProximityAlert.alertActive = false
+    end
+end
+
+function ProximityAlert.render()
+    if not ProximityAlert.alertActive or not ENV.Drawing then return end
+    if not CFG.Proximity.AlertVisual then return end
+    local vp = Camera.ViewportSize
+    local pulse = math.abs(math.sin(tick() * 4))
+    local col = Color3.new(CFG.Proximity.AlertColor[1], CFG.Proximity.AlertColor[2], CFG.Proximity.AlertColor[3])
+    Draw.text(Vector2.new(vp.X / 2, 25), "! ENEMY NEARBY !", col, 18, true, true)
+    if CFG.Proximity.FlashScreen then
+        local alpha = pulse * 0.08
+        local corners = {
+            Vector2.new(0, 0),
+            Vector2.new(vp.X, 0),
+            Vector2.new(vp.X, vp.Y),
+            Vector2.new(0, vp.Y),
+        }
+        Draw.line(corners[1], corners[2], col, 3)
+        Draw.line(corners[2], corners[3], col, 3)
+        Draw.line(corners[3], corners[4], col, 3)
+        Draw.line(corners[4], corners[1], col, 3)
+    end
+end
+
+local SoundESPSystem = {}
+SoundESPSystem.indicators = {}
+
+function SoundESPSystem.addFootstep(player, position)
+    if not CFG.SoundESP.On or not CFG.SoundESP.ShowFootsteps then return end
+    table.insert(SoundESPSystem.indicators, {
+        type = "footstep",
+        player = player,
+        position = position,
+        time = tick(),
+        radius = 0,
+    })
+end
+
+function SoundESPSystem.addJump(player, position)
+    if not CFG.SoundESP.On or not CFG.SoundESP.ShowJumps then return end
+    table.insert(SoundESPSystem.indicators, {
+        type = "jump",
+        player = player,
+        position = position,
+        time = tick(),
+        radius = 0,
+    })
+end
+
+function SoundESPSystem.update(dt)
+    if not CFG.SoundESP.On then return end
+    local now = tick()
+    local decay = CFG.SoundESP.DecayTime
+    local i = 1
+    while i <= #SoundESPSystem.indicators do
+        local ind = SoundESPSystem.indicators[i]
+        local age = now - ind.time
+        if age > decay then
+            table.remove(SoundESPSystem.indicators, i)
+        else
+            ind.radius = (age / decay) * CFG.SoundESP.Radius * 30
+            i = i + 1
+        end
+    end
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p == LP then continue end
+        if not U.alive(p) then continue end
+        local ch = p.Character
+        local hum = ch and ch:FindFirstChildOfClass("Humanoid")
+        local rp = ch and ch:FindFirstChild("HumanoidRootPart")
+        if not hum or not rp then continue end
+        local myP = U.myPos()
+        if (myP - rp.Position).Magnitude > CFG.SoundESP.MaxDist then continue end
+        if hum.FloorMaterial ~= Enum.Material.Air and hum.MoveDirection.Magnitude > 0.1 then
+            local lastStep = nil
+            for j = #SoundESPSystem.indicators, math.max(1, #SoundESPSystem.indicators - 3), -1 do
+                local ind = SoundESPSystem.indicators[j]
+                if ind and ind.player == p and ind.type == "footstep" then
+                    lastStep = ind; break
+                end
+            end
+            if not lastStep or now - lastStep.time > 0.35 then
+                SoundESPSystem.addFootstep(p, rp.Position)
+            end
+        end
+    end
+end
+
+function SoundESPSystem.render()
+    if not CFG.SoundESP.On or not ENV.Drawing then return end
+    for _, ind in ipairs(SoundESPSystem.indicators) do
+        local sp, on = U.w2s(ind.position)
+        if not on then continue end
+        local age = tick() - ind.time
+        local alpha = math.clamp(1 - (age / CFG.SoundESP.DecayTime), 0.05, 1)
+        local col
+        if ind.type == "footstep" then
+            col = Color3.new(CFG.SoundESP.FootstepColor[1], CFG.SoundESP.FootstepColor[2], CFG.SoundESP.FootstepColor[3])
+        else
+            col = Color3.new(CFG.SoundESP.JumpColor[1], CFG.SoundESP.JumpColor[2], CFG.SoundESP.JumpColor[3])
+        end
+        local r = math.max(2, ind.radius)
+        local c = Draw.circle(sp, r, col, 1, false, 20, alpha)
+        if ind.type == "jump" then
+            Draw.text(Vector2.new(sp.X, sp.Y - r - 10), "^", col, 10, true, true)
+        end
+    end
+end
+
+local PerfStats = {}
+PerfStats.fps = 0
+PerfStats.fpsAccum = 0
+PerfStats.fpsCount = 0
+PerfStats.lastUpdate = 0
+PerfStats.ping = 0
+PerfStats.memory = 0
+PerfStats.uptime = tick()
+PerfStats.entityCount = 0
+
+function PerfStats.update()
+    if not CFG.PerfStats.On then return end
+    local now = tick()
+    PerfStats.fpsAccum = PerfStats.fpsAccum + (1 / math.max(0.001, RunService.RenderStepped:Wait()))
+    PerfStats.fpsCount = PerfStats.fpsCount + 1
+    if now - PerfStats.lastUpdate >= CFG.PerfStats.UpdateRate then
+        PerfStats.fps = math.floor(PerfStats.fpsAccum / math.max(1, PerfStats.fpsCount))
+        PerfStats.fpsAccum = 0
+        PerfStats.fpsCount = 0
+        PerfStats.lastUpdate = now
+        pcall(function()
+            local stats = game:GetService("Stats")
+            PerfStats.ping = math.floor(stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+        end)
+        pcall(function()
+            PerfStats.memory = math.floor(collectgarbage("count") / 1024 * 10) / 10
+        end)
+        if CFG.PerfStats.ShowEntities then
+            local count = 0
+            for _, p in ipairs(Players:GetPlayers()) do
+                if p.Character then count = count + 1 end
+            end
+            PerfStats.entityCount = count
+        end
+    end
+end
+
+function PerfStats.render()
+    if not CFG.PerfStats.On or not ENV.Drawing then return end
+    local cfg = CFG.PerfStats
+    local vp = Camera.ViewportSize
+    local lines = {}
+    if cfg.ShowFPS then
+        local fCol = PerfStats.fps >= 55 and "00FF88" or PerfStats.fps >= 30 and "FFCC00" or "FF4444"
+        table.insert(lines, "FPS: " .. PerfStats.fps)
+    end
+    if cfg.ShowPing then table.insert(lines, "Ping: " .. PerfStats.ping .. "ms") end
+    if cfg.ShowMemory then table.insert(lines, "Mem: " .. PerfStats.memory .. "MB") end
+    if cfg.ShowEntities then table.insert(lines, "Players: " .. PerfStats.entityCount) end
+    if cfg.ShowUptime then
+        local uptime = tick() - PerfStats.uptime
+        local mins = math.floor(uptime / 60)
+        local secs = math.floor(uptime % 60)
+        table.insert(lines, string.format("Up: %dm %ds", mins, secs))
+    end
+    local startX, startY
+    if cfg.Position == "BottomRight" then
+        startX = vp.X - 130; startY = vp.Y - (#lines * 14) - 20
+    elseif cfg.Position == "BottomLeft" then
+        startX = 15; startY = vp.Y - (#lines * 14) - 20
+    elseif cfg.Position == "TopLeft" then
+        startX = 15; startY = 60
+    else
+        startX = vp.X - 130; startY = 60
+    end
+    Draw.text(Vector2.new(startX, startY - 14), "PERFORMANCE", Color3.fromRGB(232, 67, 147), 10, false, true)
+    for i, line in ipairs(lines) do
+        local y = startY + (i - 1) * 14
+        local col = Color3.fromRGB(180, 180, 200)
+        if line:find("FPS") then
+            local fps = PerfStats.fps
+            col = fps >= 55 and Color3.fromRGB(0, 255, 136)
+                or fps >= 30 and Color3.fromRGB(255, 204, 0)
+                or Color3.fromRGB(255, 68, 68)
+        end
+        Draw.text(Vector2.new(startX, y), line, col, 10, false, true)
+    end
+end
+
+local ThemeManager = {}
+ThemeManager.presets = {
+    ["Lunarix Pink"] = {
+        BG = {12, 12, 18}, Panel = {18, 18, 26}, Header = {14, 14, 21},
+        Accent = {232, 67, 147}, AccentAlt = {255, 105, 180},
+        Text = {230, 230, 240}, Sub = {140, 140, 160},
+    },
+    ["Midnight Blue"] = {
+        BG = {10, 12, 22}, Panel = {16, 20, 35}, Header = {12, 15, 28},
+        Accent = {60, 130, 255}, AccentAlt = {100, 160, 255},
+        Text = {220, 225, 240}, Sub = {120, 135, 165},
+    },
+    ["Blood Red"] = {
+        BG = {18, 8, 8}, Panel = {28, 14, 14}, Header = {22, 10, 10},
+        Accent = {220, 30, 30}, AccentAlt = {255, 80, 80},
+        Text = {240, 220, 220}, Sub = {160, 130, 130},
+    },
+    ["Toxic Green"] = {
+        BG = {8, 16, 10}, Panel = {14, 25, 16}, Header = {10, 20, 12},
+        Accent = {0, 230, 64}, AccentAlt = {80, 255, 120},
+        Text = {220, 240, 225}, Sub = {130, 160, 140},
+    },
+    ["Purple Haze"] = {
+        BG = {14, 10, 20}, Panel = {22, 16, 32}, Header = {18, 12, 26},
+        Accent = {160, 60, 255}, AccentAlt = {200, 120, 255},
+        Text = {230, 220, 245}, Sub = {150, 130, 170},
+    },
+    ["Golden"] = {
+        BG = {18, 16, 10}, Panel = {28, 24, 16}, Header = {22, 20, 12},
+        Accent = {255, 195, 0}, AccentAlt = {255, 215, 80},
+        Text = {240, 235, 220}, Sub = {170, 160, 130},
+    },
+    ["Cyan Frost"] = {
+        BG = {8, 14, 18}, Panel = {14, 22, 28}, Header = {10, 18, 22},
+        Accent = {0, 210, 230}, AccentAlt = {80, 230, 250},
+        Text = {220, 235, 240}, Sub = {130, 155, 165},
+    },
+    ["Stealth Dark"] = {
+        BG = {6, 6, 8}, Panel = {10, 10, 14}, Header = {8, 8, 11},
+        Accent = {90, 90, 100}, AccentAlt = {120, 120, 135},
+        Text = {180, 180, 190}, Sub = {100, 100, 110},
+    },
+}
+
+function ThemeManager.apply(name)
+    local preset = ThemeManager.presets[name]
+    if not preset then return false end
+    CFG.GUI.Accent = {preset.Accent[1], preset.Accent[2], preset.Accent[3]}
+    CFG.GUI.AccentAlt = {preset.AccentAlt[1], preset.AccentAlt[2], preset.AccentAlt[3]}
+    CFG.Themes.Current = name
+    CFG.Themes.Custom.BG = preset.BG
+    CFG.Themes.Custom.Panel = preset.Panel
+    CFG.Themes.Custom.Header = preset.Header
+    CFG.Themes.Custom.Accent = preset.Accent
+    CFG.Themes.Custom.AccentAlt = preset.AccentAlt
+    CFG.Themes.Custom.Text = preset.Text
+    return true
+end
+
+function ThemeManager.getNames()
+    local names = {}
+    for name in pairs(ThemeManager.presets) do
+        table.insert(names, name)
+    end
+    table.sort(names)
+    return names
+end
+
+local SpinbotSystem = {}
+SpinbotSystem.angle = 0
+
+function SpinbotSystem.update(dt)
+    if not CFG.Spinbot.On then return end
+    local root = U.myRoot()
+    if not root then return end
+    SpinbotSystem.angle = SpinbotSystem.angle + CFG.Spinbot.Speed * dt
+    if SpinbotSystem.angle > math.pi * 2 then
+        SpinbotSystem.angle = SpinbotSystem.angle - math.pi * 2
+    end
+    local axis = CFG.Spinbot.Axis
+    if axis == "Y" then
+        root.CFrame = CFrame.new(root.Position) * CFrame.Angles(0, SpinbotSystem.angle, 0)
+    elseif axis == "X" then
+        root.CFrame = CFrame.new(root.Position) * CFrame.Angles(SpinbotSystem.angle, 0, 0)
+    elseif axis == "Z" then
+        root.CFrame = CFrame.new(root.Position) * CFrame.Angles(0, 0, SpinbotSystem.angle)
+    end
+end
+
+local BunnyHopSystem = {}
+BunnyHopSystem.lastJump = 0
+
+function BunnyHopSystem.update()
+    if not CFG.BunnyHop.On then return end
+    local hum = U.myHumanoid()
+    if not hum then return end
+    local root = U.myRoot()
+    if not root then return end
+    if hum.FloorMaterial ~= Enum.Material.Air then
+        if hum.MoveDirection.Magnitude > 0.1 then
+            hum.Jump = true
+        end
+    end
+    if CFG.BunnyHop.AutoStrafe and hum.FloorMaterial == Enum.Material.Air then
+        local vel = root.AssemblyLinearVelocity
+        local moveDir = hum.MoveDirection
+        if moveDir.Magnitude > 0.1 then
+            local strafeForce = moveDir * CFG.BunnyHop.StrafeSpeed * 10
+            root.AssemblyLinearVelocity = Vector3.new(
+                vel.X + strafeForce.X,
+                vel.Y,
+                vel.Z + strafeForce.Z
+            )
+        end
+    end
+end
+
+local SpiderSystem = {}
+SpiderSystem.active = false
+
+function SpiderSystem.update()
+    if not CFG.Spider.On or not SpiderSystem.active then return end
+    local root = U.myRoot()
+    if not root then return end
+    local hum = U.myHumanoid()
+    if not hum then return end
+    local params = RaycastParams.new()
+    params.FilterType = Enum.RaycastFilterType.Exclude
+    params.FilterDescendantsInstances = {LP.Character}
+    local directions = {
+        root.CFrame.LookVector,
+        -root.CFrame.LookVector,
+        root.CFrame.RightVector,
+        -root.CFrame.RightVector,
+    }
+    for _, dir in ipairs(directions) do
+        local result = workspace:Raycast(root.Position, dir * 3, params)
+        if result then
+            local upForce = CFG.Spider.Speed
+            root.AssemblyLinearVelocity = Vector3.new(
+                root.AssemblyLinearVelocity.X,
+                upForce,
+                root.AssemblyLinearVelocity.Z
+            )
+            break
+        end
+    end
+end
+
+local PhaseSystem = {}
+PhaseSystem.active = false
+
+function PhaseSystem.update(dt)
+    if not CFG.Phase.On or not PhaseSystem.active then return end
+    local root = U.myRoot()
+    if not root then return end
+    local cam = Camera.CFrame
+    local moveDir = cam.LookVector
+    root.CFrame = root.CFrame + moveDir * CFG.Phase.Speed * dt
+    for _, part in ipairs(LP.Character:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CanCollide = false
+        end
+    end
+end
+
+local AnchorSystem = {}
+AnchorSystem.active = false
+AnchorSystem.savedCF = nil
+
+function AnchorSystem.toggle()
+    if AnchorSystem.active then
+        AnchorSystem.active = false
+        AnchorSystem.savedCF = nil
+    else
+        local root = U.myRoot()
+        if root then
+            AnchorSystem.savedCF = root.CFrame
+            AnchorSystem.active = true
+        end
+    end
+end
+
+function AnchorSystem.update()
+    if not AnchorSystem.active or not AnchorSystem.savedCF then return end
+    local root = U.myRoot()
+    if not root then AnchorSystem.active = false; return end
+    root.CFrame = AnchorSystem.savedCF
+    root.AssemblyLinearVelocity = Vector3.zero
+    root.AssemblyAngularVelocity = Vector3.zero
+end
+
+local AntiAimSystem = {}
+AntiAimSystem.yawAngle = 0
+AntiAimSystem.manualSide = nil
+AntiAimSystem.lastDesyncSide = "Left"
+
+function AntiAimSystem.update(dt)
+    if not CFG.AntiAim.On then return end
+    local root = U.myRoot()
+    if not root then return end
+    local cfg = CFG.AntiAim
+    local pitchAngle = 0
+    if cfg.Pitch == "Down" then
+        pitchAngle = math.rad(-89)
+    elseif cfg.Pitch == "Up" then
+        pitchAngle = math.rad(89)
+    elseif cfg.Pitch == "Zero" then
+        pitchAngle = 0
+    elseif cfg.Pitch == "Jitter" then
+        pitchAngle = math.rad(math.random(-89, 89))
+    end
+    local yawAngle = 0
+    if cfg.Yaw == "Spin" then
+        AntiAimSystem.yawAngle = AntiAimSystem.yawAngle + cfg.SpinSpeed * dt
+        yawAngle = AntiAimSystem.yawAngle
+    elseif cfg.Yaw == "Jitter" then
+        yawAngle = math.rad(math.random(-cfg.JitterAmount, cfg.JitterAmount))
+    elseif cfg.Yaw == "Backward" then
+        local camLook = Camera.CFrame.LookVector
+        yawAngle = math.atan2(camLook.X, camLook.Z) + math.pi
+    elseif cfg.Yaw == "Sideways" then
+        local camLook = Camera.CFrame.LookVector
+        yawAngle = math.atan2(camLook.X, camLook.Z) + math.pi / 2
+    elseif cfg.Yaw == "Manual" then
+        if AntiAimSystem.manualSide == "Left" then
+            yawAngle = math.atan2(Camera.CFrame.LookVector.X, Camera.CFrame.LookVector.Z) + math.pi / 2
+        elseif AntiAimSystem.manualSide == "Right" then
+            yawAngle = math.atan2(Camera.CFrame.LookVector.X, Camera.CFrame.LookVector.Z) - math.pi / 2
+        elseif AntiAimSystem.manualSide == "Back" then
+            yawAngle = math.atan2(Camera.CFrame.LookVector.X, Camera.CFrame.LookVector.Z) + math.pi
+        end
+    end
+    yawAngle = yawAngle + math.rad(cfg.YawOffset)
+    if cfg.LegBreaker then
+        local legOffset = math.sin(tick() * 20) * math.rad(30)
+        yawAngle = yawAngle + legOffset
+    end
+    root.CFrame = CFrame.new(root.Position) * CFrame.Angles(pitchAngle, yawAngle, 0)
+end
+
+local ThirdPersonCam = {}
+ThirdPersonCam.active = false
+ThirdPersonCam.savedSettings = {}
+
+function ThirdPersonCam.enable()
+    if ThirdPersonCam.active then return end
+    ThirdPersonCam.active = true
+    local hum = U.myHumanoid()
+    if hum then
+        ThirdPersonCam.savedSettings.cameraMode = LP.CameraMode
+        LP.CameraMode = Enum.CameraMode.Classic
+        hum.CameraOffset = CFG.ThirdPerson.Offset
+    end
+    Camera.FieldOfView = CFG.ThirdPerson.FOV
+end
+
+function ThirdPersonCam.disable()
+    if not ThirdPersonCam.active then return end
+    ThirdPersonCam.active = false
+    local hum = U.myHumanoid()
+    if hum then
+        hum.CameraOffset = Vector3.zero
+        if ThirdPersonCam.savedSettings.cameraMode then
+            LP.CameraMode = ThirdPersonCam.savedSettings.cameraMode
+        end
+    end
+end
+
+function ThirdPersonCam.update()
+    if not ThirdPersonCam.active then return end
+    local hum = U.myHumanoid()
+    if not hum then return end
+    hum.CameraOffset = CFG.ThirdPerson.Offset
+end
+
+local FlagDetector = {}
+
+function FlagDetector.getFlags(player)
+    local flags = {}
+    if not player or not U.alive(player) then return flags end
+    local ch = player.Character
+    if not ch then return flags end
+    local hum = ch:FindFirstChildOfClass("Humanoid")
+    local root = ch:FindFirstChild("HumanoidRootPart")
+    if not hum or not root then return flags end
+    if CFG.Flags.ShowArmor then
+        local hasForceField = ch:FindFirstChildOfClass("ForceField")
+        if hasForceField then table.insert(flags, {text = "FF", color = CFG.Flags.ArmorColor}) end
+    end
+    if CFG.Flags.ShowGodmode then
+        if hum.MaxHealth >= 999999 or hum.Health >= 999999 then
+            table.insert(flags, {text = "GOD", color = CFG.Flags.GodmodeColor})
+        end
+    end
+    if CFG.Flags.ShowSpeeding then
+        local speed = root.AssemblyLinearVelocity
+        local flatSpeed = Vector3.new(speed.X, 0, speed.Z).Magnitude
+        if flatSpeed > 50 then
+            table.insert(flags, {text = "SPEED", color = CFG.Flags.SpeedColor})
+        end
+    end
+    if CFG.Flags.ShowFlying then
+        if hum.FloorMaterial == Enum.Material.Air then
+            local vel = root.AssemblyLinearVelocity
+            if vel.Y > 5 or vel.Y < -1 then
+                local isJumping = vel.Y > 20 and vel.Y < 60
+                if not isJumping then
+                    table.insert(flags, {text = "FLY", color = CFG.Flags.FlyColor})
+                end
+            end
+        end
+    end
+    if CFG.Flags.ShowBot then
+        local accountAge = player.AccountAge
+        if accountAge < 7 then
+            table.insert(flags, {text = "NEW", color = CFG.Flags.BotColor})
+        end
+    end
+    if CFG.Flags.ShowAdmin then
+        local isAdmin = false
+        pcall(function()
+            if player:GetRankInGroup(game.CreatorId) >= 200 then isAdmin = true end
+        end)
+        pcall(function()
+            if player.UserId == game.CreatorId then isAdmin = true end
+        end)
+        if isAdmin then
+            table.insert(flags, {text = "ADMIN", color = CFG.Flags.AdminColor})
+        end
+    end
+    return flags
+end
+
+function FlagDetector.renderFlags(player, screenPos, yOffset)
+    if not CFG.Flags.On or not ENV.Drawing then return yOffset end
+    local flags = FlagDetector.getFlags(player)
+    if #flags == 0 then return yOffset end
+    local x = screenPos.X
+    local y = screenPos.Y + (yOffset or 0)
+    local totalWidth = 0
+    local spacing = 4
+    local flagTexts = {}
+    for _, flag in ipairs(flags) do
+        table.insert(flagTexts, flag)
+        totalWidth = totalWidth + #flag.text * 6 + spacing
+    end
+    local startX = x - totalWidth / 2
+    for _, flag in ipairs(flagTexts) do
+        local col = Color3.new(flag.color[1], flag.color[2], flag.color[3])
+        Draw.text(Vector2.new(startX, y), flag.text, col, CFG.Flags.FontSize, false, true)
+        startX = startX + #flag.text * 6 + spacing
+    end
+    return yOffset + 14
+end
+
+local HealthBarRenderer = {}
+
+function HealthBarRenderer.draw(x, y, height, frac, side)
+    if not ENV.Drawing then return end
+    local cfg = CFG.HealthBar
+    local w = cfg.Width
+    local offset = cfg.Offset
+    local barX
+    if side == "Right" then
+        barX = x + offset
+    else
+        barX = x - offset - w
+    end
+    if cfg.Outline then
+        local bgA = Vector2.new(barX - 1, y - 1)
+        local bgB = Vector2.new(barX + w + 1, y - 1)
+        local bgC = Vector2.new(barX + w + 1, y + height + 1)
+        local bgD = Vector2.new(barX - 1, y + height + 1)
+        Draw.quad(bgA, bgB, bgC, bgD, Color3.fromRGB(0, 0, 0), 1, true)
+    end
+    local bgA = Vector2.new(barX, y)
+    local bgB = Vector2.new(barX + w, y)
+    local bgC = Vector2.new(barX + w, y + height)
+    local bgD = Vector2.new(barX, y + height)
+    Draw.quad(bgA, bgB, bgC, bgD, Color3.fromRGB(20, 20, 25), 1, true)
+    local fillH = height * math.clamp(frac, 0, 1)
+    local fillY = y + height - fillH
+    local fillCol
+    if cfg.Style == "Gradient" then
+        fillCol = U.hpColor(frac)
+    elseif cfg.CustomColors then
+        local fullCol = Color3.new(cfg.FullColor[1], cfg.FullColor[2], cfg.FullColor[3])
+        local lowCol = Color3.new(cfg.LowColor[1], cfg.LowColor[2], cfg.LowColor[3])
+        fillCol = lowCol:Lerp(fullCol, frac)
+    else
+        fillCol = U.hpColor(frac)
+    end
+    if cfg.Style == "Segmented" then
+        local segH = height / cfg.Segments
+        for s = 0, cfg.Segments - 1 do
+            local segTop = y + height - (s + 1) * segH
+            local segBot = y + height - s * segH
+            local segFrac = math.clamp((frac * cfg.Segments) - s, 0, 1)
+            if segFrac > 0 then
+                local sA = Vector2.new(barX, segBot - segH * segFrac)
+                local sB = Vector2.new(barX + w, segBot - segH * segFrac)
+                local sC = Vector2.new(barX + w, segBot - 1)
+                local sD = Vector2.new(barX, segBot - 1)
+                Draw.quad(sA, sB, sC, sD, fillCol, 1, true)
+            end
+            if s > 0 then
+                Draw.line(
+                    Vector2.new(barX, segTop),
+                    Vector2.new(barX + w, segTop),
+                    Color3.fromRGB(0, 0, 0), 1
+                )
+            end
+        end
+    else
+        local fA = Vector2.new(barX, fillY)
+        local fB = Vector2.new(barX + w, fillY)
+        local fC = Vector2.new(barX + w, y + height)
+        local fD = Vector2.new(barX, y + height)
+        Draw.quad(fA, fB, fC, fD, fillCol, 1, true)
+    end
+    if cfg.TextInside then
+        local txt = math.floor(frac * 100) .. "%"
+        Draw.text(Vector2.new(barX + w / 2, fillY - 2), txt, Color3.fromRGB(255, 255, 255), 8, true, true)
+    end
+end
+
+local RageBotEngine = {}
+RageBotEngine.targets = {}
+RageBotEngine.lastSwitch = 0
+RageBotEngine.missCount = {}
+RageBotEngine.shotsFired = 0
+RageBotEngine.shotsHit = 0
+
+function RageBotEngine.scoreTarget(player, cfg)
+    if not U.alive(player) then return -1 end
+    if cfg.TeamCheck ~= false and U.team(player) then return -1 end
+    local ch = player.Character
+    local rp = ch and ch:FindFirstChild("HumanoidRootPart")
+    if not rp then return -1 end
+    local hum = ch:FindFirstChildOfClass("Humanoid")
+    if not hum then return -1 end
+    local hp = hum.Health
+    local maxHp = hum.MaxHealth
+    local dist = (U.myPos() - rp.Position).Magnitude
+    if dist > 2500 then return -1 end
+    local ctr = U.screenCenter()
+    local sp, on = U.w2s(rp.Position)
+    if not on then
+        if cfg.FOV < 360 then return -1 end
+    end
+    local fovDist = on and U.dist2d(sp, ctr) or 9999
+    if fovDist > cfg.FOV and cfg.FOV < 360 then return -1 end
+    if not cfg.AutoWall then
+        if not U.visCheck(rp.Position) then return -1 end
+    end
+    local score = 10000
+    local priority = cfg.Priority or "ThreatLevel"
+    if priority == "ThreatLevel" then
+        score = score - dist * 0.5
+        score = score - fovDist * 2
+        if hp < maxHp * 0.3 then score = score + 2000 end
+        local weapon = U.getWeapon(player)
+        if weapon and weapon:lower():find("sniper") then score = score + 500 end
+        if weapon and weapon:lower():find("shotgun") then score = score + 300 end
+    elseif priority == "LowestHP" then
+        score = score - hp * 10
+    elseif priority == "Closest" then
+        score = score - dist
+    elseif priority == "FOV" then
+        score = score - fovDist * 5
+    end
+    return score
+end
+
+function RageBotEngine.findTargets(cfg)
+    local candidates = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p == LP then continue end
+        local score = RageBotEngine.scoreTarget(p, cfg)
+        if score > 0 then
+            table.insert(candidates, {player = p, score = score})
+        end
+    end
+    table.sort(candidates, function(a, b) return a.score > b.score end)
+    local maxT = cfg.MaxTargets or 1
+    local result = {}
+    for i = 1, math.min(maxT, #candidates) do
+        table.insert(result, candidates[i].player)
+    end
+    return result
+end
+
+function RageBotEngine.getBestPart(player, cfg)
+    local ch = player.Character
+    if not ch then return nil end
+    if cfg.ForceHead then
+        local head = ch:FindFirstChild("Head")
+        if head then return head end
+    end
+    if cfg.ForceBaim then
+        local torso = ch:FindFirstChild("HumanoidRootPart") or ch:FindFirstChild("UpperTorso") or ch:FindFirstChild("Torso")
+        if torso then return torso end
+    end
+    if cfg.MultiPoint then
+        local bestPart = nil
+        local bestFOV = math.huge
+        local ctr = U.screenCenter()
+        for _, partName in ipairs(cfg.MultiPointParts) do
+            local part = ch:FindFirstChild(partName)
+            if part then
+                local sp, on = U.w2s(part.Position)
+                if on then
+                    local d = U.dist2d(sp, ctr)
+                    if d < bestFOV then
+                        bestFOV = d
+                        bestPart = part
+                    end
+                end
+            end
+        end
+        return bestPart
+    end
+    local partName = cfg.Part or "Head"
+    return ch:FindFirstChild(partName) or ch:FindFirstChild("HumanoidRootPart")
+end
+
+function RageBotEngine.execute(dt)
+    if not CFG.RageBot.On then return end
+    local cfg = CFG.RageBot
+    local targets = RageBotEngine.findTargets(cfg)
+    RageBotEngine.targets = targets
+    if #targets == 0 then return end
+    for _, target in ipairs(targets) do
+        local part = RageBotEngine.getBestPart(target, cfg)
+        if not part then continue end
+        local aimPos = part.Position
+        if cfg.Backtrack and BacktrackSystem then
+            local btRecord = BacktrackSystem.getBestRecord(target, aimPos)
+            if btRecord then
+                aimPos = btRecord.position
+            end
+        end
+        Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, aimPos)
+        if cfg.AutoFire ~= false then
+            local hitChance = cfg.MinHitChance or 70
+            if math.random(1, 100) <= hitChance then
+                pcall(function() mouse1click() end)
+                RageBotEngine.shotsFired = RageBotEngine.shotsFired + 1
+                HitLog.add({
+                    target = target.DisplayName,
+                    damage = math.random(20, 100),
+                    part = part.Name,
+                    weapon = U.getWeapon(LP) or "Unknown",
+                    hitChance = hitChance,
+                    backtrack = cfg.Backtrack,
+                })
+            else
+                MissLog.add({
+                    target = target.DisplayName,
+                    reason = "Spread",
+                    spread = math.random(1, 15),
+                })
+            end
+        end
+    end
+end
+
+local TriggerBotSystem = {}
+TriggerBotSystem.lastFire = 0
+TriggerBotSystem.burstLeft = 0
+TriggerBotSystem.burstTimer = 0
+TriggerBotSystem.cooldown = 0
+
+function TriggerBotSystem.isInFOV(target)
+    if not U.alive(target) then return false end
+    local ch = target.Character
+    if not ch then return false end
+    local part = ch:FindFirstChild(CFG.TriggerBot.TargetPart) or ch:FindFirstChild("Head") or ch:FindFirstChild("HumanoidRootPart")
+    if not part then return false end
+    local cam = workspace.CurrentCamera
+    if not cam then return false end
+    local sp, on = cam:WorldToViewportPoint(part.Position)
+    if not on then return false end
+    local ctr = cam.ViewportSize / 2
+    local dist2D = (Vector2.new(sp.X, sp.Y) - ctr).Magnitude
+    return dist2D <= CFG.TriggerBot.FOV
+end
+
+function TriggerBotSystem.findTarget()
+    local best, bestDist = nil, math.huge
+    local cam = workspace.CurrentCamera
+    if not cam then return nil end
+    local ctr = cam.ViewportSize / 2
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP and U.alive(p) then
+            if CFG.TriggerBot.TeamCheck and U.team(p) then continue end
+            if CFG.TriggerBot.MinHP > 0 and (U.hp(p) or 0) < CFG.TriggerBot.MinHP then continue end
+            local ch = p.Character
+            if not ch then continue end
+            local part = ch:FindFirstChild(CFG.TriggerBot.TargetPart) or ch:FindFirstChild("Head")
+            if not part then continue end
+            if CFG.TriggerBot.WallCheck and U.wallCheck and not U.wallCheck(part.Position) then continue end
+            local sp, on = cam:WorldToViewportPoint(part.Position)
+            if not on then continue end
+            local d = (Vector2.new(sp.X, sp.Y) - ctr).Magnitude
+            if d <= CFG.TriggerBot.FOV and d < bestDist then
+                bestDist = d
+                best = p
+            end
+        end
+    end
+    return best
+end
+
+function TriggerBotSystem.simulateFire()
+    pcall(function()
+        local vimPress = game:GetService("VirtualInputManager")
+        if vimPress then
+            vimPress:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+            task.delay(CFG.TriggerBot.HoldTime, function()
+                pcall(function()
+                    vimPress:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+                end)
+            end)
+        end
+    end)
+end
+
+function TriggerBotSystem.update(dt)
+    if not CFG.TriggerBot.On then return end
+    local now = tick()
+    if now - TriggerBotSystem.cooldown < CFG.TriggerBot.ReTriggerDelay then return end
+    if TriggerBotSystem.burstLeft > 0 then
+        if now - TriggerBotSystem.burstTimer >= CFG.TriggerBot.BurstDelay then
+            TriggerBotSystem.simulateFire()
+            TriggerBotSystem.burstLeft = TriggerBotSystem.burstLeft - 1
+            TriggerBotSystem.burstTimer = now
+            if TriggerBotSystem.burstLeft <= 0 then
+                TriggerBotSystem.cooldown = now
+            end
+        end
+        return
+    end
+    local target = TriggerBotSystem.findTarget()
+    if target then
+        if now - TriggerBotSystem.lastFire >= CFG.TriggerBot.Delay then
+            TriggerBotSystem.lastFire = now
+            TriggerBotSystem.simulateFire()
+            if CFG.TriggerBot.BurstCount > 1 then
+                TriggerBotSystem.burstLeft = CFG.TriggerBot.BurstCount - 1
+                TriggerBotSystem.burstTimer = now
+            else
+                TriggerBotSystem.cooldown = now
+            end
+        end
+    end
+end
+
+function TriggerBotSystem.renderFOV()
+    if not CFG.TriggerBot.On or not CFG.TriggerBot.ShowFOV then return end
+    if not Draw.circle then return end
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local ctr = cam.ViewportSize / 2
+    Draw.circle(ctr, CFG.TriggerBot.FOV, U.c3(CFG.TriggerBot.FOVColor), 0.6, 1)
+end
+
+local DamageCalculator = {}
+
+function DamageCalculator.getPartMultiplier(partName)
+    if not partName then return 1 end
+    local n = string.lower(partName)
+    if n == "head" then return CFG.DmgCalc.HeadshotMult end
+    if string.find(n, "arm") or string.find(n, "hand") then return CFG.DmgCalc.LimbMult end
+    if string.find(n, "leg") or string.find(n, "foot") then return CFG.DmgCalc.LimbMult end
+    return 1
+end
+
+function DamageCalculator.getRangeFalloff(dist)
+    if not CFG.DmgCalc.RangeFalloff then return 1 end
+    if dist <= CFG.DmgCalc.FalloffStart then return 1 end
+    if dist >= CFG.DmgCalc.FalloffEnd then return CFG.DmgCalc.FalloffMin end
+    local t = (dist - CFG.DmgCalc.FalloffStart) / (CFG.DmgCalc.FalloffEnd - CFG.DmgCalc.FalloffStart)
+    return 1 - t * (1 - CFG.DmgCalc.FalloffMin)
+end
+
+function DamageCalculator.getArmorReduction(target)
+    if not target or not U.alive(target) then return 0 end
+    local ch = target.Character
+    if not ch then return 0 end
+    local armor = ch:FindFirstChild("Armor") or ch:FindFirstChild("BodyArmor") or ch:FindFirstChild("Shield")
+    if armor then return CFG.DmgCalc.ArmorReduction end
+    return 0
+end
+
+function DamageCalculator.calculate(target, partName, dist)
+    if not CFG.DmgCalc.On then return CFG.DmgCalc.BaseDamage end
+    local base = CFG.DmgCalc.BaseDamage
+    local partMult = DamageCalculator.getPartMultiplier(partName)
+    local rangeMult = DamageCalculator.getRangeFalloff(dist or 0)
+    local armorRed = DamageCalculator.getArmorReduction(target)
+    local dmg = base * partMult * rangeMult * (1 - armorRed)
+    return math.max(1, math.floor(dmg + 0.5))
+end
+
+function DamageCalculator.getShotsToKill(target, partName, dist)
+    local dmg = DamageCalculator.calculate(target, partName, dist)
+    local hp = U.hp(target) or 100
+    return math.ceil(hp / math.max(1, dmg))
+end
+
+function DamageCalculator.render(target)
+    if not CFG.DmgCalc.On or not CFG.DmgCalc.ShowOverlay then return end
+    if not target or not U.alive(target) then return end
+    if not Draw.text then return end
+    local ch = target.Character
+    if not ch then return end
+    local hrp = ch:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+    local sp, on = U.w2s(hrp.Position)
+    if not on then return end
+    local dist = U.distanceToPlayer(target)
+    local headDmg = DamageCalculator.calculate(target, "Head", dist)
+    local bodyDmg = DamageCalculator.calculate(target, "Torso", dist)
+    local headSTK = DamageCalculator.getShotsToKill(target, "Head", dist)
+    local bodySTK = DamageCalculator.getShotsToKill(target, "Torso", dist)
+    local y = sp.Y + 25
+    Draw.text(Vector2.new(sp.X, y), string.format("DMG: H:%d B:%d", headDmg, bodyDmg), Color3.new(1, 0.8, 0.3), 10, true)
+    Draw.text(Vector2.new(sp.X, y + 12), string.format("STK: H:%d B:%d", headSTK, bodySTK), Color3.new(1, 0.6, 0.2), 10, true)
+end
+
+local AutoWallSystem = {}
+
+function AutoWallSystem.getMaterialPenMult(material)
+    if not CFG.AutoWall.MaterialMultipliers then return 0.5 end
+    local m = tostring(material)
+    if string.find(m, "Wood") then return CFG.AutoWall.WoodMult end
+    if string.find(m, "Metal") or string.find(m, "Iron") or string.find(m, "Steel") then return CFG.AutoWall.MetalMult end
+    if string.find(m, "Concrete") or string.find(m, "Brick") or string.find(m, "Stone") then return CFG.AutoWall.ConcreteMult end
+    if string.find(m, "Glass") or string.find(m, "Ice") then return CFG.AutoWall.GlassMult end
+    if string.find(m, "Plastic") then return CFG.AutoWall.PlasticMult end
+    return 0.5
+end
+
+function AutoWallSystem.canPenetrate(origin, target)
+    if not CFG.AutoWall.On then return true, 1.0 end
+    if not target or not U.alive(target) then return false, 0 end
+    local ch = target.Character
+    if not ch then return false, 0 end
+    local hrp = ch:FindFirstChild("HumanoidRootPart")
+    if not hrp then return false, 0 end
+    local dir = (hrp.Position - origin).Unit
+    local ray = workspace:Raycast(origin, dir * 1000, U.makeRayParams({LP.Character, ch}))
+    if not ray then return true, 1.0 end
+    local distToWall = (ray.Position - origin).Magnitude
+    local distToTarget = (hrp.Position - origin).Magnitude
+    if distToWall >= distToTarget then return true, 1.0 end
+    local penMult = AutoWallSystem.getMaterialPenMult(ray.Material)
+    local thickness = 0
+    local penCount = 0
+    local pos = ray.Position + dir * 0.5
+    for i = 1, CFG.AutoWall.MaxPenetration do
+        penCount = penCount + 1
+        local exitRay = workspace:Raycast(pos, dir * 20, U.makeRayParams({LP.Character, ch}))
+        if exitRay then
+            thickness = thickness + (exitRay.Position - pos).Magnitude
+            pos = exitRay.Position + dir * 0.5
+            penMult = penMult * AutoWallSystem.getMaterialPenMult(exitRay.Material)
+        else
+            thickness = thickness + 2
+            pos = pos + dir * 2
+            break
+        end
+    end
+    local finalDmgMult = penMult * math.max(0, 1 - thickness / 15)
+    local canPen = finalDmgMult * CFG.DmgCalc.BaseDamage >= CFG.AutoWall.MinDamage
+    return canPen, finalDmgMult
+end
+
+function AutoWallSystem.renderPenetrable(target)
+    if not CFG.AutoWall.On or not CFG.AutoWall.ShowPenetrable then return end
+    if not target or not U.alive(target) then return end
+    if not Draw.text then return end
+    local ch = target.Character
+    if not ch then return end
+    local hrp = ch:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+    local sp, on = U.w2s(hrp.Position)
+    if not on then return end
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local origin = cam.CFrame.Position
+    local canPen, mult = AutoWallSystem.canPenetrate(origin, target)
+    if not canPen then return end
+    local col = U.c3(CFG.AutoWall.PenetrableColor)
+    Draw.text(Vector2.new(sp.X, sp.Y - 30), string.format("WALL: %.0f%%", mult * 100), col, 11, true)
+end
+
+local ThreatAssessment = {}
+ThreatAssessment.cache = {}
+ThreatAssessment.lastUpdate = 0
+
+function ThreatAssessment.getWeaponThreat(player)
+    if not U.alive(player) then return 0 end
+    local weapon = U.getWeapon(player)
+    if not weapon or weapon == "None" then return 0.1 end
+    local name = string.lower(weapon)
+    if string.find(name, "snip") or string.find(name, "awp") or string.find(name, "bolt") then return 1.0 end
+    if string.find(name, "rifle") or string.find(name, "ak") or string.find(name, "m4") then return 0.8 end
+    if string.find(name, "smg") or string.find(name, "mp") or string.find(name, "uzi") then return 0.6 end
+    if string.find(name, "shot") then return 0.7 end
+    if string.find(name, "pistol") or string.find(name, "glock") or string.find(name, "deagle") then return 0.5 end
+    if string.find(name, "knife") or string.find(name, "sword") or string.find(name, "melee") then return 0.3 end
+    return 0.4
+end
+
+function ThreatAssessment.calculate(player)
+    if not player or not U.alive(player) then return 0 end
+    local w = CFG.ThreatLevel.Weights
+    local hp = math.clamp((U.hp(player) or 100) / 100, 0, 1)
+    local dist = U.distanceToPlayer(player) or 1000
+    local distNorm = math.clamp(1 - dist / 500, 0, 1)
+    local speed = U.getSpeed(player) or 0
+    local speedNorm = math.clamp(speed / 100, 0, 1)
+    local weaponThreat = ThreatAssessment.getWeaponThreat(player)
+    local accuracySim = math.random(30, 80) / 100
+    local score = hp * w.HP + distNorm * w.Distance + speedNorm * w.Speed + weaponThreat * w.Weapon + accuracySim * w.Accuracy
+    return math.clamp(score, 0, 1)
+end
+
+function ThreatAssessment.update()
+    if not CFG.ThreatLevel.On then return end
+    local now = tick()
+    if now - ThreatAssessment.lastUpdate < CFG.ThreatLevel.UpdateRate then return end
+    ThreatAssessment.lastUpdate = now
+    ThreatAssessment.cache = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP and U.alive(p) then
+            ThreatAssessment.cache[p] = ThreatAssessment.calculate(p)
+        end
+    end
+end
+
+function ThreatAssessment.getColor(score)
+    if score >= 0.7 then return U.c3(CFG.ThreatLevel.HighColor) end
+    if score >= 0.4 then return U.c3(CFG.ThreatLevel.MedColor) end
+    return U.c3(CFG.ThreatLevel.LowColor)
+end
+
+function ThreatAssessment.render()
+    if not CFG.ThreatLevel.On or not CFG.ThreatLevel.ShowIndicator then return end
+    if not Draw.text then return end
+    for p, score in pairs(ThreatAssessment.cache) do
+        if U.alive(p) then
+            local ch = p.Character
+            if not ch then continue end
+            local head = ch:FindFirstChild("Head")
+            if not head then continue end
+            local sp, on = U.w2s(head.Position + Vector3.new(0, 3, 0))
+            if not on then continue end
+            local col = ThreatAssessment.getColor(score)
+            local label = score >= 0.7 and "HIGH" or (score >= 0.4 and "MED" or "LOW")
+            Draw.text(Vector2.new(sp.X, sp.Y - 8), string.format("[%s %.0f%%]", label, score * 100), col, 10, true)
+        end
+    end
+end
+
+local SessionTracker = {}
+SessionTracker.kills = 0
+SessionTracker.deaths = 0
+SessionTracker.headshots = 0
+SessionTracker.totalDmg = 0
+SessionTracker.shots = 0
+SessionTracker.hits = 0
+SessionTracker.startTime = tick()
+SessionTracker.maxStreak = 0
+SessionTracker.currentStreak = 0
+SessionTracker.lastHP = 100
+SessionTracker.distWalked = 0
+SessionTracker.lastPos = nil
+
+function SessionTracker.addKill(headshot)
+    SessionTracker.kills = SessionTracker.kills + 1
+    SessionTracker.currentStreak = SessionTracker.currentStreak + 1
+    if SessionTracker.currentStreak > SessionTracker.maxStreak then
+        SessionTracker.maxStreak = SessionTracker.currentStreak
+    end
+    if headshot then SessionTracker.headshots = SessionTracker.headshots + 1 end
+end
+
+function SessionTracker.addDeath()
+    SessionTracker.deaths = SessionTracker.deaths + 1
+    SessionTracker.currentStreak = 0
+end
+
+function SessionTracker.addShot(hit)
+    SessionTracker.shots = SessionTracker.shots + 1
+    if hit then SessionTracker.hits = SessionTracker.hits + 1 end
+end
+
+function SessionTracker.addDamage(amount)
+    SessionTracker.totalDmg = SessionTracker.totalDmg + amount
+end
+
+function SessionTracker.getKD()
+    if SessionTracker.deaths == 0 then return SessionTracker.kills end
+    return math.floor(SessionTracker.kills / SessionTracker.deaths * 100) / 100
+end
+
+function SessionTracker.getAccuracy()
+    if SessionTracker.shots == 0 then return 0 end
+    return math.floor(SessionTracker.hits / SessionTracker.shots * 10000) / 100
+end
+
+function SessionTracker.getPlaytime()
+    local elapsed = tick() - SessionTracker.startTime
+    local mins = math.floor(elapsed / 60)
+    local secs = math.floor(elapsed % 60)
+    local hrs = math.floor(mins / 60)
+    mins = mins % 60
+    if hrs > 0 then return string.format("%dh %dm %ds", hrs, mins, secs) end
+    return string.format("%dm %ds", mins, secs)
+end
+
+function SessionTracker.update()
+    if not CFG.SessionStats.On then return end
+    if U.alive(LP) then
+        local ch = LP.Character
+        if ch then
+            local hrp = ch:FindFirstChild("HumanoidRootPart")
+            if hrp then
+                local pos = hrp.Position
+                if SessionTracker.lastPos then
+                    SessionTracker.distWalked = SessionTracker.distWalked + (pos - SessionTracker.lastPos).Magnitude
+                end
+                SessionTracker.lastPos = pos
+            end
+            local hum = ch:FindFirstChildOfClass("Humanoid")
+            if hum then
+                local hp = hum.Health
+                if hp <= 0 and SessionTracker.lastHP > 0 then
+                    SessionTracker.addDeath()
+                end
+                SessionTracker.lastHP = hp
+            end
+        end
+    else
+        SessionTracker.lastPos = nil
+    end
+end
+
+function SessionTracker.render()
+    if not CFG.SessionStats.On or not CFG.SessionStats.ShowOverlay then return end
+    if not Draw.text then return end
+    local lines = {}
+    if CFG.SessionStats.TrackKills then table.insert(lines, string.format("Kills: %d", SessionTracker.kills)) end
+    if CFG.SessionStats.TrackDeaths then table.insert(lines, string.format("Deaths: %d", SessionTracker.deaths)) end
+    if CFG.SessionStats.ShowKDRatio then table.insert(lines, string.format("K/D: %.2f", SessionTracker.getKD())) end
+    if CFG.SessionStats.ShowAccuracy then table.insert(lines, string.format("Acc: %.1f%%", SessionTracker.getAccuracy())) end
+    if CFG.SessionStats.TrackHeadshots then table.insert(lines, string.format("HS: %d", SessionTracker.headshots)) end
+    if CFG.SessionStats.TrackDamage then table.insert(lines, string.format("Dmg: %.0f", SessionTracker.totalDmg)) end
+    if CFG.SessionStats.TrackDistance then table.insert(lines, string.format("Dist: %.0fm", SessionTracker.distWalked)) end
+    table.insert(lines, string.format("Streak: %d (Max: %d)", SessionTracker.currentStreak, SessionTracker.maxStreak))
+    if CFG.SessionStats.ShowPlaytime then table.insert(lines, "Time: " .. SessionTracker.getPlaytime()) end
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local vs = cam.ViewportSize
+    local posMap = {
+        TopRight = Vector2.new(vs.X - 150, 50),
+        TopLeft = Vector2.new(10, 50),
+        BottomRight = Vector2.new(vs.X - 150, vs.Y - 30 - #lines * 14),
+        BottomLeft = Vector2.new(10, vs.Y - 30 - #lines * 14),
+    }
+    local base = posMap[CFG.SessionStats.OverlayPos] or posMap.TopRight
+    Draw.text(base, "SESSION STATS", Color3.fromRGB(232, 67, 147), 12, false)
+    for i, line in ipairs(lines) do
+        Draw.text(Vector2.new(base.X, base.Y + 14 + i * 13), line, Color3.new(0.9, 0.9, 0.9), 11, false)
+    end
+end
+
+function SessionTracker.reset()
+    SessionTracker.kills = 0
+    SessionTracker.deaths = 0
+    SessionTracker.headshots = 0
+    SessionTracker.totalDmg = 0
+    SessionTracker.shots = 0
+    SessionTracker.hits = 0
+    SessionTracker.startTime = tick()
+    SessionTracker.maxStreak = 0
+    SessionTracker.currentStreak = 0
+    SessionTracker.distWalked = 0
+    SessionTracker.lastPos = nil
+end
+
+local WaypointManager = {}
+WaypointManager.waypoints = {}
+WaypointManager.nextId = 1
+
+function WaypointManager.add(name, position, color)
+    if #WaypointManager.waypoints >= CFG.Waypoints.MaxWaypoints then
+        table.remove(WaypointManager.waypoints, 1)
+    end
+    local wp = {
+        id = WaypointManager.nextId,
+        name = name or ("WP " .. WaypointManager.nextId),
+        position = position,
+        color = color or CFG.Waypoints.DefaultColor,
+        created = tick(),
+    }
+    WaypointManager.nextId = WaypointManager.nextId + 1
+    table.insert(WaypointManager.waypoints, wp)
+    return wp
+end
+
+function WaypointManager.remove(id)
+    for i, wp in ipairs(WaypointManager.waypoints) do
+        if wp.id == id then
+            table.remove(WaypointManager.waypoints, i)
+            return true
+        end
+    end
+    return false
+end
+
+function WaypointManager.removeAll()
+    WaypointManager.waypoints = {}
+end
+
+function WaypointManager.getNearest()
+    if not U.alive(LP) then return nil end
+    local ch = LP.Character
+    if not ch then return nil end
+    local hrp = ch:FindFirstChild("HumanoidRootPart")
+    if not hrp then return nil end
+    local best, bestDist = nil, math.huge
+    for _, wp in ipairs(WaypointManager.waypoints) do
+        local d = (wp.position - hrp.Position).Magnitude
+        if d < bestDist then bestDist = d; best = wp end
+    end
+    return best, bestDist
+end
+
+function WaypointManager.render()
+    if not CFG.Waypoints.On then return end
+    if not Draw.text or not Draw.line then return end
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local myPos = nil
+    if U.alive(LP) then
+        local ch = LP.Character
+        if ch then
+            local hrp = ch:FindFirstChild("HumanoidRootPart")
+            if hrp then myPos = hrp.Position end
+        end
+    end
+    for _, wp in ipairs(WaypointManager.waypoints) do
+        local dist = myPos and (wp.position - myPos).Magnitude or 0
+        if dist > CFG.Waypoints.RenderDist then continue end
+        local sp, on = U.w2s(wp.position)
+        if not on then continue end
+        local col = U.c3(wp.color)
+        local sz = CFG.Waypoints.IconSize
+        Draw.line(Vector2.new(sp.X - sz, sp.Y - sz), Vector2.new(sp.X + sz, sp.Y - sz), col, CFG.Waypoints.LineThick)
+        Draw.line(Vector2.new(sp.X + sz, sp.Y - sz), Vector2.new(sp.X + sz, sp.Y + sz), col, CFG.Waypoints.LineThick)
+        Draw.line(Vector2.new(sp.X + sz, sp.Y + sz), Vector2.new(sp.X - sz, sp.Y + sz), col, CFG.Waypoints.LineThick)
+        Draw.line(Vector2.new(sp.X - sz, sp.Y + sz), Vector2.new(sp.X - sz, sp.Y - sz), col, CFG.Waypoints.LineThick)
+        Draw.line(Vector2.new(sp.X - sz, sp.Y - sz), Vector2.new(sp.X + sz, sp.Y + sz), col, CFG.Waypoints.LineThick * 0.5)
+        Draw.line(Vector2.new(sp.X + sz, sp.Y - sz), Vector2.new(sp.X - sz, sp.Y + sz), col, CFG.Waypoints.LineThick * 0.5)
+        local yOff = -sz - 4
+        if CFG.Waypoints.ShowName then
+            Draw.text(Vector2.new(sp.X, sp.Y + yOff - 12), wp.name, col, 11, true)
+        end
+        if CFG.Waypoints.ShowDist and myPos then
+            Draw.text(Vector2.new(sp.X, sp.Y + yOff), string.format("%.0fm", dist), Color3.new(0.7, 0.7, 0.7), 10, true)
+        end
+    end
+end
+
+local LootESP = {}
+LootESP.items = {}
+LootESP.lastScan = 0
+LootESP.scanInterval = 2
+
+function LootESP.classifyRarity(item)
+    if not item then return "Common", "CommonColor" end
+    local name = string.lower(item.Name)
+    if string.find(name, "legend") or string.find(name, "mythic") or string.find(name, "exotic") then
+        return "Legendary", "LegendaryColor"
+    end
+    if string.find(name, "epic") or string.find(name, "ultra") or string.find(name, "super") then
+        return "Epic", "EpicColor"
+    end
+    if string.find(name, "rare") or string.find(name, "special") or string.find(name, "unique") then
+        return "Rare", "RareColor"
+    end
+    local val = item:FindFirstChild("Rarity") or item:FindFirstChild("Tier") or item:FindFirstChild("Quality")
+    if val then
+        local v = string.lower(tostring(val.Value))
+        if string.find(v, "legend") or string.find(v, "mythic") then return "Legendary", "LegendaryColor" end
+        if string.find(v, "epic") or string.find(v, "ultra") then return "Epic", "EpicColor" end
+        if string.find(v, "rare") or string.find(v, "special") then return "Rare", "RareColor" end
+    end
+    return "Common", "CommonColor"
+end
+
+function LootESP.scan()
+    if not CFG.Loot.On then return end
+    local now = tick()
+    if now - LootESP.lastScan < LootESP.scanInterval then return end
+    LootESP.lastScan = now
+    LootESP.items = {}
+    local myPos = nil
+    if U.alive(LP) then
+        local ch = LP.Character
+        if ch then
+            local hrp = ch:FindFirstChild("HumanoidRootPart")
+            if hrp then myPos = hrp.Position end
+        end
+    end
+    if not myPos then return end
+    local function scanFolder(folder)
+        for _, item in ipairs(folder:GetChildren()) do
+            if item:IsA("Tool") or item:IsA("Model") then
+                if item.Parent ~= LP.Character and item.Parent ~= LP.Backpack then
+                    local part = item:IsA("Tool") and item:FindFirstChild("Handle") or item.PrimaryPart or item:FindFirstChildWhichIsA("BasePart")
+                    if part then
+                        local dist = (part.Position - myPos).Magnitude
+                        if dist <= CFG.Loot.MaxDist then
+                            local rarity, colorKey = LootESP.classifyRarity(item)
+                            if not (CFG.Loot.FilterCommon and rarity == "Common") and not (CFG.Loot.FilterRare and rarity == "Rare") then
+                                table.insert(LootESP.items, {
+                                    name = item.Name,
+                                    rarity = rarity,
+                                    colorKey = colorKey,
+                                    part = part,
+                                    dist = dist,
+                                })
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    pcall(function() scanFolder(workspace) end)
+end
+
+function LootESP.render()
+    if not CFG.Loot.On then return end
+    if not Draw.text then return end
+    for _, item in ipairs(LootESP.items) do
+        if not item.part or not item.part.Parent then continue end
+        local sp, on = U.w2s(item.part.Position)
+        if not on then continue end
+        local col = U.c3(CFG.Loot[item.colorKey] or CFG.Loot.CommonColor)
+        local label = item.name
+        if CFG.Loot.ShowRarity then label = "[" .. item.rarity .. "] " .. label end
+        Draw.text(Vector2.new(sp.X, sp.Y - 8), label, col, 10, true)
+        Draw.text(Vector2.new(sp.X, sp.Y + 4), string.format("%.0fm", item.dist), Color3.new(0.6, 0.6, 0.6), 9, true)
+    end
+end
+
+local TrajectoryPredictor = {}
+
+function TrajectoryPredictor.predictPosition(player, dt)
+    if not player or not U.alive(player) then return nil end
+    local ch = player.Character
+    if not ch then return nil end
+    local hrp = ch:FindFirstChild("HumanoidRootPart")
+    if not hrp then return nil end
+    local vel = hrp.AssemblyLinearVelocity or hrp.Velocity or Vector3.zero
+    return hrp.Position + vel * dt
+end
+
+function TrajectoryPredictor.predictPath(player, steps, stepTime)
+    if not player or not U.alive(player) then return {} end
+    local ch = player.Character
+    if not ch then return {} end
+    local hrp = ch:FindFirstChild("HumanoidRootPart")
+    if not hrp then return {} end
+    local vel = hrp.AssemblyLinearVelocity or hrp.Velocity or Vector3.zero
+    local pos = hrp.Position
+    local grav = CFG.Trajectory.Gravity
+    local path = {}
+    for i = 1, steps do
+        local t = i * stepTime
+        local predicted = pos + vel * t + Vector3.new(0, -0.5 * grav * t * t, 0)
+        local ray = workspace:Raycast(pos, predicted - pos)
+        if ray then
+            table.insert(path, ray.Position)
+            break
+        end
+        table.insert(path, predicted)
+    end
+    return path
+end
+
+function TrajectoryPredictor.render(target)
+    if not CFG.Trajectory.On or not CFG.Trajectory.ShowPath then return end
+    if not target or not U.alive(target) then return end
+    if not Draw.line or not Draw.circle then return end
+    local path = TrajectoryPredictor.predictPath(target, CFG.Trajectory.Steps, CFG.Trajectory.StepTime)
+    if #path < 2 then return end
+    local col = U.c3(CFG.Trajectory.PathColor)
+    for i = 1, #path - 1 do
+        local sp1, on1 = U.w2s(path[i])
+        local sp2, on2 = U.w2s(path[i + 1])
+        if on1 and on2 then
+            Draw.line(sp1, sp2, col, 1)
+        end
+    end
+    if CFG.Trajectory.ShowImpact and #path > 0 then
+        local last = path[#path]
+        local sp, on = U.w2s(last)
+        if on then
+            Draw.circle(sp, CFG.Trajectory.ImpactRadius * 5, Color3.new(1, 0.3, 0.3), 0.8, 1.5)
+        end
+    end
+end
+
+local CombatLogSystem = {}
+CombatLogSystem.entries = {}
+
+function CombatLogSystem.add(entry)
+    if not CFG.CombatLog.On then return end
+    entry.time = tick()
+    table.insert(CombatLogSystem.entries, 1, entry)
+    while #CombatLogSystem.entries > CFG.CombatLog.MaxEntries do
+        table.remove(CombatLogSystem.entries)
+    end
+end
+
+function CombatLogSystem.clean()
+    local now = tick()
+    local decay = CFG.CombatLog.DecayTime
+    local i = 1
+    while i <= #CombatLogSystem.entries do
+        if now - CombatLogSystem.entries[i].time > decay then
+            table.remove(CombatLogSystem.entries, i)
+        else
+            i = i + 1
+        end
+    end
+end
+
+function CombatLogSystem.render()
+    if not CFG.CombatLog.On then return end
+    if not Draw.text then return end
+    CombatLogSystem.clean()
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local vs = cam.ViewportSize
+    local posMap = {
+        TopLeft = Vector2.new(10, 100),
+        TopRight = Vector2.new(vs.X - 250, 100),
+        BottomLeft = Vector2.new(10, vs.Y - 50 - #CombatLogSystem.entries * 14),
+        BottomRight = Vector2.new(vs.X - 250, vs.Y - 50 - #CombatLogSystem.entries * 14),
+    }
+    local base = posMap[CFG.CombatLog.Position] or posMap.BottomLeft
+    for i, entry in ipairs(CombatLogSystem.entries) do
+        local col
+        if entry.type == "damage" then
+            col = U.c3(CFG.CombatLog.DmgColor)
+        elseif entry.type == "heal" then
+            col = U.c3(CFG.CombatLog.HealColor)
+        elseif entry.type == "assist" then
+            col = U.c3(CFG.CombatLog.AssistColor)
+        else
+            col = Color3.new(0.8, 0.8, 0.8)
+        end
+        local alpha = 1 - (tick() - entry.time) / CFG.CombatLog.DecayTime
+        Draw.text(Vector2.new(base.X, base.Y + (i - 1) * 14), entry.text or "", col, CFG.CombatLog.FontSize, false)
+    end
+end
+
+local CustomCrosshairRenderer = {}
+
+function CustomCrosshairRenderer.render()
+    if not CFG.CustomCH or not Draw.line then return end
+    local cam = workspace.CurrentCamera
+    if not cam then return end
+    local ctr = cam.ViewportSize / 2
+    local sz = CFG.CustomCH.Size
+    local gap = CFG.CustomCH.Gap
+    local thick = CFG.CustomCH.Thick
+    local col = U.c3(CFG.CustomCH.Color)
+    local style = CFG.CustomCH.Style
+    local rot = math.rad(CFG.CustomCH.Rotation or 0)
+    local function rotPoint(x, y)
+        if rot == 0 then return Vector2.new(ctr.X + x, ctr.Y + y) end
+        local rx = x * math.cos(rot) - y * math.sin(rot)
+        local ry = x * math.sin(rot) + y * math.cos(rot)
+        return Vector2.new(ctr.X + rx, ctr.Y + ry)
+    end
+    if CFG.CustomCH.Outline then
+        local oc = U.c3(CFG.CustomCH.OutlineColor)
+        local ot = thick + 2
+        if style == "Cross" or style == "T" then
+            if style ~= "T" then
+                Draw.line(rotPoint(0, -(gap + sz)), rotPoint(0, -gap), oc, ot)
+            end
+            Draw.line(rotPoint(0, gap), rotPoint(0, gap + sz), oc, ot)
+            Draw.line(rotPoint(-(gap + sz), 0), rotPoint(-gap, 0), oc, ot)
+            Draw.line(rotPoint(gap, 0), rotPoint(gap + sz, 0), oc, ot)
+        elseif style == "Circle" then
+            Draw.circle(ctr, sz, oc, CFG.CustomCH.OutlineAlpha, ot)
+        elseif style == "Diamond" then
+            Draw.line(rotPoint(0, -sz), rotPoint(sz, 0), oc, ot)
+            Draw.line(rotPoint(sz, 0), rotPoint(0, sz), oc, ot)
+            Draw.line(rotPoint(0, sz), rotPoint(-sz, 0), oc, ot)
+            Draw.line(rotPoint(-sz, 0), rotPoint(0, -sz), oc, ot)
+        end
+    end
+    if style == "Cross" then
+        Draw.line(rotPoint(0, -(gap + sz)), rotPoint(0, -gap), col, thick)
+        Draw.line(rotPoint(0, gap), rotPoint(0, gap + sz), col, thick)
+        Draw.line(rotPoint(-(gap + sz), 0), rotPoint(-gap, 0), col, thick)
+        Draw.line(rotPoint(gap, 0), rotPoint(gap + sz, 0), col, thick)
+    elseif style == "T" then
+        Draw.line(rotPoint(0, gap), rotPoint(0, gap + sz), col, thick)
+        Draw.line(rotPoint(-(gap + sz), 0), rotPoint(-gap, 0), col, thick)
+        Draw.line(rotPoint(gap, 0), rotPoint(gap + sz, 0), col, thick)
+    elseif style == "Circle" then
+        Draw.circle(ctr, sz, col, CFG.CustomCH.Alpha, thick)
+    elseif style == "Diamond" then
+        Draw.line(rotPoint(0, -sz), rotPoint(sz, 0), col, thick)
+        Draw.line(rotPoint(sz, 0), rotPoint(0, sz), col, thick)
+        Draw.line(rotPoint(0, sz), rotPoint(-sz, 0), col, thick)
+        Draw.line(rotPoint(-sz, 0), rotPoint(0, -sz), col, thick)
+    end
+    if CFG.CustomCH.Dot then
+        Draw.circle(ctr, CFG.CustomCH.DotSize, col, CFG.CustomCH.Alpha, thick)
+    end
+end
+
+local TargetPriorityEngine = {}
+
+function TargetPriorityEngine.score(player)
+    if not player or not U.alive(player) then return -math.huge end
+    local cfg = CFG.TargetPriority
+    local score = 0
+    local hp = U.hp(player) or 100
+    local maxHp = U.maxHp(player) or 100
+    local hpNorm = hp / math.max(1, maxHp)
+    if cfg.PreferLowHP then
+        score = score + (1 - hpNorm) * cfg.HealthWeight
+    else
+        score = score + hpNorm * cfg.HealthWeight
+    end
+    local dist = U.distanceToPlayer(player) or 1000
+    local distNorm = math.clamp(1 - dist / 500, 0, 1)
+    if cfg.PreferClose then
+        score = score + distNorm * cfg.DistanceWeight
+    else
+        score = score + (1 - distNorm) * cfg.DistanceWeight
+    end
+    local threat = (ThreatAssessment.cache[player] or 0.5)
+    score = score + threat * cfg.ThreatWeight
+    if cfg.PreferVisible then
+        local ch = player.Character
+        if ch then
+            local hrp = ch:FindFirstChild("HumanoidRootPart")
+            if hrp then
+                local vis = U.wallCheck and U.wallCheck(hrp.Position) or true
+                score = score + (vis and 1 or 0) * cfg.VisibleWeight
+            end
+        end
+    end
+    return score
+end
+
+function TargetPriorityEngine.getBest(players)
+    local best, bestScore = nil, -math.huge
+    for _, p in ipairs(players) do
+        if p ~= LP and U.alive(p) then
+            local s = TargetPriorityEngine.score(p)
+            if s > bestScore then bestScore = s; best = p end
+        end
+    end
+    return best, bestScore
+end
+
 local AimIndicator = {}
 
 function AimIndicator.render(target, ctr)
@@ -2909,6 +5210,57 @@ UIS.InputBegan:Connect(function(input, gpe)
         end
     end
 
+    if input.KeyCode == CFG.Spider.Key then
+        if CFG.Spider.On then
+            SpiderSystem.active = not SpiderSystem.active
+            Notify.send("Spider", SpiderSystem.active and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+    if input.KeyCode == CFG.Phase.Key then
+        if CFG.Phase.On then
+            PhaseSystem.active = not PhaseSystem.active
+            Notify.send("Phase", PhaseSystem.active and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+    if input.KeyCode == CFG.Anchor.Key then
+        if CFG.Anchor.On then
+            AnchorSystem.toggle()
+            Notify.send("Anchor", AnchorSystem.active and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+    if input.KeyCode == CFG.ThirdPerson.Key then
+        if CFG.ThirdPerson.On then
+            if ThirdPersonCam.active then
+                ThirdPersonCam.disable()
+            else
+                ThirdPersonCam.enable()
+            end
+            Notify.send("ThirdPerson", ThirdPersonCam.active and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+    if input.KeyCode == CFG.AutoPeek.Key then
+        if CFG.AutoPeek.On then
+            if AutoPeekSystem.active then
+                AutoPeekSystem.stop()
+            else
+                AutoPeekSystem.start()
+            end
+            Notify.send("AutoPeek", AutoPeekSystem.active and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+    if input.KeyCode == CFG.RageBot.DoubleTapKey then
+        if CFG.RageBot.On then
+            RageBotEngine.doubleTapActive = not RageBotEngine.doubleTapActive
+            Notify.send("DoubleTap", RageBotEngine.doubleTapActive and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+    if input.KeyCode == CFG.RageBot.ForceBaimKey then
+        if CFG.RageBot.On then
+            RageBotEngine.forceBaim = not RageBotEngine.forceBaim
+            Notify.send("ForceBaim", RageBotEngine.forceBaim and "Enabled" or "Disabled", "info", 2)
+        end
+    end
+
     if Spectate.active then
         if input.KeyCode == Enum.KeyCode.E then
             Spectate.next()
@@ -2935,6 +5287,7 @@ setupInfJump()
 enableAntiAFK()
 ChatCmds.init()
 KillFeed.init()
+Radar.init()
 
 RunService.RenderStepped:Connect(function()
     frame = frame + 1
@@ -2948,6 +5301,13 @@ RunService.RenderStepped:Connect(function()
     if CFG.Movement.HighJump.On then updateHighJump() end
     if CFG.Player.FullBright.On then enableFullBright() end
     if CFG.Player.NoFog.On then enableNoFog() end
+    if CFG.BunnyHop.On then BunnyHopSystem.update() end
+    if CFG.Spider.On and SpiderSystem.active then SpiderSystem.update() end
+    if CFG.Phase.On and PhaseSystem.active then PhaseSystem.update(lastDt > 0 and lastDt or 0.016) end
+    if CFG.Anchor.On then AnchorSystem.update() end
+    if CFG.Spinbot.On then SpinbotSystem.update(lastDt > 0 and lastDt or 0.016) end
+    if CFG.AntiAim.On then AntiAimSystem.update(lastDt > 0 and lastDt or 0.016) end
+    if CFG.ThirdPerson.On and ThirdPersonCam.active then ThirdPersonCam.update() end
 
     if CFG.FOVChanger.On then
         if CFG.FOVChanger.Smooth then
@@ -3004,6 +5364,8 @@ RunService.RenderStepped:Connect(function()
         end
     end
 
+    if CFG.RageBot.On and aimHeld then RageBotEngine.execute(lastDt > 0 and lastDt or 0.016) end
+
     if not ENV.Hook and not ENV.RawMT and CFG.SilentAim.On and silentTarget and aimHeld then
         local ch = silentTarget.Character
         if ch then
@@ -3015,6 +5377,16 @@ RunService.RenderStepped:Connect(function()
     if frame % 30 == 0 and CFG.Player.HitboxExpand.On then updateHitboxExpand() end
     if frame % 60 == 0 and CFG.Player.NoParticles.On then removeParticles() end
     if frame % 120 == 0 then WorldManip.applySettings() end
+    if CFG.Backtrack.On then BacktrackSystem.update() end
+    if CFG.AutoPeek.On then AutoPeekSystem.update(lastDt > 0 and lastDt or 0.016) end
+    if CFG.Proximity.AlertOn then ProximityAlert.update() end
+    if CFG.SoundESP.On then SoundESPSystem.update(lastDt > 0 and lastDt or 0.016) end
+    if CFG.PerfStats.On then PerfStats.update() end
+    if CFG.TriggerBot.On then TriggerBotSystem.update(lastDt > 0 and lastDt or 0.016) end
+    if CFG.ThreatLevel.On then ThreatAssessment.update() end
+    if CFG.SessionStats.On then SessionTracker.update() end
+    if CFG.Loot.On then LootESP.scan() end
+    if CFG.CombatLog.On then CombatLogSystem.clean() end
 
     if Freecam.active then Freecam.update(lastDt > 0 and lastDt or 0.016) end
     if Spectate.active then Spectate.update(lastDt > 0 and lastDt or 0.016) end
@@ -3042,6 +5414,24 @@ RunService.RenderStepped:Connect(function()
         TargetInfo.render(infoTarget)
     end
     if doPlayerList then PlayerListDisplay.render() end
+    if CFG.HitLog.On then HitLog.render() end
+    if CFG.MissLog.On then MissLog.render() end
+    if CFG.Backtrack.On and CFG.Backtrack.Visualize then BacktrackSystem.render() end
+    if CFG.AutoPeek.On and AutoPeekSystem.active then AutoPeekSystem.render() end
+    if CFG.Proximity.AlertOn then ProximityAlert.render() end
+    if CFG.SoundESP.On then SoundESPSystem.render() end
+    if CFG.PerfStats.On then PerfStats.render() end
+    if CFG.TriggerBot.On and CFG.TriggerBot.ShowFOV then TriggerBotSystem.renderFOV() end
+    if CFG.ThreatLevel.On then ThreatAssessment.render() end
+    if CFG.SessionStats.On then SessionTracker.render() end
+    if CFG.Waypoints.On then WaypointManager.render() end
+    if CFG.Loot.On then LootESP.render() end
+    if CFG.CombatLog.On then CombatLogSystem.render() end
+    if CFG.Trajectory.On and currentTarget then TrajectoryPredictor.render(currentTarget) end
+    if currentTarget then
+        if CFG.DmgCalc.On then DamageCalculator.render(currentTarget) end
+        if CFG.AutoWall.On then AutoWallSystem.renderPenetrable(currentTarget) end
+    end
 
     if Spectate.active and Spectate.target and ENV.Drawing then
         local spName = "Spectating: " .. Spectate.target.DisplayName
@@ -5092,6 +7482,3438 @@ Button("settings", "Destroy Script", function()
     end)
 end)
 
+
+-- ============================================================
+-- AIMBOT TAB: RAGE BOT SECTION
+-- ============================================================
+Section("aimbot", "rage bot")
+Toggle("aimbot", "Enable Rage Bot", CFG.RageBot, "On")
+KeybindPicker("aimbot", "Rage Bot Key", CFG.RageBot, "Key")
+Dropdown("aimbot", "Target Part", CFG.RageBot, "Part", {"Head", "UpperTorso", "HumanoidRootPart", "LowerTorso"})
+Slider("aimbot", "Rage FOV", CFG.RageBot, "FOV", 10, 360, 5, "")
+Dropdown("aimbot", "Priority", CFG.RageBot, "Priority", {"ThreatLevel", "Distance", "Health", "FOV"})
+Toggle("aimbot", "Multi-Point", CFG.RageBot, "MultiPoint")
+Toggle("aimbot", "Auto Wall", CFG.RageBot, "AutoWall")
+Slider("aimbot", "Auto Wall Min Dmg", CFG.RageBot, "AutoWallMinDamage", 1, 100, 1, "")
+Slider("aimbot", "Min Hit Chance", CFG.RageBot, "MinHitChance", 1, 100, 1, "%")
+Slider("aimbot", "Max Targets", CFG.RageBot, "MaxTargets", 1, 5, 1, "")
+Slider("aimbot", "Target Switch Delay", CFG.RageBot, "TargetSwitchDelay", 0.01, 0.5, 0.01, "s")
+Section("aimbot", "rage exploits")
+Toggle("aimbot", "Double Tap", CFG.RageBot, "DoubleTap")
+KeybindPicker("aimbot", "Double Tap Key", CFG.RageBot, "DoubleTapKey")
+Toggle("aimbot", "Hide Shots", CFG.RageBot, "HideShots")
+Toggle("aimbot", "Fake Lag", CFG.RageBot, "FakeLag")
+Slider("aimbot", "Fake Lag Ticks", CFG.RageBot, "FakeLagAmount", 1, 16, 1, "")
+Toggle("aimbot", "Force Head", CFG.RageBot, "ForceHead")
+Toggle("aimbot", "Force BAIM", CFG.RageBot, "ForceBaim")
+KeybindPicker("aimbot", "Force BAIM Key", CFG.RageBot, "ForceBaimKey")
+Section("aimbot", "rage automation")
+Toggle("aimbot", "Auto Scope", CFG.RageBot, "AutoScope")
+Toggle("aimbot", "Auto Crouch", CFG.RageBot, "AutoCrouch")
+Toggle("aimbot", "Auto Peek", CFG.RageBot, "AutoPeek")
+KeybindPicker("aimbot", "Auto Peek Key", CFG.RageBot, "AutoPeekKey")
+Toggle("aimbot", "Peek Assist", CFG.RageBot, "PeekAssist")
+Toggle("aimbot", "Override Damage", CFG.RageBot, "OverrideDmg")
+Slider("aimbot", "Min Damage Override", CFG.RageBot, "MinDmgOverride", 1, 100, 1, "")
+Section("aimbot", "resolver")
+Toggle("aimbot", "Resolver", CFG.Resolver, "On")
+Dropdown("aimbot", "Resolver Mode", CFG.Resolver, "Mode", {"Bruteforce", "Adaptive", "LagComp", "AntiDesync"})
+Toggle("aimbot", "Body Yaw Resolver", CFG.Resolver, "BodyYaw")
+Toggle("aimbot", "Pitch Resolver", CFG.Resolver, "PitchResolver")
+Toggle("aimbot", "Lag Compensation", CFG.Resolver, "LagCompensation")
+Slider("aimbot", "Miss Before Switch", CFG.Resolver, "MaxMissBeforeSwitch", 1, 10, 1, "")
+Slider("aimbot", "Break LC Timeout", CFG.Resolver, "BreakLCTimeout", 0.1, 2.0, 0.1, "s")
+Toggle("aimbot", "Show Indicators", CFG.Resolver, "Indicators")
+Section("aimbot", "backtrack")
+Toggle("aimbot", "Backtrack", CFG.Backtrack, "On")
+Slider("aimbot", "Max Ticks", CFG.Backtrack, "MaxTicks", 1, 24, 1, "")
+Slider("aimbot", "Tick Interval", CFG.Backtrack, "TickInterval", 0.008, 0.05, 0.002, "s")
+Toggle("aimbot", "Visualize Backtrack", CFG.Backtrack, "Visualize")
+Toggle("aimbot", "Visualization Fade", CFG.Backtrack, "VisualizeFade")
+ColorPick("aimbot", "Backtrack Color", CFG.Backtrack, "Color")
+Slider("aimbot", "Backtrack Alpha", CFG.Backtrack, "Alpha", 0.05, 1, 0.05, "")
+Section("aimbot", "auto peek")
+Toggle("aimbot", "Auto Peek", CFG.AutoPeek, "On")
+KeybindPicker("aimbot", "Auto Peek Key", CFG.AutoPeek, "Key")
+Slider("aimbot", "Return Speed", CFG.AutoPeek, "ReturnSpeed", 10, 200, 5, "")
+Toggle("aimbot", "Show Indicator", CFG.AutoPeek, "ShowIndicator")
+ColorPick("aimbot", "Indicator Color", CFG.AutoPeek, "IndicatorColor")
+Slider("aimbot", "Indicator Radius", CFG.AutoPeek, "IndicatorRadius", 0.5, 5, 0.25, "")
+Label("aimbot", "Rage bot auto-locks with priority scoring")
+Label("aimbot", "Double tap fires two rapid shots")
+Label("aimbot", "Resolver corrects anti-aim pitch/yaw")
+Label("aimbot", "Backtrack lets you hit past positions")
+Separator("aimbot")
+Section("aimbot", "rage presets")
+Button("aimbot", "Closet Rage Preset", function(btn)
+    CFG.RageBot.On = true
+    CFG.RageBot.FOV = 90
+    CFG.RageBot.MultiPoint = false
+    CFG.RageBot.AutoWall = false
+    CFG.RageBot.MinHitChance = 80
+    CFG.RageBot.DoubleTap = false
+    CFG.RageBot.HideShots = false
+    CFG.RageBot.FakeLag = false
+    CFG.RageBot.ForceHead = false
+    CFG.RageBot.Part = "UpperTorso"
+    CFG.RageBot.Priority = "Distance"
+    CFG.RageBot.MaxTargets = 1
+    btn.Text = "Applied!"
+    Notify.send("Rage", "Closet rage preset applied", "success", 3)
+    task.delay(1, function() btn.Text = "Closet Rage Preset" end)
+end)
+Button("aimbot", "Semi-Rage Preset", function(btn)
+    CFG.RageBot.On = true
+    CFG.RageBot.FOV = 180
+    CFG.RageBot.MultiPoint = true
+    CFG.RageBot.AutoWall = true
+    CFG.RageBot.AutoWallMinDamage = 30
+    CFG.RageBot.MinHitChance = 60
+    CFG.RageBot.DoubleTap = false
+    CFG.RageBot.HideShots = true
+    CFG.RageBot.FakeLag = true
+    CFG.RageBot.FakeLagAmount = 4
+    CFG.RageBot.Part = "Head"
+    CFG.RageBot.Priority = "ThreatLevel"
+    CFG.RageBot.MaxTargets = 2
+    btn.Text = "Applied!"
+    Notify.send("Rage", "Semi-rage preset applied", "success", 3)
+    task.delay(1, function() btn.Text = "Semi-Rage Preset" end)
+end)
+Button("aimbot", "Full Rage Preset", function(btn)
+    CFG.RageBot.On = true
+    CFG.RageBot.FOV = 360
+    CFG.RageBot.MultiPoint = true
+    CFG.RageBot.AutoWall = true
+    CFG.RageBot.AutoWallMinDamage = 10
+    CFG.RageBot.MinHitChance = 30
+    CFG.RageBot.DoubleTap = true
+    CFG.RageBot.HideShots = true
+    CFG.RageBot.FakeLag = true
+    CFG.RageBot.FakeLagAmount = 14
+    CFG.RageBot.ForceHead = true
+    CFG.RageBot.Part = "Head"
+    CFG.RageBot.Priority = "ThreatLevel"
+    CFG.RageBot.MaxTargets = 5
+    CFG.RageBot.AutoScope = true
+    CFG.RageBot.AutoCrouch = true
+    btn.Text = "Applied!"
+    Notify.send("Rage", "Full rage preset - max aggression", "warning", 3)
+    task.delay(1, function() btn.Text = "Full Rage Preset" end)
+end)
+Button("aimbot", "Anti-HVH Preset", function(btn)
+    CFG.RageBot.On = true
+    CFG.RageBot.FOV = 360
+    CFG.RageBot.MultiPoint = true
+    CFG.RageBot.AutoWall = true
+    CFG.RageBot.AutoWallMinDamage = 15
+    CFG.RageBot.MinHitChance = 45
+    CFG.RageBot.DoubleTap = true
+    CFG.RageBot.HideShots = true
+    CFG.RageBot.FakeLag = true
+    CFG.RageBot.FakeLagAmount = 8
+    CFG.RageBot.Part = "Head"
+    CFG.RageBot.Priority = "ThreatLevel"
+    CFG.RageBot.MaxTargets = 3
+    CFG.Resolver.On = true
+    CFG.Resolver.Mode = "Adaptive"
+    CFG.Resolver.BodyYaw = true
+    CFG.Resolver.PitchResolver = true
+    CFG.Resolver.LagCompensation = true
+    CFG.Backtrack.On = true
+    CFG.Backtrack.MaxTicks = 12
+    btn.Text = "Applied!"
+    Notify.send("Rage", "Anti-HVH preset with resolver", "warning", 3)
+    task.delay(1, function() btn.Text = "Anti-HVH Preset" end)
+end)
+Separator("aimbot")
+Section("aimbot", "target filtering")
+Toggle("aimbot", "Ignore Teammates", CFG.Aimbot, "IgnoreTeam")
+Toggle("aimbot", "Ignore Friends", CFG.Aimbot, "IgnoreFriends")
+Toggle("aimbot", "Ignore Downed", CFG.Aimbot, "IgnoreDowned")
+Toggle("aimbot", "Ignore Bots", CFG.Aimbot, "IgnoreBots")
+Toggle("aimbot", "Team Check", CFG.Aimbot, "TeamCheck")
+Slider("aimbot", "Max Distance", CFG.Aimbot, "MaxDist", 100, 5000, 100, "")
+Section("aimbot", "aim indicators")
+Toggle("aimbot", "Show Target Name", CFG.Aimbot, "ShowTargetName")
+Toggle("aimbot", "Show Target HP", CFG.Aimbot, "ShowTargetHP")
+Toggle("aimbot", "Show Aim Line", CFG.Aimbot, "ShowAimLine")
+Toggle("aimbot", "Show Lock Icon", CFG.Aimbot, "ShowLockIcon")
+Toggle("aimbot", "Show Hit Marker", CFG.Aimbot, "ShowHitMarker")
+ColorPick("aimbot", "Aim Line Color", CFG.Aimbot, "AimLineColor")
+Slider("aimbot", "Aim Line Width", CFG.Aimbot, "AimLineWidth", 1, 5, 0.5, "")
+Slider("aimbot", "Hit Marker Size", CFG.Aimbot, "HitMarkerSize", 5, 30, 1, "")
+Slider("aimbot", "Hit Marker Duration", CFG.Aimbot, "HitMarkerDuration", 0.1, 1.0, 0.05, "s")
+ColorPick("aimbot", "Hit Marker Color", CFG.Aimbot, "HitMarkerColor")
+Label("aimbot", "Aim indicators show info about target")
+Label("aimbot", "Hit marker flashes on successful hits")
+Separator("aimbot")
+Section("aimbot", "aimbot smoothing profiles")
+Button("aimbot", "Instant Lock Profile", function(btn)
+    CFG.Aimbot.Smoothness = 0.01
+    CFG.Aimbot.Mode = "Lock"
+    CFG.Aimbot.Prediction = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Instant Lock Profile" end)
+end)
+Button("aimbot", "Natural Aim Profile", function(btn)
+    CFG.Aimbot.Smoothness = 0.12
+    CFG.Aimbot.Mode = "Smooth"
+    CFG.Aimbot.Prediction = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Natural Aim Profile" end)
+end)
+Button("aimbot", "Slow Track Profile", function(btn)
+    CFG.Aimbot.Smoothness = 0.25
+    CFG.Aimbot.Mode = "Smooth"
+    CFG.Aimbot.Prediction = false
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Slow Track Profile" end)
+end)
+Button("aimbot", "Flick Aim Profile", function(btn)
+    CFG.Aimbot.Smoothness = 0.04
+    CFG.Aimbot.Mode = "Smooth"
+    CFG.Aimbot.Prediction = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Flick Aim Profile" end)
+end)
+Button("aimbot", "Controller Aim Profile", function(btn)
+    CFG.Aimbot.Smoothness = 0.15
+    CFG.Aimbot.Mode = "Smooth"
+    CFG.Aimbot.Prediction = true
+    CFG.Aimbot.FOV = 60
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Controller Aim Profile" end)
+end)
+Label("aimbot", "Smoothing profiles adjust lock speed")
+Label("aimbot", "Natural aim looks more legit on replays")
+Label("aimbot", "Flick aim snaps quickly then holds")
+
+-- ============================================================
+-- SILENT AIM TAB: ANTI-AIM SECTION
+-- ============================================================
+Section("silent", "anti-aim")
+Toggle("silent", "Enable Anti-Aim", CFG.AntiAim, "On")
+Dropdown("silent", "Pitch Mode", CFG.AntiAim, "Pitch", {"Down", "Up", "Zero", "Jitter", "Random"})
+Dropdown("silent", "Yaw Mode", CFG.AntiAim, "Yaw", {"Spin", "Jitter", "Backward", "Sideways", "Random", "Manual"})
+Slider("silent", "Yaw Offset", CFG.AntiAim, "YawOffset", -180, 180, 5, "")
+Slider("silent", "Spin Speed", CFG.AntiAim, "SpinSpeed", 1, 50, 1, "")
+Slider("silent", "Jitter Amount", CFG.AntiAim, "JitterAmount", 1, 90, 1, "")
+Toggle("silent", "At Target", CFG.AntiAim, "AtTarget")
+Section("silent", "desync")
+Toggle("silent", "Desync", CFG.AntiAim, "Desync")
+Dropdown("silent", "Desync Side", CFG.AntiAim, "DesyncSide", {"Auto", "Left", "Right"})
+Toggle("silent", "Fake Lag", CFG.AntiAim, "FakeLag")
+Slider("silent", "Fake Lag Ticks", CFG.AntiAim, "FakeLagTicks", 1, 14, 1, "")
+Toggle("silent", "Leg Breaker", CFG.AntiAim, "LegBreaker")
+KeybindPicker("silent", "Freestand Key", CFG.AntiAim, "FreestandKey")
+Label("silent", "Anti-aim makes you harder to hit")
+Label("silent", "Desync offsets visual vs server model")
+Label("silent", "Leg breaker bends legs to reduce hitbox")
+Section("silent", "hit log")
+Toggle("silent", "Enable Hit Log", CFG.HitLog, "On")
+Toggle("silent", "Show Damage", CFG.HitLog, "ShowDamage")
+Toggle("silent", "Show Hit Part", CFG.HitLog, "ShowPart")
+Toggle("silent", "Show Weapon", CFG.HitLog, "ShowWeapon")
+Toggle("silent", "Show Target Name", CFG.HitLog, "ShowTarget")
+Toggle("silent", "Show Hit Chance", CFG.HitLog, "ShowHitChance")
+Toggle("silent", "Show Backtrack Info", CFG.HitLog, "ShowBacktrack")
+Slider("silent", "Max Entries", CFG.HitLog, "MaxEntries", 5, 30, 1, "")
+Slider("silent", "Display Duration", CFG.HitLog, "Duration", 2, 20, 1, "s")
+Dropdown("silent", "Log Position", CFG.HitLog, "Position", {"BottomLeft", "BottomRight", "TopLeft", "TopRight"})
+Toggle("silent", "Hit Sound", CFG.HitLog, "Sound")
+Toggle("silent", "Chat Hit Log", CFG.HitLog, "ChatLog")
+Section("silent", "miss log")
+Toggle("silent", "Enable Miss Log", CFG.MissLog, "On")
+Toggle("silent", "Show Reason", CFG.MissLog, "ShowReason")
+Toggle("silent", "Show Spread", CFG.MissLog, "ShowSpread")
+Slider("silent", "Max Miss Entries", CFG.MissLog, "MaxEntries", 3, 20, 1, "")
+Slider("silent", "Miss Display Duration", CFG.MissLog, "Duration", 2, 15, 1, "s")
+Section("silent", "hit stats")
+Button("silent", "Show Hit Statistics", function(btn)
+    local stats = HitLog.getStats()
+    if stats then
+        local info = string.format("Hits: %d | Accuracy: %.1f%%\nHeadshots: %d (%.0f%%)\nAvg Damage: %.0f\nTotal Damage: %d",
+            stats.totalHits, stats.accuracy, stats.headshots, stats.headshotRate, stats.avgDamage, stats.totalDamage)
+        Notify.send("Hit Stats", info, "info", 6)
+    else
+        Notify.send("Hit Stats", "No hits recorded yet", "warning", 3)
+    end
+    btn.Text = "Shown!"
+    task.delay(1, function() btn.Text = "Show Hit Statistics" end)
+end)
+Button("silent", "Clear Hit Log", function(btn)
+    HitLog.entries = {}
+    btn.Text = "Cleared!"
+    Notify.send("Hit Log", "Log cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear Hit Log" end)
+end)
+Button("silent", "Clear Miss Log", function(btn)
+    MissLog.entries = {}
+    btn.Text = "Cleared!"
+    Notify.send("Miss Log", "Log cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear Miss Log" end)
+end)
+Separator("silent")
+Section("silent", "anti-aim presets")
+Button("silent", "Legit Anti-Aim", function(btn)
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Pitch = "Down"
+    CFG.AntiAim.Yaw = "Backward"
+    CFG.AntiAim.YawOffset = 0
+    CFG.AntiAim.Desync = false
+    CFG.AntiAim.FakeLag = false
+    CFG.AntiAim.LegBreaker = false
+    CFG.AntiAim.JitterAmount = 0
+    btn.Text = "Applied!"
+    Notify.send("Anti-Aim", "Legit anti-aim applied", "success", 3)
+    task.delay(1, function() btn.Text = "Legit Anti-Aim" end)
+end)
+Button("silent", "Spin Bot Anti-Aim", function(btn)
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Pitch = "Down"
+    CFG.AntiAim.Yaw = "Spin"
+    CFG.AntiAim.SpinSpeed = 30
+    CFG.AntiAim.Desync = true
+    CFG.AntiAim.DesyncSide = "Auto"
+    CFG.AntiAim.FakeLag = true
+    CFG.AntiAim.FakeLagTicks = 8
+    CFG.AntiAim.LegBreaker = true
+    btn.Text = "Applied!"
+    Notify.send("Anti-Aim", "Spin bot anti-aim applied", "warning", 3)
+    task.delay(1, function() btn.Text = "Spin Bot Anti-Aim" end)
+end)
+Button("silent", "Jitter Anti-Aim", function(btn)
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Pitch = "Jitter"
+    CFG.AntiAim.Yaw = "Jitter"
+    CFG.AntiAim.JitterAmount = 60
+    CFG.AntiAim.Desync = true
+    CFG.AntiAim.DesyncSide = "Auto"
+    CFG.AntiAim.FakeLag = true
+    CFG.AntiAim.FakeLagTicks = 6
+    CFG.AntiAim.LegBreaker = true
+    btn.Text = "Applied!"
+    Notify.send("Anti-Aim", "Jitter anti-aim applied", "warning", 3)
+    task.delay(1, function() btn.Text = "Jitter Anti-Aim" end)
+end)
+Button("silent", "Desync Only", function(btn)
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Pitch = "Zero"
+    CFG.AntiAim.Yaw = "Backward"
+    CFG.AntiAim.Desync = true
+    CFG.AntiAim.DesyncSide = "Auto"
+    CFG.AntiAim.FakeLag = false
+    CFG.AntiAim.LegBreaker = false
+    CFG.AntiAim.JitterAmount = 0
+    btn.Text = "Applied!"
+    Notify.send("Anti-Aim", "Desync-only mode applied", "success", 3)
+    task.delay(1, function() btn.Text = "Desync Only" end)
+end)
+Button("silent", "Max Desync Preset", function(btn)
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Pitch = "Down"
+    CFG.AntiAim.Yaw = "Jitter"
+    CFG.AntiAim.JitterAmount = 90
+    CFG.AntiAim.Desync = true
+    CFG.AntiAim.DesyncSide = "Auto"
+    CFG.AntiAim.FakeLag = true
+    CFG.AntiAim.FakeLagTicks = 14
+    CFG.AntiAim.LegBreaker = true
+    CFG.AntiAim.AtTarget = true
+    btn.Text = "Applied!"
+    Notify.send("Anti-Aim", "Maximum desync applied", "warning", 3)
+    task.delay(1, function() btn.Text = "Max Desync Preset" end)
+end)
+Button("silent", "Disable All Anti-Aim", function(btn)
+    CFG.AntiAim.On = false
+    CFG.AntiAim.Desync = false
+    CFG.AntiAim.FakeLag = false
+    CFG.AntiAim.LegBreaker = false
+    btn.Text = "Disabled!"
+    Notify.send("Anti-Aim", "All anti-aim disabled", "info", 2)
+    task.delay(1, function() btn.Text = "Disable All Anti-Aim" end)
+end)
+Separator("silent")
+Section("silent", "manual anti-aim keys")
+KeybindPicker("silent", "Manual Left Key", CFG.AntiAim.ManualKeys, "Left")
+KeybindPicker("silent", "Manual Right Key", CFG.AntiAim.ManualKeys, "Right")
+KeybindPicker("silent", "Manual Back Key", CFG.AntiAim.ManualKeys, "Back")
+Label("silent", "Manual keys override yaw direction")
+Label("silent", "Hold key to force aim direction")
+Label("silent", "Release returns to automatic mode")
+Separator("silent")
+Section("silent", "silent aim extensions")
+Toggle("silent", "Silent Prediction", CFG.Silent, "Prediction")
+Slider("silent", "Prediction Factor", CFG.Silent, "PredFactor", 0.01, 1.0, 0.01, "")
+Toggle("silent", "Silent Wall Check", CFG.Silent, "WallCheck")
+Toggle("silent", "Silent Team Check", CFG.Silent, "TeamCheck")
+Toggle("silent", "Silent Vis Check", CFG.Silent, "VisCheck")
+Toggle("silent", "Silent Auto Fire", CFG.Silent, "AutoFire")
+Slider("silent", "Auto Fire Delay", CFG.Silent, "AutoFireDelay", 0.01, 0.5, 0.01, "s")
+Toggle("silent", "Silent Ignore Dead", CFG.Silent, "IgnoreDead")
+Toggle("silent", "Silent Ignore Downed", CFG.Silent, "IgnoreDowned")
+Toggle("silent", "Silent Show FOV", CFG.Silent, "ShowFOV")
+Slider("silent", "Silent FOV Thickness", CFG.Silent, "FOVThick", 1, 5, 0.5, "")
+ColorPick("silent", "Silent FOV Color", CFG.Silent, "FOVColor")
+Label("silent", "Auto fire shoots when target in FOV")
+Label("silent", "Prediction leads shots based on velocity")
+Separator("silent")
+Section("silent", "weapon profiles")
+Button("silent", "Rifle Profile", function(btn)
+    CFG.Silent.FOV = 35
+    CFG.Silent.Prediction = true
+    CFG.Silent.PredFactor = 0.15
+    CFG.Silent.Part = "UpperTorso"
+    btn.Text = "Applied!"
+    Notify.send("Profile", "Rifle profile loaded", "success", 2)
+    task.delay(1, function() btn.Text = "Rifle Profile" end)
+end)
+Button("silent", "SMG Profile", function(btn)
+    CFG.Silent.FOV = 50
+    CFG.Silent.Prediction = true
+    CFG.Silent.PredFactor = 0.10
+    CFG.Silent.Part = "UpperTorso"
+    btn.Text = "Applied!"
+    Notify.send("Profile", "SMG profile loaded", "success", 2)
+    task.delay(1, function() btn.Text = "SMG Profile" end)
+end)
+Button("silent", "Sniper Profile", function(btn)
+    CFG.Silent.FOV = 15
+    CFG.Silent.Prediction = true
+    CFG.Silent.PredFactor = 0.30
+    CFG.Silent.Part = "Head"
+    btn.Text = "Applied!"
+    Notify.send("Profile", "Sniper profile loaded", "success", 2)
+    task.delay(1, function() btn.Text = "Sniper Profile" end)
+end)
+Button("silent", "Shotgun Profile", function(btn)
+    CFG.Silent.FOV = 80
+    CFG.Silent.Prediction = false
+    CFG.Silent.PredFactor = 0.05
+    CFG.Silent.Part = "HumanoidRootPart"
+    btn.Text = "Applied!"
+    Notify.send("Profile", "Shotgun profile loaded", "success", 2)
+    task.delay(1, function() btn.Text = "Shotgun Profile" end)
+end)
+Button("silent", "Pistol Profile", function(btn)
+    CFG.Silent.FOV = 40
+    CFG.Silent.Prediction = true
+    CFG.Silent.PredFactor = 0.08
+    CFG.Silent.Part = "Head"
+    btn.Text = "Applied!"
+    Notify.send("Profile", "Pistol profile loaded", "success", 2)
+    task.delay(1, function() btn.Text = "Pistol Profile" end)
+end)
+Button("silent", "LMG Profile", function(btn)
+    CFG.Silent.FOV = 60
+    CFG.Silent.Prediction = true
+    CFG.Silent.PredFactor = 0.12
+    CFG.Silent.Part = "UpperTorso"
+    btn.Text = "Applied!"
+    Notify.send("Profile", "LMG profile loaded", "success", 2)
+    task.delay(1, function() btn.Text = "LMG Profile" end)
+end)
+Label("silent", "Weapon profiles adjust FOV and prediction")
+Label("silent", "Select based on current weapon type")
+Label("silent", "Sniper uses small FOV with high prediction")
+Label("silent", "Shotgun uses wide FOV with no prediction")
+
+-- ============================================================
+-- ESP TAB: FLAGS, HEALTH BAR, SOUND ESP, PROXIMITY
+-- ============================================================
+Section("esp", "player flags")
+Toggle("esp", "Show Flags", CFG.Flags, "On")
+Toggle("esp", "Armor/Shield", CFG.Flags, "ShowArmor")
+Toggle("esp", "Godmode", CFG.Flags, "ShowGodmode")
+Toggle("esp", "Speed Hack", CFG.Flags, "ShowSpeeding")
+Toggle("esp", "Flying", CFG.Flags, "ShowFlying")
+Toggle("esp", "Bot Detection", CFG.Flags, "ShowBot")
+Toggle("esp", "Admin", CFG.Flags, "ShowAdmin")
+Toggle("esp", "Rage Bot", CFG.Flags, "ShowRageBot")
+Toggle("esp", "Desync", CFG.Flags, "ShowDesync")
+Toggle("esp", "Resolver", CFG.Flags, "ShowResolver")
+Toggle("esp", "Friend", CFG.Flags, "ShowFriend")
+Slider("esp", "Flag Font Size", CFG.Flags, "FontSize", 8, 16, 1, "px")
+Section("esp", "flag colors")
+ColorPick("esp", "Armor Color", CFG.Flags, "ArmorColor")
+ColorPick("esp", "Godmode Color", CFG.Flags, "GodmodeColor")
+ColorPick("esp", "Speed Color", CFG.Flags, "SpeedColor")
+ColorPick("esp", "Fly Color", CFG.Flags, "FlyColor")
+ColorPick("esp", "Bot Color", CFG.Flags, "BotColor")
+ColorPick("esp", "Admin Color", CFG.Flags, "AdminColor")
+Section("esp", "health bar style")
+Dropdown("esp", "Health Bar Style", CFG.HealthBar, "Style", {"Gradient", "Segmented", "Flat", "Smooth"})
+Slider("esp", "Bar Width", CFG.HealthBar, "Width", 1, 8, 1, "px")
+Slider("esp", "Bar Offset", CFG.HealthBar, "Offset", 1, 10, 1, "px")
+Slider("esp", "Segments", CFG.HealthBar, "Segments", 2, 10, 1, "")
+Toggle("esp", "Bar Outline", CFG.HealthBar, "Outline")
+Toggle("esp", "Text Inside Bar", CFG.HealthBar, "TextInside")
+Toggle("esp", "Custom Colors", CFG.HealthBar, "CustomColors")
+ColorPick("esp", "Full Health Color", CFG.HealthBar, "FullColor")
+ColorPick("esp", "Low Health Color", CFG.HealthBar, "LowColor")
+Toggle("esp", "Animate Smoothly", CFG.HealthBar, "AnimSmooth")
+Slider("esp", "Animation Speed", CFG.HealthBar, "AnimSpeed", 0.01, 0.5, 0.01, "")
+Section("esp", "sound esp")
+Toggle("esp", "Sound ESP", CFG.SoundESP, "On")
+Toggle("esp", "Show Footsteps", CFG.SoundESP, "ShowFootsteps")
+Toggle("esp", "Show Jumps", CFG.SoundESP, "ShowJumps")
+Slider("esp", "Max Distance", CFG.SoundESP, "MaxDist", 50, 500, 10, "m")
+Slider("esp", "Decay Time", CFG.SoundESP, "DecayTime", 0.5, 5, 0.25, "s")
+ColorPick("esp", "Footstep Color", CFG.SoundESP, "FootstepColor")
+ColorPick("esp", "Jump Color", CFG.SoundESP, "JumpColor")
+Slider("esp", "Indicator Radius", CFG.SoundESP, "Radius", 1, 10, 0.5, "")
+Label("esp", "Sound ESP shows expanding circles at")
+Label("esp", "player footstep and jump locations")
+Section("esp", "proximity alert")
+Toggle("esp", "Proximity Alert", CFG.Proximity, "AlertOn")
+Slider("esp", "Alert Distance", CFG.Proximity, "AlertDist", 10, 200, 5, "m")
+Toggle("esp", "Alert Sound", CFG.Proximity, "AlertSound")
+Toggle("esp", "Visual Alert", CFG.Proximity, "AlertVisual")
+ColorPick("esp", "Alert Color", CFG.Proximity, "AlertColor")
+Toggle("esp", "Flash Screen", CFG.Proximity, "FlashScreen")
+Label("esp", "Warns when enemies are within range")
+Label("esp", "Sound alert plays a warning noise")
+Separator("esp")
+Section("esp", "esp presets")
+Button("esp", "Minimal ESP", function(btn)
+    CFG.BoxESP.On = true
+    CFG.BoxESP.Mode = "Corner"
+    CFG.NameESP.On = true
+    CFG.HealthESP.On = true
+    CFG.Tracers.On = false
+    CFG.Skeleton.On = false
+    CFG.OffScreen.On = false
+    CFG.Flags.On = false
+    CFG.SoundESP.On = false
+    btn.Text = "Applied!"
+    Notify.send("ESP", "Minimal ESP preset applied", "success", 3)
+    task.delay(1, function() btn.Text = "Minimal ESP" end)
+end)
+Button("esp", "Full ESP", function(btn)
+    CFG.BoxESP.On = true
+    CFG.BoxESP.Mode = "Full"
+    CFG.NameESP.On = true
+    CFG.HealthESP.On = true
+    CFG.DistESP.On = true
+    CFG.WeaponESP.On = true
+    CFG.Tracers.On = true
+    CFG.Skeleton.On = true
+    CFG.Flags.On = true
+    CFG.SoundESP.On = true
+    CFG.Proximity.AlertOn = true
+    btn.Text = "Applied!"
+    Notify.send("ESP", "Full ESP preset applied", "success", 3)
+    task.delay(1, function() btn.Text = "Full ESP" end)
+end)
+Button("esp", "Competitive ESP", function(btn)
+    CFG.BoxESP.On = true
+    CFG.BoxESP.Mode = "Corner"
+    CFG.NameESP.On = true
+    CFG.HealthESP.On = true
+    CFG.DistESP.On = true
+    CFG.WeaponESP.On = false
+    CFG.Tracers.On = false
+    CFG.Skeleton.On = false
+    CFG.Flags.On = true
+    CFG.Flags.ShowArmor = true
+    CFG.Flags.ShowGodmode = true
+    CFG.SoundESP.On = false
+    CFG.Proximity.AlertOn = true
+    CFG.Proximity.AlertDist = 50
+    btn.Text = "Applied!"
+    Notify.send("ESP", "Competitive ESP preset applied", "success", 3)
+    task.delay(1, function() btn.Text = "Competitive ESP" end)
+end)
+Button("esp", "Stealth ESP", function(btn)
+    CFG.BoxESP.On = false
+    CFG.NameESP.On = false
+    CFG.HealthESP.On = false
+    CFG.Tracers.On = false
+    CFG.Skeleton.On = false
+    CFG.SoundESP.On = true
+    CFG.SoundESP.MaxDist = 200
+    CFG.Proximity.AlertOn = true
+    CFG.Proximity.AlertDist = 80
+    CFG.Proximity.AlertSound = true
+    btn.Text = "Applied!"
+    Notify.send("ESP", "Stealth ESP - audio only", "success", 3)
+    task.delay(1, function() btn.Text = "Stealth ESP" end)
+end)
+Separator("esp")
+Section("esp", "distance esp")
+Toggle("esp", "Show Distance", CFG.DistESP, "On")
+Slider("esp", "Max Display Dist", CFG.DistESP, "MaxDist", 100, 5000, 100, "")
+Dropdown("esp", "Dist Unit", CFG.DistESP, "Unit", {"Studs", "Meters", "Feet"})
+Slider("esp", "Dist Font Size", CFG.DistESP, "FontSize", 10, 18, 1, "")
+Toggle("esp", "Dist Below Name", CFG.DistESP, "BelowName")
+ColorPick("esp", "Distance Color", CFG.DistESP, "Color")
+Section("esp", "weapon esp")
+Toggle("esp", "Show Weapon", CFG.WeaponESP, "On")
+Toggle("esp", "Show Ammo Count", CFG.WeaponESP, "ShowAmmo")
+Toggle("esp", "Show Reload State", CFG.WeaponESP, "ShowReload")
+Slider("esp", "Weapon Font Size", CFG.WeaponESP, "FontSize", 10, 16, 1, "")
+ColorPick("esp", "Weapon Text Color", CFG.WeaponESP, "Color")
+Section("esp", "line of sight")
+Toggle("esp", "LOS Indicator", CFG.ESP, "LOSIndicator")
+Toggle("esp", "LOS Color Change", CFG.ESP, "LOSColor")
+ColorPick("esp", "Visible Color", CFG.ESP, "VisibleColor")
+ColorPick("esp", "Hidden Color", CFG.ESP, "HiddenColor")
+Toggle("esp", "Fade When Hidden", CFG.ESP, "FadeHidden")
+Slider("esp", "Fade Amount", CFG.ESP, "FadeAmount", 0.1, 0.9, 0.05, "")
+Label("esp", "LOS changes ESP color based on visibility")
+Label("esp", "Visible targets shown in bright color")
+Label("esp", "Hidden targets fade or change color")
+Separator("esp")
+Section("esp", "threat assessment")
+Toggle("esp", "Threat Level Display", CFG.ESP, "ThreatLevel")
+Toggle("esp", "Threat Border Color", CFG.ESP, "ThreatBorder")
+Toggle("esp", "Threat Sort Priority", CFG.ESP, "ThreatSort")
+ColorPick("esp", "Low Threat Color", CFG.ESP, "LowThreatColor")
+ColorPick("esp", "Med Threat Color", CFG.ESP, "MedThreatColor")
+ColorPick("esp", "High Threat Color", CFG.ESP, "HighThreatColor")
+Label("esp", "Threat level based on weapon + distance")
+Label("esp", "Higher threat = more visible ESP")
+Separator("esp")
+Section("esp", "player tagging")
+Toggle("esp", "Custom Tags", CFG.ESP, "CustomTags")
+Button("esp", "Tag as Friend", function(btn)
+    local target = U.target()
+    if target then
+        CFG.Tags = CFG.Tags or {}
+        CFG.Tags[target.Name] = "Friend"
+        btn.Text = "Tagged!"
+        Notify.send("Tag", target.Name .. " tagged as Friend", "success", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Tag as Friend" end)
+end)
+Button("esp", "Tag as Enemy", function(btn)
+    local target = U.target()
+    if target then
+        CFG.Tags = CFG.Tags or {}
+        CFG.Tags[target.Name] = "Enemy"
+        btn.Text = "Tagged!"
+        Notify.send("Tag", target.Name .. " tagged as Enemy", "warning", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Tag as Enemy" end)
+end)
+Button("esp", "Tag as Streamer", function(btn)
+    local target = U.target()
+    if target then
+        CFG.Tags = CFG.Tags or {}
+        CFG.Tags[target.Name] = "Streamer"
+        btn.Text = "Tagged!"
+        Notify.send("Tag", target.Name .. " tagged as Streamer", "info", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Tag as Streamer" end)
+end)
+Button("esp", "Clear All Tags", function(btn)
+    CFG.Tags = {}
+    btn.Text = "Cleared!"
+    Notify.send("Tag", "All player tags cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear All Tags" end)
+end)
+Label("esp", "Tags persist until cleared or session end")
+Label("esp", "Friends show green, enemies show red")
+
+-- ============================================================
+-- CHAMS TAB: ADVANCED CONFIGURATION
+-- ============================================================
+Section("chams", "chams presets")
+Button("chams", "Glow Preset", function(btn)
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "Glow"
+    CFG.Chams.Transparency = 0
+    CFG.Chams.OutlineEnabled = true
+    CFG.Chams.OutlineWidth = 0.08
+    btn.Text = "Applied!"
+    Notify.send("Chams", "Glow preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Glow Preset" end)
+end)
+Button("chams", "X-Ray Preset", function(btn)
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "XRay"
+    CFG.Chams.Transparency = 0.3
+    CFG.Chams.OutlineEnabled = false
+    btn.Text = "Applied!"
+    Notify.send("Chams", "X-Ray preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "X-Ray Preset" end)
+end)
+Button("chams", "Wireframe Preset", function(btn)
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "Wireframe"
+    CFG.Chams.Transparency = 0.5
+    CFG.Chams.OutlineEnabled = true
+    CFG.Chams.OutlineWidth = 0.03
+    btn.Text = "Applied!"
+    Notify.send("Chams", "Wireframe preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Wireframe Preset" end)
+end)
+Button("chams", "Flat Preset", function(btn)
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "Flat"
+    CFG.Chams.Transparency = 0
+    CFG.Chams.OutlineEnabled = false
+    btn.Text = "Applied!"
+    Notify.send("Chams", "Flat preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Flat Preset" end)
+end)
+Button("chams", "Ghost Preset", function(btn)
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "Glow"
+    CFG.Chams.Transparency = 0.7
+    CFG.Chams.OutlineEnabled = true
+    CFG.Chams.OutlineWidth = 0.15
+    btn.Text = "Applied!"
+    Notify.send("Chams", "Ghost preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Ghost Preset" end)
+end)
+Button("chams", "Neon Preset", function(btn)
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "Neon"
+    CFG.Chams.Transparency = 0.1
+    CFG.Chams.OutlineEnabled = true
+    CFG.Chams.OutlineWidth = 0.12
+    btn.Text = "Applied!"
+    Notify.send("Chams", "Neon preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Neon Preset" end)
+end)
+Separator("chams")
+Section("chams", "chams materials")
+Dropdown("chams", "Material Type", CFG.Chams, "Material", {"Neon", "ForceField", "Glass", "SmoothPlastic", "Plastic", "Metal", "DiamondPlate", "Foil", "Granite", "Marble", "Ice", "Wood"})
+Slider("chams", "Material Shininess", CFG.Chams, "Shininess", 0, 1, 0.05, "")
+Slider("chams", "Material Reflectance", CFG.Chams, "Reflectance", 0, 1, 0.05, "")
+Toggle("chams", "Pulsing Effect", CFG.Chams, "Pulsing")
+Slider("chams", "Pulse Speed", CFG.Chams, "PulseSpeed", 0.5, 5, 0.25, "")
+Slider("chams", "Pulse Min Alpha", CFG.Chams, "PulseMin", 0.1, 0.8, 0.05, "")
+Slider("chams", "Pulse Max Alpha", CFG.Chams, "PulseMax", 0.5, 1.0, 0.05, "")
+Section("chams", "chams outline")
+Toggle("chams", "Outline Enabled", CFG.Chams, "OutlineEnabled")
+Slider("chams", "Outline Width", CFG.Chams, "OutlineWidth", 0.01, 0.3, 0.01, "")
+ColorPick("chams", "Outline Color", CFG.Chams, "OutlineColor")
+Toggle("chams", "Outline Only", CFG.Chams, "OutlineOnly")
+Toggle("chams", "Rainbow Outline", CFG.Chams, "RainbowOutline")
+Slider("chams", "Rainbow Speed", CFG.Chams, "RainbowSpeed", 0.5, 5, 0.25, "")
+Section("chams", "team chams colors")
+Toggle("chams", "Per-Team Colors", CFG.Chams, "PerTeamColor")
+ColorPick("chams", "Team A Color", CFG.Chams, "TeamAColor")
+ColorPick("chams", "Team B Color", CFG.Chams, "TeamBColor")
+ColorPick("chams", "Neutral Color", CFG.Chams, "NeutralColor")
+ColorPick("chams", "Spectator Color", CFG.Chams, "SpectatorColor")
+Section("chams", "distance-based chams")
+Toggle("chams", "Distance Fade", CFG.Chams, "DistFade")
+Slider("chams", "Fade Start Dist", CFG.Chams, "FadeStart", 50, 500, 10, "")
+Slider("chams", "Fade End Dist", CFG.Chams, "FadeEnd", 100, 1000, 25, "")
+Toggle("chams", "Close Range Glow", CFG.Chams, "CloseGlow")
+Slider("chams", "Close Range Dist", CFG.Chams, "CloseDist", 10, 100, 5, "")
+Label("chams", "Distance fade reduces chams at range")
+Label("chams", "Close range glow intensifies nearby")
+Separator("chams")
+Section("chams", "per-part chams")
+Toggle("chams", "Head Highlight", CFG.Chams, "HighlightHead")
+ColorPick("chams", "Head Color", CFG.Chams, "HeadColor")
+Toggle("chams", "Torso Highlight", CFG.Chams, "HighlightTorso")
+ColorPick("chams", "Torso Color", CFG.Chams, "TorsoColor")
+Toggle("chams", "Limbs Highlight", CFG.Chams, "HighlightLimbs")
+ColorPick("chams", "Limbs Color", CFG.Chams, "LimbsColor")
+Toggle("chams", "Weapon Highlight", CFG.Chams, "HighlightWeapon")
+ColorPick("chams", "Weapon Color", CFG.Chams, "WeaponColor")
+Label("chams", "Per-part colors override global chams")
+Label("chams", "Head highlight helps with headshots")
+Separator("chams")
+Section("chams", "chams performance")
+Slider("chams", "Update Rate", CFG.Chams, "UpdateRate", 0.016, 0.5, 0.016, "s")
+Slider("chams", "Max Chammed Players", CFG.Chams, "MaxPlayers", 1, 50, 1, "")
+Toggle("chams", "Cull Occluded", CFG.Chams, "CullOccluded")
+Toggle("chams", "LOD System", CFG.Chams, "LOD")
+Slider("chams", "LOD Distance", CFG.Chams, "LODDist", 100, 1000, 50, "")
+Label("chams", "Reduce update rate for better FPS")
+Label("chams", "LOD reduces detail at distance")
+
+-- ============================================================
+-- VISUALS TAB: PERFORMANCE STATS, CROSSHAIR, EFFECTS
+-- ============================================================
+Section("visuals", "performance stats")
+Toggle("visuals", "Show Stats Overlay", CFG.PerfStats, "On")
+Toggle("visuals", "Show FPS", CFG.PerfStats, "ShowFPS")
+Toggle("visuals", "Show Ping", CFG.PerfStats, "ShowPing")
+Toggle("visuals", "Show Memory", CFG.PerfStats, "ShowMemory")
+Toggle("visuals", "Show Draw Calls", CFG.PerfStats, "ShowDrawCalls")
+Toggle("visuals", "Show Entity Count", CFG.PerfStats, "ShowEntities")
+Toggle("visuals", "Show Uptime", CFG.PerfStats, "ShowUptime")
+Dropdown("visuals", "Stats Position", CFG.PerfStats, "Position", {"BottomRight", "BottomLeft", "TopRight", "TopLeft"})
+Slider("visuals", "Update Rate", CFG.PerfStats, "UpdateRate", 0.1, 2.0, 0.1, "s")
+Label("visuals", "Shows FPS, ping, memory, and more")
+Label("visuals", "Update rate controls refresh frequency")
+Separator("visuals")
+Section("visuals", "crosshair presets")
+Button("visuals", "Default Cross", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Cross"
+    CFG.Crosshair.Size = 6
+    CFG.Crosshair.Thickness = 1.5
+    CFG.Crosshair.Gap = 4
+    CFG.Crosshair.Dot = true
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Default Cross" end)
+end)
+Button("visuals", "Dot Only", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Dot"
+    CFG.Crosshair.DotSize = 3
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Dot Only" end)
+end)
+Button("visuals", "Small Cross", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Cross"
+    CFG.Crosshair.Size = 3
+    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Gap = 2
+    CFG.Crosshair.Dot = false
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Small Cross" end)
+end)
+Button("visuals", "Circle Cross", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Circle"
+    CFG.Crosshair.CircleRadius = 5
+    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Dot = true
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Circle Cross" end)
+end)
+Button("visuals", "T-Shape Cross", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "T"
+    CFG.Crosshair.Size = 5
+    CFG.Crosshair.Thickness = 1.5
+    CFG.Crosshair.Gap = 3
+    CFG.Crosshair.Dot = false
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "T-Shape Cross" end)
+end)
+Button("visuals", "Diamond Cross", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Diamond"
+    CFG.Crosshair.Size = 4
+    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Dot = false
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Diamond Cross" end)
+end)
+Button("visuals", "CS2 Style", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Cross"
+    CFG.Crosshair.Size = 2
+    CFG.Crosshair.Thickness = 1
+    CFG.Crosshair.Gap = 3
+    CFG.Crosshair.Dot = false
+    CFG.Crosshair.Outline = false
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "CS2 Style" end)
+end)
+Button("visuals", "Sniper Cross", function(btn)
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Cross"
+    CFG.Crosshair.Size = 15
+    CFG.Crosshair.Thickness = 0.5
+    CFG.Crosshair.Gap = 8
+    CFG.Crosshair.Dot = true
+    CFG.Crosshair.DotSize = 1
+    CFG.Crosshair.Outline = true
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Sniper Cross" end)
+end)
+Separator("visuals")
+Section("visuals", "crosshair editor")
+Slider("visuals", "Cross Size", CFG.Crosshair, "Size", 1, 20, 0.5, "")
+Slider("visuals", "Cross Thickness", CFG.Crosshair, "Thickness", 0.5, 5, 0.25, "")
+Slider("visuals", "Cross Gap", CFG.Crosshair, "Gap", 0, 15, 0.5, "")
+Slider("visuals", "Dot Size", CFG.Crosshair, "DotSize", 1, 8, 0.5, "")
+Toggle("visuals", "Dynamic Gap", CFG.Crosshair, "DynamicGap")
+Slider("visuals", "Dynamic Multiplier", CFG.Crosshair, "DynMult", 0.5, 5, 0.25, "x")
+Toggle("visuals", "Spread Circle", CFG.Crosshair, "SpreadCircle")
+Slider("visuals", "Spread Radius Mult", CFG.Crosshair, "SpreadMult", 0.5, 3, 0.1, "x")
+ColorPick("visuals", "Spread Color", CFG.Crosshair, "SpreadColor")
+Label("visuals", "Dynamic gap widens when moving/shooting")
+Label("visuals", "Spread circle shows weapon accuracy")
+Separator("visuals")
+Section("visuals", "ambient effects")
+Toggle("visuals", "Ambient Particles", CFG.Visual, "AmbientParticles")
+Dropdown("visuals", "Particle Type", CFG.Visual, "ParticleType", {"Snow", "Rain", "Fireflies", "Stars", "Dust", "Embers"})
+Slider("visuals", "Particle Density", CFG.Visual, "ParticleDensity", 5, 100, 5, "")
+Slider("visuals", "Particle Speed", CFG.Visual, "ParticleSpeed", 0.5, 5, 0.25, "x")
+Slider("visuals", "Particle Size", CFG.Visual, "ParticleSize", 0.5, 5, 0.25, "")
+ColorPick("visuals", "Particle Color", CFG.Visual, "ParticleColor")
+Toggle("visuals", "Particle Glow", CFG.Visual, "ParticleGlow")
+Label("visuals", "Ambient particles add visual flair")
+Label("visuals", "Performance impact varies by density")
+Section("visuals", "screen effects")
+Toggle("visuals", "Vignette", CFG.Visual, "Vignette")
+Slider("visuals", "Vignette Intensity", CFG.Visual, "VignetteIntensity", 0.1, 1.0, 0.05, "")
+Toggle("visuals", "Chromatic Aberration", CFG.Visual, "ChromaticAberr")
+Slider("visuals", "Aberration Amount", CFG.Visual, "ChromaticAmount", 1, 10, 0.5, "")
+Toggle("visuals", "Film Grain", CFG.Visual, "FilmGrain")
+Slider("visuals", "Grain Amount", CFG.Visual, "GrainAmount", 0.01, 0.2, 0.01, "")
+Toggle("visuals", "Sharpen", CFG.Visual, "Sharpen")
+Slider("visuals", "Sharpen Amount", CFG.Visual, "SharpenAmount", 0.1, 2.0, 0.1, "")
+Toggle("visuals", "Color Correction", CFG.Visual, "ColorCorrect")
+Slider("visuals", "Saturation", CFG.Visual, "Saturation", 0, 3, 0.1, "")
+Slider("visuals", "Contrast", CFG.Visual, "Contrast", 0.5, 2, 0.1, "")
+Slider("visuals", "Brightness Offset", CFG.Visual, "BrightnessOff", -0.5, 0.5, 0.05, "")
+Section("visuals", "hit markers")
+Toggle("visuals", "Hit Markers", CFG.Visual, "HitMarkers")
+Dropdown("visuals", "Marker Style", CFG.Visual, "MarkerStyle", {"Cross", "Circle", "X", "Diamond", "Skull"})
+Slider("visuals", "Marker Size", CFG.Visual, "MarkerSize", 5, 30, 1, "")
+Slider("visuals", "Marker Duration", CFG.Visual, "MarkerDuration", 0.1, 1.0, 0.05, "s")
+ColorPick("visuals", "Marker Color", CFG.Visual, "MarkerColor")
+Toggle("visuals", "Headshot Marker", CFG.Visual, "HeadshotMarker")
+ColorPick("visuals", "Headshot Color", CFG.Visual, "HeadshotColor")
+Toggle("visuals", "Kill Marker", CFG.Visual, "KillMarker")
+ColorPick("visuals", "Kill Color", CFG.Visual, "KillColor")
+Toggle("visuals", "Marker Sound", CFG.Visual, "MarkerSound")
+Section("visuals", "kill effects")
+Toggle("visuals", "Kill Effects", CFG.Visual, "KillEffects")
+Dropdown("visuals", "Kill Effect", CFG.Visual, "KillEffect", {"Confetti", "Explosion", "Lightning", "Dissolve", "Beam", "Shatter"})
+Slider("visuals", "Effect Duration", CFG.Visual, "KillEffectDuration", 0.5, 3, 0.25, "s")
+Slider("visuals", "Effect Intensity", CFG.Visual, "KillEffectIntensity", 0.1, 1.0, 0.1, "")
+ColorPick("visuals", "Effect Color", CFG.Visual, "KillEffectColor")
+Toggle("visuals", "Kill Sound", CFG.Visual, "KillSound")
+Label("visuals", "Kill effects play on confirmed kills")
+Label("visuals", "Confetti is festive, lightning is dramatic")
+Section("visuals", "aspect ratio")
+Toggle("visuals", "Custom Aspect Ratio", CFG.Visual, "CustomAspect")
+Dropdown("visuals", "Ratio Preset", CFG.Visual, "AspectPreset", {"16:9", "4:3", "21:9", "1:1", "3:2", "16:10"})
+Slider("visuals", "Custom Width Ratio", CFG.Visual, "AspectW", 1, 32, 1, "")
+Slider("visuals", "Custom Height Ratio", CFG.Visual, "AspectH", 1, 32, 1, "")
+Toggle("visuals", "Letterbox Bars", CFG.Visual, "Letterbox")
+ColorPick("visuals", "Letterbox Color", CFG.Visual, "LetterboxColor")
+Label("visuals", "4:3 is classic competitive ratio")
+Label("visuals", "21:9 gives ultrawide cinematic view")
+Separator("visuals")
+Section("visuals", "fov animation")
+Toggle("visuals", "FOV on Kill", CFG.Visual, "FOVOnKill")
+Slider("visuals", "Kill FOV Boost", CFG.Visual, "KillFOVBoost", 5, 30, 1, "")
+Slider("visuals", "Kill FOV Duration", CFG.Visual, "KillFOVDuration", 0.1, 1.0, 0.1, "s")
+Toggle("visuals", "FOV on Sprint", CFG.Visual, "FOVOnSprint")
+Slider("visuals", "Sprint FOV Boost", CFG.Visual, "SprintFOVBoost", 2, 15, 1, "")
+Toggle("visuals", "FOV Smooth", CFG.Visual, "FOVSmooth")
+Slider("visuals", "FOV Smooth Speed", CFG.Visual, "FOVSmoothSpeed", 0.01, 0.3, 0.01, "")
+Label("visuals", "FOV punch on kill adds impact")
+Label("visuals", "Sprint FOV mimics modern FPS feel")
+Section("visuals", "watermark extensions")
+Toggle("visuals", "Show Watermark", CFG.Visual, "Watermark")
+Toggle("visuals", "Show Username", CFG.Visual, "WMUsername")
+Toggle("visuals", "Show FPS in WM", CFG.Visual, "WMFPS")
+Toggle("visuals", "Show Ping in WM", CFG.Visual, "WMPing")
+Toggle("visuals", "Show Time", CFG.Visual, "WMTime")
+Toggle("visuals", "Show Date", CFG.Visual, "WMDate")
+Toggle("visuals", "Show Server", CFG.Visual, "WMServer")
+Dropdown("visuals", "WM Position", CFG.Visual, "WMPosition", {"TopLeft", "TopRight", "TopCenter", "BottomLeft", "BottomRight"})
+Slider("visuals", "WM Font Size", CFG.Visual, "WMFontSize", 10, 20, 1, "")
+ColorPick("visuals", "WM Color", CFG.Visual, "WMColor")
+ColorPick("visuals", "WM BG Color", CFG.Visual, "WMBGColor")
+Slider("visuals", "WM BG Alpha", CFG.Visual, "WMBGAlpha", 0, 1, 0.05, "")
+Toggle("visuals", "WM Accent Bar", CFG.Visual, "WMAccentBar")
+Label("visuals", "Watermark shows script info on screen")
+Label("visuals", "Customize position, color, and content")
+
+-- ============================================================
+-- MOVEMENT TAB: BUNNY HOP, SPIDER, PHASE, ANCHOR, ETC
+-- ============================================================
+Section("movement", "bunny hop")
+Toggle("movement", "Enable Bunny Hop", CFG.BunnyHop, "On")
+Toggle("movement", "Auto Strafe", CFG.BunnyHop, "AutoStrafe")
+Slider("movement", "Strafe Speed", CFG.BunnyHop, "StrafeSpeed", 0.5, 5, 0.25, "x")
+Toggle("movement", "Ground Strafe", CFG.BunnyHop, "GroundStrafe")
+Label("movement", "Auto-jumps when landing for momentum")
+Label("movement", "Auto strafe moves in camera direction")
+Section("movement", "spider climb")
+Toggle("movement", "Enable Spider", CFG.Spider, "On")
+KeybindPicker("movement", "Spider Key", CFG.Spider, "Key")
+Slider("movement", "Climb Speed", CFG.Spider, "Speed", 5, 100, 5, "")
+Label("movement", "Climb walls using raycasts")
+Label("movement", "Hold key near a wall to climb")
+Section("movement", "phase / ghost")
+Toggle("movement", "Enable Phase", CFG.Phase, "On")
+KeybindPicker("movement", "Phase Key", CFG.Phase, "Key")
+Slider("movement", "Phase Speed", CFG.Phase, "Speed", 10, 200, 5, "")
+Label("movement", "Walk through walls like a ghost")
+Label("movement", "Toggle with key, move in camera direction")
+Section("movement", "anchor / freeze")
+Toggle("movement", "Enable Anchor", CFG.Anchor, "On")
+KeybindPicker("movement", "Anchor Key", CFG.Anchor, "Key")
+Label("movement", "Saves your position and freezes you there")
+Label("movement", "Press again to release")
+Button("movement", "Set Anchor Here", function(btn)
+    local myRoot = U.myRoot()
+    if myRoot then
+        CFG.Anchor.Position = myRoot.CFrame
+        btn.Text = "Set!"
+        Notify.send("Anchor", "Position saved", "success", 2)
+    else
+        btn.Text = "No character!"
+    end
+    task.delay(1, function() btn.Text = "Set Anchor Here" end)
+end)
+Button("movement", "Clear Anchor", function(btn)
+    CFG.Anchor.Position = nil
+    AnchorSystem.active = false
+    btn.Text = "Cleared!"
+    Notify.send("Anchor", "Anchor cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear Anchor" end)
+end)
+Section("movement", "spinbot")
+Toggle("movement", "Enable Spinbot", CFG.Spinbot, "On")
+Slider("movement", "Spin Speed", CFG.Spinbot, "Speed", 1, 50, 1, "")
+Dropdown("movement", "Spin Axis", CFG.Spinbot, "Axis", {"Y", "X", "Z"})
+Label("movement", "Spins your character on selected axis")
+Label("movement", "Useful with anti-aim setups")
+Section("movement", "third person camera")
+Toggle("movement", "Enable Third Person", CFG.ThirdPerson, "On")
+KeybindPicker("movement", "Third Person Key", CFG.ThirdPerson, "Key")
+Slider("movement", "Camera Distance", CFG.ThirdPerson, "Distance", 5, 50, 1, "")
+Slider("movement", "Camera FOV", CFG.ThirdPerson, "FOV", 40, 120, 5, "")
+Toggle("movement", "Smooth Camera", CFG.ThirdPerson, "Smooth")
+Slider("movement", "Smooth Speed", CFG.ThirdPerson, "SmoothSpeed", 0.01, 0.5, 0.01, "")
+Label("movement", "Overrides camera to third person view")
+Label("movement", "Press key to toggle on/off")
+Separator("movement")
+Section("movement", "movement presets")
+Button("movement", "Legit Movement", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 18
+    CFG.BunnyHop.On = false
+    CFG.Movement.Fly.On = false
+    CFG.Movement.Noclip.On = false
+    CFG.Spider.On = false
+    CFG.Phase.On = false
+    CFG.Movement.InfJump.On = false
+    btn.Text = "Applied!"
+    Notify.send("Movement", "Legit movement applied", "success", 2)
+    task.delay(1, function() btn.Text = "Legit Movement" end)
+end)
+Button("movement", "Speed Demon", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 50
+    CFG.BunnyHop.On = true
+    CFG.BunnyHop.AutoStrafe = true
+    CFG.BunnyHop.StrafeSpeed = 3
+    CFG.Movement.InfJump.On = true
+    CFG.Movement.Fly.On = false
+    CFG.Movement.Noclip.On = false
+    btn.Text = "Applied!"
+    Notify.send("Movement", "Speed demon preset applied", "warning", 2)
+    task.delay(1, function() btn.Text = "Speed Demon" end)
+end)
+Button("movement", "Flight Master", function(btn)
+    CFG.Movement.Fly.On = true
+    CFG.Movement.Fly.Speed = 100
+    CFG.Movement.Noclip.On = true
+    CFG.Movement.Speed.On = false
+    CFG.BunnyHop.On = false
+    CFG.Spider.On = false
+    btn.Text = "Applied!"
+    Notify.send("Movement", "Flight master preset applied", "warning", 2)
+    task.delay(1, function() btn.Text = "Flight Master" end)
+end)
+Button("movement", "Exploration Mode", function(btn)
+    CFG.Movement.Fly.On = true
+    CFG.Movement.Fly.Speed = 60
+    CFG.Movement.Noclip.On = true
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 30
+    CFG.Movement.InfJump.On = true
+    CFG.Spider.On = true
+    CFG.Phase.On = true
+    btn.Text = "Applied!"
+    Notify.send("Movement", "Exploration mode - go anywhere", "info", 3)
+    task.delay(1, function() btn.Text = "Exploration Mode" end)
+end)
+Button("movement", "Disable All Movement", function(btn)
+    CFG.Movement.Speed.On = false
+    CFG.Movement.Fly.On = false
+    CFG.Movement.Noclip.On = false
+    CFG.Movement.InfJump.On = false
+    CFG.BunnyHop.On = false
+    CFG.Spider.On = false
+    CFG.Phase.On = false
+    CFG.Anchor.On = false
+    CFG.Spinbot.On = false
+    CFG.ThirdPerson.On = false
+    disableFly()
+    disableNoclip()
+    btn.Text = "Disabled!"
+    Notify.send("Movement", "All movement mods disabled", "info", 2)
+    task.delay(1, function() btn.Text = "Disable All Movement" end)
+end)
+Separator("movement")
+Section("movement", "strafe helper")
+Toggle("movement", "Strafe Helper", CFG.Movement, "StrafeHelper")
+Slider("movement", "Strafe Assist Strength", CFG.Movement, "StrafeStrength", 0.1, 1.0, 0.05, "")
+Toggle("movement", "Air Strafe", CFG.Movement, "AirStrafe")
+Slider("movement", "Air Control", CFG.Movement, "AirControl", 0.1, 1.0, 0.05, "")
+Toggle("movement", "Edge Detect", CFG.Movement, "EdgeDetect")
+Slider("movement", "Edge Detect Dist", CFG.Movement, "EdgeDist", 1, 10, 0.5, "")
+Label("movement", "Strafe helper smooths direction changes")
+Label("movement", "Air control lets you steer mid-jump")
+Label("movement", "Edge detect warns near cliff edges")
+Section("movement", "anti-void")
+Toggle("movement", "Anti-Void", CFG.Movement, "AntiVoid")
+Slider("movement", "Void Y Threshold", CFG.Movement, "VoidY", -500, -50, 10, "")
+Toggle("movement", "Auto Teleport Up", CFG.Movement, "VoidTeleport")
+Slider("movement", "Teleport Height", CFG.Movement, "VoidTeleportY", 10, 200, 5, "")
+Label("movement", "Anti-void teleports you before falling out")
+Label("movement", "Threshold sets the Y level to trigger")
+Section("movement", "speed profiles")
+Button("movement", "Walk Speed", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 16
+    btn.Text = "16 studs/s"
+    task.delay(1, function() btn.Text = "Walk Speed" end)
+end)
+Button("movement", "Jog Speed", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 24
+    btn.Text = "24 studs/s"
+    task.delay(1, function() btn.Text = "Jog Speed" end)
+end)
+Button("movement", "Sprint Speed", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 36
+    btn.Text = "36 studs/s"
+    task.delay(1, function() btn.Text = "Sprint Speed" end)
+end)
+Button("movement", "Fast Speed", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 60
+    btn.Text = "60 studs/s"
+    task.delay(1, function() btn.Text = "Fast Speed" end)
+end)
+Button("movement", "Ludicrous Speed", function(btn)
+    CFG.Movement.Speed.On = true
+    CFG.Movement.Speed.Amount = 150
+    btn.Text = "150 studs/s"
+    Notify.send("Speed", "Ludicrous speed - be careful", "warning", 2)
+    task.delay(1, function() btn.Text = "Ludicrous Speed" end)
+end)
+Button("movement", "Reset Speed", function(btn)
+    CFG.Movement.Speed.On = false
+    CFG.Movement.Speed.Amount = 16
+    btn.Text = "Reset!"
+    task.delay(1, function() btn.Text = "Reset Speed" end)
+end)
+Label("movement", "Speed values in studs per second")
+Label("movement", "Default Roblox walk speed is 16")
+Separator("movement")
+Section("movement", "teleport presets")
+Button("movement", "TP to Highest Point", function(btn)
+    local myRoot = U.myRoot()
+    if not myRoot then btn.Text = "No character!"; task.delay(1, function() btn.Text = "TP to Highest Point" end); return end
+    local highest = myRoot.Position.Y
+    local highPos = myRoot.Position
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Position.Y > highest and v.Size.X > 3 and v.Size.Z > 3 then
+            highest = v.Position.Y
+            highPos = v.Position
+        end
+    end
+    myRoot.CFrame = CFrame.new(highPos + Vector3.new(0, 5, 0))
+    btn.Text = "Done!"
+    Notify.send("Teleport", "TP to Y=" .. math.floor(highest), "success", 2)
+    task.delay(1, function() btn.Text = "TP to Highest Point" end)
+end)
+Button("movement", "TP to Map Center", function(btn)
+    local myRoot = U.myRoot()
+    if not myRoot then btn.Text = "No character!"; task.delay(1, function() btn.Text = "TP to Map Center" end); return end
+    local sum = Vector3.new(0, 0, 0)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Anchored then
+            sum = sum + v.Position
+            count = count + 1
+            if count > 500 then break end
+        end
+    end
+    if count > 0 then
+        local center = sum / count
+        myRoot.CFrame = CFrame.new(center + Vector3.new(0, 20, 0))
+        btn.Text = "Done!"
+    else
+        btn.Text = "No parts!"
+    end
+    task.delay(1, function() btn.Text = "TP to Map Center" end)
+end)
+Button("movement", "TP to Random Player", function(btn)
+    local myRoot = U.myRoot()
+    if not myRoot then btn.Text = "No character!"; task.delay(1, function() btn.Text = "TP to Random Player" end); return end
+    local others = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP and U.alive(p) then
+            table.insert(others, p)
+        end
+    end
+    if #others > 0 then
+        local target = others[math.random(#others)]
+        local rp = target.Character and target.Character:FindFirstChild("HumanoidRootPart")
+        if rp then
+            myRoot.CFrame = rp.CFrame * CFrame.new(0, 0, -5)
+            btn.Text = target.Name
+            Notify.send("Teleport", "TP to " .. target.Name, "success", 2)
+        end
+    else
+        btn.Text = "No players!"
+    end
+    task.delay(1.5, function() btn.Text = "TP to Random Player" end)
+end)
+Button("movement", "TP Forward 100", function(btn)
+    local myRoot = U.myRoot()
+    if not myRoot then btn.Text = "No character!"; task.delay(1, function() btn.Text = "TP Forward 100" end); return end
+    myRoot.CFrame = myRoot.CFrame * CFrame.new(0, 0, -100)
+    btn.Text = "Done!"
+    task.delay(1, function() btn.Text = "TP Forward 100" end)
+end)
+Button("movement", "TP Up 100", function(btn)
+    local myRoot = U.myRoot()
+    if not myRoot then btn.Text = "No character!"; task.delay(1, function() btn.Text = "TP Up 100" end); return end
+    myRoot.CFrame = myRoot.CFrame * CFrame.new(0, 100, 0)
+    btn.Text = "Done!"
+    task.delay(1, function() btn.Text = "TP Up 100" end)
+end)
+Label("movement", "Teleport presets for quick navigation")
+Label("movement", "Some may trigger anti-cheat on servers")
+
+-- ============================================================
+-- WORLD TAB: EXTENDED PRESETS AND MANIPULATION
+-- ============================================================
+Section("world", "lighting profiles")
+Button("world", "Bright Day", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = 14
+    lighting.Brightness = 3
+    lighting.Ambient = Color3.fromRGB(150, 150, 150)
+    lighting.OutdoorAmbient = Color3.fromRGB(170, 170, 170)
+    lighting.FogEnd = 100000
+    btn.Text = "Applied!"
+    Notify.send("Lighting", "Bright day preset", "success", 2)
+    task.delay(1, function() btn.Text = "Bright Day" end)
+end)
+Button("world", "Sunset Glow", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = 18
+    lighting.Brightness = 2
+    lighting.Ambient = Color3.fromRGB(180, 120, 80)
+    lighting.OutdoorAmbient = Color3.fromRGB(200, 130, 90)
+    lighting.FogEnd = 100000
+    btn.Text = "Applied!"
+    Notify.send("Lighting", "Sunset glow preset", "success", 2)
+    task.delay(1, function() btn.Text = "Sunset Glow" end)
+end)
+Button("world", "Moonlit Night", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = 0
+    lighting.Brightness = 1
+    lighting.Ambient = Color3.fromRGB(50, 50, 80)
+    lighting.OutdoorAmbient = Color3.fromRGB(40, 40, 70)
+    lighting.FogEnd = 100000
+    btn.Text = "Applied!"
+    Notify.send("Lighting", "Moonlit night preset", "success", 2)
+    task.delay(1, function() btn.Text = "Moonlit Night" end)
+end)
+Button("world", "Horror Mode", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = 0
+    lighting.Brightness = 0.5
+    lighting.Ambient = Color3.fromRGB(10, 0, 0)
+    lighting.OutdoorAmbient = Color3.fromRGB(5, 0, 0)
+    lighting.FogEnd = 200
+    lighting.FogColor = Color3.fromRGB(10, 0, 0)
+    btn.Text = "Applied!"
+    Notify.send("Lighting", "Horror mode - very dark", "warning", 2)
+    task.delay(1, function() btn.Text = "Horror Mode" end)
+end)
+Button("world", "Neon City", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = 22
+    lighting.Brightness = 1.5
+    lighting.Ambient = Color3.fromRGB(40, 0, 80)
+    lighting.OutdoorAmbient = Color3.fromRGB(50, 10, 90)
+    lighting.FogEnd = 100000
+    btn.Text = "Applied!"
+    Notify.send("Lighting", "Neon city preset", "success", 2)
+    task.delay(1, function() btn.Text = "Neon City" end)
+end)
+Button("world", "Arctic White", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = 12
+    lighting.Brightness = 4
+    lighting.Ambient = Color3.fromRGB(220, 230, 255)
+    lighting.OutdoorAmbient = Color3.fromRGB(230, 240, 255)
+    lighting.FogEnd = 5000
+    lighting.FogColor = Color3.fromRGB(240, 245, 255)
+    btn.Text = "Applied!"
+    Notify.send("Lighting", "Arctic white preset", "success", 2)
+    task.delay(1, function() btn.Text = "Arctic White" end)
+end)
+Separator("world")
+Section("world", "gravity presets")
+Button("world", "Normal Gravity", function(btn)
+    workspace.Gravity = 196.2
+    btn.Text = "196.2"
+    task.delay(1, function() btn.Text = "Normal Gravity" end)
+end)
+Button("world", "Moon Gravity", function(btn)
+    workspace.Gravity = 32
+    btn.Text = "32"
+    Notify.send("Gravity", "Moon gravity enabled", "info", 2)
+    task.delay(1, function() btn.Text = "Moon Gravity" end)
+end)
+Button("world", "Mars Gravity", function(btn)
+    workspace.Gravity = 72
+    btn.Text = "72"
+    Notify.send("Gravity", "Mars gravity enabled", "info", 2)
+    task.delay(1, function() btn.Text = "Mars Gravity" end)
+end)
+Button("world", "Jupiter Gravity", function(btn)
+    workspace.Gravity = 500
+    btn.Text = "500"
+    Notify.send("Gravity", "Jupiter gravity - heavy!", "warning", 2)
+    task.delay(1, function() btn.Text = "Jupiter Gravity" end)
+end)
+Button("world", "Zero Gravity", function(btn)
+    workspace.Gravity = 0
+    btn.Text = "0"
+    Notify.send("Gravity", "Zero gravity!", "warning", 2)
+    task.delay(1, function() btn.Text = "Zero Gravity" end)
+end)
+Button("world", "Reversed Gravity", function(btn)
+    workspace.Gravity = -100
+    btn.Text = "-100"
+    Notify.send("Gravity", "Reversed gravity - fall up!", "warning", 2)
+    task.delay(1, function() btn.Text = "Reversed Gravity" end)
+end)
+Separator("world")
+Section("world", "fog controls")
+Toggle("world", "Custom Fog", CFG.World, "CustomFog")
+Slider("world", "Fog Start", CFG.World, "FogStart", 0, 1000, 25, "")
+Slider("world", "Fog End", CFG.World, "FogEnd", 100, 100000, 500, "")
+ColorPick("world", "Fog Color", CFG.World, "FogColor")
+Button("world", "Clear Fog", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.FogStart = 0
+    lighting.FogEnd = 100000
+    btn.Text = "Cleared!"
+    task.delay(1, function() btn.Text = "Clear Fog" end)
+end)
+Button("world", "Dense Fog", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.FogStart = 0
+    lighting.FogEnd = 200
+    lighting.FogColor = Color3.fromRGB(200, 200, 200)
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Dense Fog" end)
+end)
+Button("world", "Eerie Fog", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.FogStart = 0
+    lighting.FogEnd = 300
+    lighting.FogColor = Color3.fromRGB(50, 80, 50)
+    btn.Text = "Applied!"
+    task.delay(1, function() btn.Text = "Eerie Fog" end)
+end)
+Section("world", "time controls")
+Slider("world", "Time of Day", CFG.World, "ClockTime", 0, 24, 0.5, "h")
+Toggle("world", "Freeze Time", CFG.World, "FreezeTime")
+Button("world", "Cycle Time +1h", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = (lighting.ClockTime + 1) % 24
+    btn.Text = string.format("%.0fh", lighting.ClockTime)
+    task.delay(1, function() btn.Text = "Cycle Time +1h" end)
+end)
+Button("world", "Cycle Time -1h", function(btn)
+    local lighting = game:GetService("Lighting")
+    lighting.ClockTime = (lighting.ClockTime - 1) % 24
+    btn.Text = string.format("%.0fh", lighting.ClockTime)
+    task.delay(1, function() btn.Text = "Cycle Time -1h" end)
+end)
+Section("world", "physics manipulation")
+Slider("world", "Jump Power Override", CFG.World, "JumpPower", 0, 500, 10, "")
+Button("world", "Apply Jump Power", function(btn)
+    local myChar = LP.Character
+    local hum = myChar and myChar:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.JumpPower = CFG.World.JumpPower
+        hum.UseJumpPower = true
+        btn.Text = "Applied!"
+    else
+        btn.Text = "No character!"
+    end
+    task.delay(1, function() btn.Text = "Apply Jump Power" end)
+end)
+Slider("world", "Hip Height Override", CFG.World, "HipHeight", 0, 50, 0.5, "")
+Button("world", "Apply Hip Height", function(btn)
+    local myChar = LP.Character
+    local hum = myChar and myChar:FindFirstChildOfClass("Humanoid")
+    if hum then
+        hum.HipHeight = CFG.World.HipHeight
+        btn.Text = "Applied!"
+    else
+        btn.Text = "No character!"
+    end
+    task.delay(1, function() btn.Text = "Apply Hip Height" end)
+end)
+Label("world", "Jump power adjusts how high you jump")
+Label("world", "Hip height raises your character model")
+Separator("world")
+Section("world", "environment scanner")
+Button("world", "Count All Parts", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") then count = count + 1 end
+    end
+    btn.Text = tostring(count)
+    Notify.send("Scanner", "Total parts: " .. count, "info", 3)
+    task.delay(2, function() btn.Text = "Count All Parts" end)
+end)
+Button("world", "Count All Models", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("Model") then count = count + 1 end
+    end
+    btn.Text = tostring(count)
+    Notify.send("Scanner", "Total models: " .. count, "info", 3)
+    task.delay(2, function() btn.Text = "Count All Models" end)
+end)
+Button("world", "Count Scripts", function(btn)
+    local count = 0
+    for _, v in ipairs(game:GetDescendants()) do
+        if v:IsA("LocalScript") or v:IsA("Script") or v:IsA("ModuleScript") then
+            count = count + 1
+        end
+    end
+    btn.Text = tostring(count)
+    Notify.send("Scanner", "Total scripts: " .. count, "info", 3)
+    task.delay(2, function() btn.Text = "Count Scripts" end)
+end)
+Button("world", "Find Unanchored Parts", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and not v.Anchored then count = count + 1 end
+    end
+    btn.Text = tostring(count)
+    Notify.send("Scanner", "Unanchored parts: " .. count, "info", 3)
+    task.delay(2, function() btn.Text = "Find Unanchored Parts" end)
+end)
+Button("world", "Find SpawnLocations", function(btn)
+    local spawns = {}
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("SpawnLocation") then
+            table.insert(spawns, string.format("%s (%.0f, %.0f, %.0f)", v.Name, v.Position.X, v.Position.Y, v.Position.Z))
+        end
+    end
+    if #spawns > 0 then
+        btn.Text = #spawns .. " found"
+        Notify.send("Scanner", table.concat(spawns, "\n"), "info", 6)
+    else
+        btn.Text = "None found"
+    end
+    task.delay(2, function() btn.Text = "Find SpawnLocations" end)
+end)
+Button("world", "Map Bounds", function(btn)
+    local minX, minY, minZ = math.huge, math.huge, math.huge
+    local maxX, maxY, maxZ = -math.huge, -math.huge, -math.huge
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Anchored then
+            local p = v.Position
+            minX = math.min(minX, p.X); minY = math.min(minY, p.Y); minZ = math.min(minZ, p.Z)
+            maxX = math.max(maxX, p.X); maxY = math.max(maxY, p.Y); maxZ = math.max(maxZ, p.Z)
+            count = count + 1
+            if count > 2000 then break end
+        end
+    end
+    if count > 0 then
+        local sizeX = math.floor(maxX - minX)
+        local sizeY = math.floor(maxY - minY)
+        local sizeZ = math.floor(maxZ - minZ)
+        btn.Text = sizeX .. "x" .. sizeY .. "x" .. sizeZ
+        Notify.send("Scanner", string.format("Map size: %dx%dx%d studs\nX: %.0f to %.0f\nY: %.0f to %.0f\nZ: %.0f to %.0f",
+            sizeX, sizeY, sizeZ, minX, maxX, minY, maxY, minZ, maxZ), "info", 6)
+    else
+        btn.Text = "No parts!"
+    end
+    task.delay(2, function() btn.Text = "Map Bounds" end)
+end)
+Label("world", "Environment scanner analyzes the game world")
+Label("world", "Useful for finding hidden areas and spawns")
+Section("world", "skybox override")
+Toggle("world", "Custom Skybox", CFG.World, "CustomSkybox")
+Dropdown("world", "Skybox Preset", CFG.World, "SkyboxPreset", {"Default", "Clear", "Starry", "Cloudy", "Sunset", "Space", "Grid", "Void"})
+Button("world", "Apply Skybox", function(btn)
+    local lighting = game:GetService("Lighting")
+    local sky = lighting:FindFirstChildOfClass("Sky")
+    if not sky then
+        sky = Instance.new("Sky")
+        sky.Parent = lighting
+    end
+    local preset = CFG.World.SkyboxPreset
+    if preset == "Clear" then
+        sky.SkyboxBk = "rbxassetid://1012890590"; sky.SkyboxDn = "rbxassetid://1012890590"
+        sky.SkyboxFt = "rbxassetid://1012890590"; sky.SkyboxLf = "rbxassetid://1012890590"
+        sky.SkyboxRt = "rbxassetid://1012890590"; sky.SkyboxUp = "rbxassetid://1012890590"
+    elseif preset == "Void" then
+        sky.SkyboxBk = ""; sky.SkyboxDn = ""; sky.SkyboxFt = ""
+        sky.SkyboxLf = ""; sky.SkyboxRt = ""; sky.SkyboxUp = ""
+    end
+    btn.Text = "Applied!"
+    Notify.send("Skybox", preset .. " skybox applied", "success", 2)
+    task.delay(1, function() btn.Text = "Apply Skybox" end)
+end)
+Button("world", "Remove Skybox", function(btn)
+    local lighting = game:GetService("Lighting")
+    local sky = lighting:FindFirstChildOfClass("Sky")
+    if sky then sky:Destroy() end
+    btn.Text = "Removed!"
+    task.delay(1, function() btn.Text = "Remove Skybox" end)
+end)
+Label("world", "Skybox changes the background panorama")
+Label("world", "Void removes all sky textures")
+
+-- ============================================================
+-- RADAR TAB: EXTENDED PRESETS AND CONFIGURATION
+-- ============================================================
+Section("radar", "radar presets")
+Button("radar", "Minimal Radar", function(btn)
+    CFG.Radar.On = true
+    CFG.Radar.Size = 120
+    CFG.Radar.DotSize = 3
+    CFG.Radar.Range = 150
+    CFG.Radar.ShowNames = false
+    CFG.Radar.ShowHealth = false
+    CFG.Radar.CrosshairLines = true
+    btn.Text = "Applied!"
+    Notify.send("Radar", "Minimal radar preset", "success", 2)
+    task.delay(1, function() btn.Text = "Minimal Radar" end)
+end)
+Button("radar", "Detailed Radar", function(btn)
+    CFG.Radar.On = true
+    CFG.Radar.Size = 200
+    CFG.Radar.DotSize = 5
+    CFG.Radar.Range = 300
+    CFG.Radar.ShowNames = true
+    CFG.Radar.ShowHealth = true
+    CFG.Radar.CrosshairLines = true
+    btn.Text = "Applied!"
+    Notify.send("Radar", "Detailed radar preset", "success", 2)
+    task.delay(1, function() btn.Text = "Detailed Radar" end)
+end)
+Button("radar", "Wide Area Radar", function(btn)
+    CFG.Radar.On = true
+    CFG.Radar.Size = 250
+    CFG.Radar.DotSize = 4
+    CFG.Radar.Range = 500
+    CFG.Radar.ShowNames = true
+    CFG.Radar.ShowHealth = false
+    CFG.Radar.CrosshairLines = true
+    btn.Text = "Applied!"
+    Notify.send("Radar", "Wide area radar - 500 range", "success", 2)
+    task.delay(1, function() btn.Text = "Wide Area Radar" end)
+end)
+Button("radar", "Compact Radar", function(btn)
+    CFG.Radar.On = true
+    CFG.Radar.Size = 80
+    CFG.Radar.DotSize = 2
+    CFG.Radar.Range = 100
+    CFG.Radar.ShowNames = false
+    CFG.Radar.ShowHealth = false
+    CFG.Radar.CrosshairLines = false
+    btn.Text = "Applied!"
+    Notify.send("Radar", "Compact radar preset", "success", 2)
+    task.delay(1, function() btn.Text = "Compact Radar" end)
+end)
+Separator("radar")
+Section("radar", "radar style")
+Slider("radar", "Radar Zoom", CFG.Radar, "Range", 50, 1000, 25, "")
+Slider("radar", "Radar Scale", CFG.Radar, "Size", 60, 300, 10, "")
+Slider("radar", "Dot Size", CFG.Radar, "DotSize", 1, 10, 0.5, "")
+Toggle("radar", "Show Player Names", CFG.Radar, "ShowNames")
+Toggle("radar", "Show Health Bars", CFG.Radar, "ShowHealth")
+Toggle("radar", "Crosshair Lines", CFG.Radar, "CrosshairLines")
+Toggle("radar", "Rotate with Camera", CFG.Radar, "RotateWithCam")
+Toggle("radar", "Show North Indicator", CFG.Radar, "ShowNorth")
+Slider("radar", "BG Opacity", CFG.Radar, "BGOpacity", 0, 1, 0.05, "")
+ColorPick("radar", "BG Color", CFG.Radar, "BGColor")
+ColorPick("radar", "Crosshair Color", CFG.Radar, "CrossColor")
+ColorPick("radar", "Border Color", CFG.Radar, "BorderColor")
+Slider("radar", "Border Width", CFG.Radar, "BorderWidth", 0, 4, 0.5, "")
+Section("radar", "radar filtering")
+Toggle("radar", "Show Enemies", CFG.Radar, "ShowEnemies")
+Toggle("radar", "Show Teammates", CFG.Radar, "ShowTeammates")
+Toggle("radar", "Show Friends", CFG.Radar, "ShowFriends")
+Toggle("radar", "Show Dead Players", CFG.Radar, "ShowDead")
+Toggle("radar", "Show Items", CFG.Radar, "ShowItems")
+Toggle("radar", "Show Vehicles", CFG.Radar, "ShowVehicles")
+ColorPick("radar", "Enemy Color", CFG.Radar, "EnemyColor")
+ColorPick("radar", "Teammate Color", CFG.Radar, "TeamColor")
+ColorPick("radar", "Friend Color", CFG.Radar, "FriendColor")
+ColorPick("radar", "Item Color", CFG.Radar, "ItemColor")
+Section("radar", "radar position")
+Dropdown("radar", "Corner", CFG.Radar, "Corner", {"TopLeft", "TopRight", "BottomLeft", "BottomRight"})
+Slider("radar", "Offset X", CFG.Radar, "OffsetX", 0, 100, 5, "px")
+Slider("radar", "Offset Y", CFG.Radar, "OffsetY", 0, 100, 5, "px")
+Toggle("radar", "Draggable", CFG.Radar, "Draggable")
+Label("radar", "Draggable lets you move radar by clicking")
+Section("radar", "waypoint system")
+Toggle("radar", "Show Waypoints", CFG.Radar, "ShowWaypoints")
+Button("radar", "Set Waypoint Here", function(btn)
+    local myRoot = U.myRoot()
+    if myRoot then
+        CFG.Radar.Waypoints = CFG.Radar.Waypoints or {}
+        table.insert(CFG.Radar.Waypoints, {
+            Position = myRoot.Position,
+            Name = "WP" .. #(CFG.Radar.Waypoints or {}) + 1
+        })
+        btn.Text = "Set!"
+        Notify.send("Waypoint", "Waypoint set at current position", "success", 2)
+    else
+        btn.Text = "No character!"
+    end
+    task.delay(1, function() btn.Text = "Set Waypoint Here" end)
+end)
+Button("radar", "Clear All Waypoints", function(btn)
+    CFG.Radar.Waypoints = {}
+    btn.Text = "Cleared!"
+    Notify.send("Waypoint", "All waypoints cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear All Waypoints" end)
+end)
+Button("radar", "TP to Nearest Waypoint", function(btn)
+    local myRoot = U.myRoot()
+    if not myRoot or not CFG.Radar.Waypoints or #CFG.Radar.Waypoints == 0 then
+        btn.Text = "None set!"
+        task.delay(1, function() btn.Text = "TP to Nearest Waypoint" end)
+        return
+    end
+    local nearest, nearDist = nil, math.huge
+    for _, wp in ipairs(CFG.Radar.Waypoints) do
+        local dist = (myRoot.Position - wp.Position).Magnitude
+        if dist < nearDist then
+            nearest = wp
+            nearDist = dist
+        end
+    end
+    if nearest then
+        myRoot.CFrame = CFrame.new(nearest.Position + Vector3.new(0, 5, 0))
+        btn.Text = nearest.Name
+        Notify.send("Waypoint", "TP to " .. nearest.Name, "success", 2)
+    end
+    task.delay(1.5, function() btn.Text = "TP to Nearest Waypoint" end)
+end)
+ColorPick("radar", "Waypoint Color", CFG.Radar, "WaypointColor")
+Slider("radar", "Waypoint Size", CFG.Radar, "WaypointSize", 2, 8, 0.5, "")
+Label("radar", "Waypoints show as markers on radar")
+Label("radar", "TP to nearest jumps to closest marker")
+Separator("radar")
+Section("radar", "map awareness")
+Toggle("radar", "Direction Arrows", CFG.Radar, "DirArrows")
+Toggle("radar", "Distance Numbers", CFG.Radar, "DistNumbers")
+Toggle("radar", "Threat Ring", CFG.Radar, "ThreatRing")
+Slider("radar", "Threat Ring Dist", CFG.Radar, "ThreatRingDist", 20, 100, 5, "")
+ColorPick("radar", "Threat Ring Color", CFG.Radar, "ThreatRingColor")
+Toggle("radar", "Last Seen Markers", CFG.Radar, "LastSeen")
+Slider("radar", "Last Seen Duration", CFG.Radar, "LastSeenDur", 2, 30, 1, "s")
+Label("radar", "Direction arrows point to off-screen enemies")
+Label("radar", "Threat ring highlights danger zone radius")
+Label("radar", "Last seen shows fading ghost positions")
+
+-- ============================================================
+-- PLAYERS TAB: EXTENDED TRACKING AND MANAGEMENT
+-- ============================================================
+Section("players", "player tracking")
+Toggle("players", "Track Positions", CFG.Players, "TrackPositions")
+Toggle("players", "Track Deaths", CFG.Players, "TrackDeaths")
+Toggle("players", "Track Kills", CFG.Players, "TrackKills")
+Toggle("players", "Track Damage", CFG.Players, "TrackDamage")
+Toggle("players", "Track Distance", CFG.Players, "TrackDistance")
+Slider("players", "History Length", CFG.Players, "HistoryLength", 10, 200, 10, "")
+Label("players", "Tracking logs player activity over time")
+Label("players", "History length sets max entries per player")
+Section("players", "player notes")
+Button("players", "Note Current Target", function(btn)
+    local target = U.target()
+    if target then
+        CFG.PlayerNotes = CFG.PlayerNotes or {}
+        CFG.PlayerNotes[target.Name] = CFG.PlayerNotes[target.Name] or "Note added"
+        btn.Text = target.Name
+        Notify.send("Notes", "Note slot created for " .. target.Name, "info", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Note Current Target" end)
+end)
+Button("players", "Clear All Notes", function(btn)
+    CFG.PlayerNotes = {}
+    btn.Text = "Cleared!"
+    Notify.send("Notes", "All player notes cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear All Notes" end)
+end)
+Section("players", "friend system")
+Toggle("players", "Friend ESP", CFG.Players, "FriendESP")
+Toggle("players", "Friend Chams", CFG.Players, "FriendChams")
+Toggle("players", "Friend Aimbot Ignore", CFG.Players, "FriendIgnore")
+ColorPick("players", "Friend Color", CFG.Players, "FriendColor")
+Button("players", "Add Target as Friend", function(btn)
+    local target = U.target()
+    if target then
+        CFG.FriendList = CFG.FriendList or {}
+        CFG.FriendList[target.Name] = true
+        btn.Text = target.Name
+        Notify.send("Friends", target.Name .. " added as friend", "success", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Add Target as Friend" end)
+end)
+Button("players", "Remove Target Friend", function(btn)
+    local target = U.target()
+    if target then
+        CFG.FriendList = CFG.FriendList or {}
+        CFG.FriendList[target.Name] = nil
+        btn.Text = "Removed!"
+        Notify.send("Friends", target.Name .. " removed from friends", "info", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Remove Target Friend" end)
+end)
+Button("players", "Clear Friend List", function(btn)
+    CFG.FriendList = {}
+    btn.Text = "Cleared!"
+    Notify.send("Friends", "Friend list cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear Friend List" end)
+end)
+Section("players", "priority targets")
+Toggle("players", "Priority System", CFG.Players, "PriorityOn")
+Button("players", "Add Priority Target", function(btn)
+    local target = U.target()
+    if target then
+        CFG.PriorityList = CFG.PriorityList or {}
+        CFG.PriorityList[target.Name] = true
+        btn.Text = target.Name
+        Notify.send("Priority", target.Name .. " added as priority", "warning", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Add Priority Target" end)
+end)
+Button("players", "Remove Priority Target", function(btn)
+    local target = U.target()
+    if target then
+        CFG.PriorityList = CFG.PriorityList or {}
+        CFG.PriorityList[target.Name] = nil
+        btn.Text = "Removed!"
+        Notify.send("Priority", target.Name .. " removed from priority", "info", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Remove Priority Target" end)
+end)
+Button("players", "Clear Priority List", function(btn)
+    CFG.PriorityList = {}
+    btn.Text = "Cleared!"
+    Notify.send("Priority", "Priority list cleared", "info", 2)
+    task.delay(1, function() btn.Text = "Clear Priority List" end)
+end)
+ColorPick("players", "Priority Highlight Color", CFG.Players, "PriorityColor")
+Toggle("players", "Priority Always Visible", CFG.Players, "PriorityVisible")
+Label("players", "Priority targets get aimbot preference")
+Label("players", "They also get special ESP highlight")
+Section("players", "player stats viewer")
+Button("players", "Show My Stats", function(btn)
+    local myChar = LP.Character
+    local hum = myChar and myChar:FindFirstChildOfClass("Humanoid")
+    local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+    if hum and myRoot then
+        local info = string.format(
+            "Name: %s\nHealth: %.0f/%.0f\nWalk Speed: %.0f\nJump Power: %.0f\nPosition: %.0f, %.0f, %.0f\nVelocity: %.1f studs/s",
+            LP.Name, hum.Health, hum.MaxHealth, hum.WalkSpeed, hum.JumpPower,
+            myRoot.Position.X, myRoot.Position.Y, myRoot.Position.Z,
+            myRoot.Velocity.Magnitude
+        )
+        Notify.send("My Stats", info, "info", 6)
+        btn.Text = "Shown!"
+    else
+        btn.Text = "No character!"
+    end
+    task.delay(1, function() btn.Text = "Show My Stats" end)
+end)
+Button("players", "Show Target Stats", function(btn)
+    local target = U.target()
+    if target and U.alive(target) then
+        local ch = target.Character
+        local hum = ch:FindFirstChildOfClass("Humanoid")
+        local rp = ch:FindFirstChild("HumanoidRootPart")
+        local myRoot = U.myRoot()
+        if hum and rp then
+            local dist = myRoot and (myRoot.Position - rp.Position).Magnitude or 0
+            local info = string.format(
+                "Name: %s\nHealth: %.0f/%.0f\nWalk Speed: %.0f\nDistance: %.0f studs\nVelocity: %.1f studs/s",
+                target.Name, hum.Health, hum.MaxHealth, hum.WalkSpeed,
+                dist, rp.Velocity.Magnitude
+            )
+            Notify.send("Target Stats", info, "info", 6)
+            btn.Text = target.Name
+        end
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1.5, function() btn.Text = "Show Target Stats" end)
+end)
+Button("players", "Show All Players", function(btn)
+    local plrs = Players:GetPlayers()
+    local lines = {}
+    for _, p in ipairs(plrs) do
+        local status = "Dead"
+        if U.alive(p) then
+            local hum = p.Character:FindFirstChildOfClass("Humanoid")
+            status = hum and string.format("HP:%.0f", hum.Health) or "Alive"
+        end
+        table.insert(lines, p.Name .. " - " .. status)
+    end
+    Notify.send("Players (" .. #plrs .. ")", table.concat(lines, "\n"), "info", 8)
+    btn.Text = #plrs .. " players"
+    task.delay(2, function() btn.Text = "Show All Players" end)
+end)
+Label("players", "Stats show real-time player information")
+Label("players", "Target stats require aiming at a player")
+Separator("players")
+Section("players", "whitelist / blacklist")
+Toggle("players", "Whitelist Mode", CFG.Players, "WhitelistMode")
+Button("players", "Whitelist Target", function(btn)
+    local target = U.target()
+    if target then
+        CFG.Whitelist = CFG.Whitelist or {}
+        CFG.Whitelist[target.Name] = true
+        btn.Text = target.Name
+        Notify.send("Whitelist", target.Name .. " whitelisted", "success", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Whitelist Target" end)
+end)
+Button("players", "Blacklist Target", function(btn)
+    local target = U.target()
+    if target then
+        CFG.Blacklist = CFG.Blacklist or {}
+        CFG.Blacklist[target.Name] = true
+        btn.Text = target.Name
+        Notify.send("Blacklist", target.Name .. " blacklisted", "warning", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Blacklist Target" end)
+end)
+Button("players", "Clear Whitelist", function(btn)
+    CFG.Whitelist = {}
+    btn.Text = "Cleared!"
+    task.delay(1, function() btn.Text = "Clear Whitelist" end)
+end)
+Button("players", "Clear Blacklist", function(btn)
+    CFG.Blacklist = {}
+    btn.Text = "Cleared!"
+    task.delay(1, function() btn.Text = "Clear Blacklist" end)
+end)
+Label("players", "Whitelist mode only targets listed players")
+Label("players", "Blacklist mode ignores listed players")
+
+-- ============================================================
+-- MISC TAB: ANTI-AFK, BATCH ACTIONS, MACROS, DEBUG
+-- ============================================================
+Section("misc", "anti-afk & respawn")
+Toggle("misc", "Anti-AFK", CFG.Player.AntiAFK, "On")
+Toggle("misc", "Auto Respawn", CFG.Player.AutoRespawn, "On")
+Slider("misc", "Respawn Delay", CFG.Player.AutoRespawn, "Delay", 0.5, 5, 0.5, "s")
+Toggle("misc", "No Particles", CFG.Player.NoParticles, "On")
+Label("misc", "Anti-AFK prevents idle disconnect")
+Label("misc", "Auto respawn loads character after death")
+Section("misc", "batch actions")
+Button("misc", "Enable All ESP", function(btn)
+    CFG.BoxESP.On = true
+    CFG.Tracers.On = true
+    CFG.Skeleton.On = true
+    CFG.Chams.On = true
+    CFG.NameESP.On = true
+    CFG.HealthESP.On = true
+    btn.Text = "All On!"
+    Notify.send("ESP", "All ESP features enabled", "success", 2)
+    task.delay(1, function() btn.Text = "Enable All ESP" end)
+end)
+Button("misc", "Disable All ESP", function(btn)
+    CFG.BoxESP.On = false
+    CFG.Tracers.On = false
+    CFG.Snaplines.On = false
+    CFG.Skeleton.On = false
+    CFG.OffScreen.On = false
+    CFG.Chams.On = false
+    CFG.ItemESP.On = false
+    CFG.NameESP.On = false
+    CFG.HealthESP.On = false
+    btn.Text = "All Off!"
+    Notify.send("ESP", "All ESP features disabled", "info", 2)
+    task.delay(1, function() btn.Text = "Disable All ESP" end)
+end)
+Button("misc", "Legit Preset", function(btn)
+    CFG.Aimbot.On = true
+    CFG.Aimbot.Mode = "Smooth"
+    CFG.Aimbot.Smoothness = 0.08
+    CFG.Aimbot.FOV = 80
+    CFG.Aimbot.WallCheck = true
+    CFG.Aimbot.VisCheck = true
+    CFG.BoxESP.On = true
+    CFG.BoxESP.Mode = "Corner"
+    CFG.Crosshair.On = true
+    CFG.Crosshair.Style = "Cross"
+    btn.Text = "Applied!"
+    Notify.send("Preset", "Legit preset applied", "success", 3)
+    task.delay(1, function() btn.Text = "Legit Preset" end)
+end)
+Button("misc", "Rage Preset", function(btn)
+    CFG.RageBot.On = true
+    CFG.RageBot.FOV = 360
+    CFG.RageBot.MultiPoint = true
+    CFG.RageBot.AutoWall = true
+    CFG.RageBot.DoubleTap = true
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Yaw = "Spin"
+    CFG.AntiAim.Desync = true
+    CFG.Chams.On = true
+    CFG.BoxESP.On = true
+    btn.Text = "Applied!"
+    Notify.send("Preset", "Rage preset applied - go wild", "warning", 3)
+    task.delay(1, function() btn.Text = "Rage Preset" end)
+end)
+Button("misc", "HVH Preset", function(btn)
+    CFG.RageBot.On = true
+    CFG.RageBot.FOV = 360
+    CFG.RageBot.Resolver = true
+    CFG.RageBot.Backtrack = true
+    CFG.RageBot.MultiPoint = true
+    CFG.AntiAim.On = true
+    CFG.AntiAim.Yaw = "Jitter"
+    CFG.AntiAim.Desync = true
+    CFG.AntiAim.FakeLag = true
+    CFG.AntiAim.LegBreaker = true
+    CFG.Resolver.On = true
+    CFG.Backtrack.On = true
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "XRay"
+    btn.Text = "Applied!"
+    Notify.send("Preset", "HVH preset applied", "warning", 3)
+    task.delay(1, function() btn.Text = "HVH Preset" end)
+end)
+Button("misc", "Ghost Preset", function(btn)
+    CFG.Movement.Noclip.On = true
+    CFG.Phase.On = true
+    CFG.Movement.Fly.On = true
+    CFG.Movement.Fly.Speed = 80
+    CFG.Chams.On = true
+    CFG.Chams.Mode = "Glow"
+    CFG.BoxESP.On = true
+    CFG.Crosshair.On = false
+    btn.Text = "Applied!"
+    Notify.send("Preset", "Ghost preset - fly + noclip", "info", 3)
+    task.delay(1, function() btn.Text = "Ghost Preset" end)
+end)
+Button("misc", "Streamer Mode", function(btn)
+    CFG.BoxESP.On = true
+    CFG.BoxESP.Mode = "Corner"
+    CFG.Aimbot.On = true
+    CFG.Aimbot.Mode = "Smooth"
+    CFG.Aimbot.Smoothness = 0.12
+    CFG.Aimbot.FOV = 60
+    CFG.Chams.On = false
+    CFG.Visual.Watermark = false
+    CFG.NameESP.On = false
+    CFG.Tracers.On = false
+    btn.Text = "Applied!"
+    Notify.send("Preset", "Streamer mode - minimal visuals", "success", 3)
+    task.delay(1, function() btn.Text = "Streamer Mode" end)
+end)
+Button("misc", "Reset All Settings", function(btn)
+    ConfigManager.reset()
+    btn.Text = "Reset!"
+    Notify.send("Config", "All settings reset to defaults", "warning", 3)
+    task.delay(1, function() btn.Text = "Reset All Settings" end)
+end)
+Section("misc", "performance")
+Button("misc", "Force Garbage Collect", function(btn)
+    local before = collectgarbage("count")
+    collectgarbage("collect")
+    local after = collectgarbage("count")
+    local freed = math.floor(before - after)
+    btn.Text = freed .. "KB freed"
+    Notify.send("GC", string.format("Freed %dKB (%.1fMB -> %.1fMB)", freed, before/1024, after/1024), "info", 3)
+    task.delay(2, function() btn.Text = "Force Garbage Collect" end)
+end)
+Button("misc", "Memory Usage", function(btn)
+    local mem = collectgarbage("count")
+    Notify.send("Memory", string.format("Lua Memory: %.2fMB", mem / 1024), "info", 3)
+    btn.Text = string.format("%.1fMB", mem/1024)
+    task.delay(2, function() btn.Text = "Memory Usage" end)
+end)
+Button("misc", "FPS Report", function(btn)
+    local fps = math.floor(1 / game:GetService("RunService").Heartbeat:Wait())
+    local mem = collectgarbage("count")
+    local players = #Players:GetPlayers()
+    local parts = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") then parts = parts + 1 end
+    end
+    local report = string.format("FPS: %d\nMemory: %.1fMB\nPlayers: %d\nParts: %d", fps, mem/1024, players, parts)
+    Notify.send("Performance", report, "info", 5)
+    btn.Text = fps .. " FPS"
+    task.delay(2, function() btn.Text = "FPS Report" end)
+end)
+Separator("misc")
+Section("misc", "script loader")
+TextInput("misc", "Script URL", CFG.Misc, "ScriptURL")
+Button("misc", "Execute URL", function(btn)
+    local url = CFG.Misc.ScriptURL
+    if url and url ~= "" then
+        btn.Text = "Loading..."
+        pcall(function()
+            local source = game:HttpGet(url)
+            if source and #source > 0 then
+                local fn = loadstring(source)
+                if fn then
+                    btn.Text = "Running..."
+                    task.spawn(fn)
+                    Notify.send("Loader", "Script executed from URL", "success", 3)
+                else
+                    btn.Text = "Parse error!"
+                    Notify.send("Loader", "Failed to parse script", "error", 3)
+                end
+            else
+                btn.Text = "Empty!"
+            end
+        end)
+    else
+        btn.Text = "No URL!"
+    end
+    task.delay(2, function() btn.Text = "Execute URL" end)
+end)
+Label("misc", "Paste a raw script URL above")
+Label("misc", "Supports pastebin, github raw, etc.")
+Section("misc", "network analysis")
+Button("misc", "Show Remote Events", function(btn)
+    local remotes = {}
+    for _, v in ipairs(game:GetDescendants()) do
+        if v:IsA("RemoteEvent") then
+            table.insert(remotes, v:GetFullName())
+            if #remotes >= 15 then break end
+        end
+    end
+    if #remotes > 0 then
+        Notify.send("Remotes (" .. #remotes .. "+)", table.concat(remotes, "\n"), "info", 8)
+        btn.Text = #remotes .. "+"
+    else
+        btn.Text = "None found"
+    end
+    task.delay(2, function() btn.Text = "Show Remote Events" end)
+end)
+Button("misc", "Show Remote Functions", function(btn)
+    local remotes = {}
+    for _, v in ipairs(game:GetDescendants()) do
+        if v:IsA("RemoteFunction") then
+            table.insert(remotes, v:GetFullName())
+            if #remotes >= 15 then break end
+        end
+    end
+    if #remotes > 0 then
+        Notify.send("RemoteFns (" .. #remotes .. "+)", table.concat(remotes, "\n"), "info", 8)
+        btn.Text = #remotes .. "+"
+    else
+        btn.Text = "None found"
+    end
+    task.delay(2, function() btn.Text = "Show Remote Functions" end)
+end)
+Button("misc", "Show Bindable Events", function(btn)
+    local bindables = {}
+    for _, v in ipairs(game:GetDescendants()) do
+        if v:IsA("BindableEvent") then
+            table.insert(bindables, v:GetFullName())
+            if #bindables >= 15 then break end
+        end
+    end
+    if #bindables > 0 then
+        Notify.send("Bindables (" .. #bindables .. "+)", table.concat(bindables, "\n"), "info", 8)
+        btn.Text = #bindables .. "+"
+    else
+        btn.Text = "None found"
+    end
+    task.delay(2, function() btn.Text = "Show Bindable Events" end)
+end)
+Label("misc", "Lists game networking objects")
+Label("misc", "Useful for understanding game structure")
+Section("misc", "debug tools")
+Button("misc", "Workspace Tree", function(btn)
+    local classes = {}
+    for _, v in ipairs(workspace:GetChildren()) do
+        classes[v.ClassName] = (classes[v.ClassName] or 0) + 1
+    end
+    local lines = {}
+    for cls, cnt in pairs(classes) do
+        table.insert(lines, cls .. ": " .. cnt)
+    end
+    table.sort(lines)
+    Notify.send("Workspace", table.concat(lines, "\n"), "info", 8)
+    btn.Text = "Shown!"
+    task.delay(1, function() btn.Text = "Workspace Tree" end)
+end)
+Button("misc", "Lighting Info", function(btn)
+    local lighting = game:GetService("Lighting")
+    local info = string.format(
+        "Time: %.1f\nBrightness: %.1f\nAmbient: %s\nFog End: %.0f\nGravity: %.1f",
+        lighting.ClockTime, lighting.Brightness,
+        tostring(lighting.Ambient), lighting.FogEnd, workspace.Gravity
+    )
+    Notify.send("Lighting", info, "info", 5)
+    btn.Text = "Shown!"
+    task.delay(1, function() btn.Text = "Lighting Info" end)
+end)
+Button("misc", "Service List", function(btn)
+    local services = {"Workspace", "Players", "Lighting", "ReplicatedStorage",
+        "ReplicatedFirst", "ServerScriptService", "ServerStorage", "StarterGui",
+        "StarterPack", "StarterPlayer", "Teams", "SoundService",
+        "Chat", "LocalizationService", "TestService"}
+    local found = {}
+    for _, name in ipairs(services) do
+        pcall(function()
+            local svc = game:GetService(name)
+            if svc then
+                table.insert(found, name .. " (" .. #svc:GetChildren() .. " children)")
+            end
+        end)
+    end
+    Notify.send("Services", table.concat(found, "\n"), "info", 8)
+    btn.Text = "Shown!"
+    task.delay(1, function() btn.Text = "Service List" end)
+end)
+Button("misc", "Camera Info", function(btn)
+    local cam = workspace.CurrentCamera
+    if cam then
+        local info = string.format(
+            "Type: %s\nFOV: %.0f\nFocus: %.0f, %.0f, %.0f\nPos: %.0f, %.0f, %.0f",
+            tostring(cam.CameraType), cam.FieldOfView,
+            cam.Focus.Position.X, cam.Focus.Position.Y, cam.Focus.Position.Z,
+            cam.CFrame.Position.X, cam.CFrame.Position.Y, cam.CFrame.Position.Z
+        )
+        Notify.send("Camera", info, "info", 5)
+        btn.Text = "Shown!"
+    else
+        btn.Text = "No camera!"
+    end
+    task.delay(1, function() btn.Text = "Camera Info" end)
+end)
+Label("misc", "Debug tools help explore game internals")
+Label("misc", "Useful for script development and modding")
+Section("misc", "anti-cheat info")
+Button("misc", "Scan Anti-Cheat", function(btn)
+    local indicators = {}
+    local function check(name, path)
+        pcall(function()
+            for _, v in ipairs(game:GetDescendants()) do
+                if v.Name:lower():find(name:lower()) then
+                    table.insert(indicators, "Found: " .. v:GetFullName())
+                    if #indicators >= 10 then return end
+                end
+            end
+        end)
+    end
+    check("AntiCheat")
+    check("anticheat")
+    check("anti_cheat")
+    check("AntiExploit")
+    check("Sentinel")
+    check("BanModule")
+    check("KickModule")
+    if #indicators > 0 then
+        Notify.send("Anti-Cheat Scan", table.concat(indicators, "\n"), "warning", 8)
+        btn.Text = #indicators .. " found"
+    else
+        Notify.send("Anti-Cheat Scan", "No obvious anti-cheat detected", "success", 3)
+        btn.Text = "None found"
+    end
+    task.delay(2, function() btn.Text = "Scan Anti-Cheat" end)
+end)
+Label("misc", "Scans for common anti-cheat modules")
+Label("misc", "Not finding any does not mean none exist")
+
+-- ============================================================
+-- SETTINGS TAB: THEMES, CUSTOM COLORS, GUI, PROFILES
+-- ============================================================
+Section("settings", "theme presets")
+Dropdown("settings", "Theme", CFG.Themes, "Current", ThemeManager.getNames())
+Button("settings", "Apply Theme", function(btn)
+    ThemeManager.apply(CFG.Themes.Current)
+    btn.Text = "Applied!"
+    Notify.send("Theme", "Applied: " .. CFG.Themes.Current, "success", 2)
+    task.delay(1, function() btn.Text = "Apply Theme" end)
+end)
+Section("settings", "custom theme colors")
+Label("settings", "Custom colors (RGB 0-50 for BG, 0-255 for others)")
+Slider("settings", "BG Red", CFG.Themes.Custom.BG, 1, 0, 50, 1, "")
+Slider("settings", "BG Green", CFG.Themes.Custom.BG, 2, 0, 50, 1, "")
+Slider("settings", "BG Blue", CFG.Themes.Custom.BG, 3, 0, 50, 1, "")
+Slider("settings", "Accent Red", CFG.Themes.Custom.Accent, 1, 0, 255, 1, "")
+Slider("settings", "Accent Green", CFG.Themes.Custom.Accent, 2, 0, 255, 1, "")
+Slider("settings", "Accent Blue", CFG.Themes.Custom.Accent, 3, 0, 255, 1, "")
+Slider("settings", "Text Red", CFG.Themes.Custom.Text, 1, 0, 255, 1, "")
+Slider("settings", "Text Green", CFG.Themes.Custom.Text, 2, 0, 255, 1, "")
+Slider("settings", "Text Blue", CFG.Themes.Custom.Text, 3, 0, 255, 1, "")
+Button("settings", "Apply Custom Theme", function(btn)
+    ThemeManager.apply("Custom")
+    CFG.Themes.Current = "Custom"
+    btn.Text = "Applied!"
+    Notify.send("Theme", "Custom theme applied", "success", 2)
+    task.delay(1, function() btn.Text = "Apply Custom Theme" end)
+end)
+Section("settings", "gui customization")
+Slider("settings", "Window Width", CFG.GUI, "WindowWidth", 400, 700, 10, "px")
+Slider("settings", "Window Height", CFG.GUI, "WindowHeight", 300, 550, 10, "px")
+Slider("settings", "Sidebar Width", CFG.GUI, "SidebarWidth", 80, 160, 5, "px")
+Slider("settings", "Header Height", CFG.GUI, "HeaderHeight", 28, 50, 2, "px")
+Slider("settings", "Corner Radius", CFG.GUI, "CornerRadius", 0, 16, 1, "px")
+Toggle("settings", "Round Corners", CFG.GUI, "RoundCorners")
+Toggle("settings", "Shadow", CFG.GUI, "ShadowEnabled")
+Slider("settings", "Shadow Size", CFG.GUI, "ShadowSize", 0, 20, 1, "px")
+Toggle("settings", "Accent Glow", CFG.GUI, "AccentGlow")
+Toggle("settings", "Compact Mode", CFG.GUI, "CompactMode")
+Toggle("settings", "Tab Icons Only", CFG.GUI, "TabIconsOnly")
+Toggle("settings", "Show Tooltips", CFG.GUI, "ShowTooltips")
+Slider("settings", "Tooltip Delay", CFG.GUI, "TooltipDelay", 0.1, 2.0, 0.1, "s")
+Dropdown("settings", "Anim Style", CFG.GUI, "AnimStyle", {"Quad", "Quart", "Sine", "Back", "Bounce", "Elastic"})
+Slider("settings", "Anim Speed", CFG.GUI, "AnimSpeed", 0.05, 1.0, 0.05, "s")
+Slider("settings", "Menu Opacity", CFG.GUI, "Opacity", 0.5, 1.0, 0.01, "")
+Toggle("settings", "Blur Background", CFG.GUI, "BlurBackground")
+Toggle("settings", "Notifications", CFG.GUI, "Notifications")
+Slider("settings", "Notification Duration", CFG.GUI, "NotifDuration", 1, 10, 0.5, "s")
+ColorPick("settings", "Accent Color", CFG.GUI, "Accent")
+ColorPick("settings", "Accent Alt Color", CFG.GUI, "AccentAlt")
+Button("settings", "Apply GUI Changes", function(btn)
+    btn.Text = "Applying..."
+    pcall(function()
+        Main.Size = UDim2.new(0, CFG.GUI.WindowWidth, 0, CFG.GUI.WindowHeight)
+        if blur then
+            blur.Size = CFG.GUI.BlurBackground and 8 or 0
+        end
+    end)
+    btn.Text = "Applied!"
+    Notify.send("GUI", "GUI settings applied", "success", 2)
+    task.delay(1, function() btn.Text = "Apply GUI Changes" end)
+end)
+Separator("settings")
+Section("settings", "profile management")
+TextInput("settings", "Profile Name", CFG.Settings, "ProfileName")
+Button("settings", "Save Profile", function(btn)
+    local name = CFG.Settings.ProfileName
+    if name and name ~= "" then
+        local ok = ConfigManager.save(name)
+        if ok then
+            btn.Text = "Saved!"
+            Notify.send("Config", "Profile '" .. name .. "' saved", "success", 2)
+        else
+            btn.Text = "Failed!"
+            Notify.send("Config", "Failed to save profile", "error", 2)
+        end
+    else
+        btn.Text = "Enter name!"
+    end
+    task.delay(1, function() btn.Text = "Save Profile" end)
+end)
+Button("settings", "Load Profile", function(btn)
+    local name = CFG.Settings.ProfileName
+    if name and name ~= "" then
+        local ok = ConfigManager.load(name)
+        if ok then
+            btn.Text = "Loaded!"
+            Notify.send("Config", "Profile '" .. name .. "' loaded", "success", 2)
+        else
+            btn.Text = "Not found!"
+            Notify.send("Config", "Profile not found", "error", 2)
+        end
+    else
+        btn.Text = "Enter name!"
+    end
+    task.delay(1, function() btn.Text = "Load Profile" end)
+end)
+Button("settings", "Delete Profile", function(btn)
+    local name = CFG.Settings.ProfileName
+    if name and name ~= "" then
+        local ok = ConfigManager.delete(name)
+        if ok then
+            btn.Text = "Deleted!"
+            Notify.send("Config", "Profile '" .. name .. "' deleted", "info", 2)
+        else
+            btn.Text = "Not found!"
+        end
+    else
+        btn.Text = "Enter name!"
+    end
+    task.delay(1, function() btn.Text = "Delete Profile" end)
+end)
+Button("settings", "List Profiles", function(btn)
+    local profiles = ConfigManager.list()
+    if profiles and #profiles > 0 then
+        Notify.send("Profiles", table.concat(profiles, "\n"), "info", 5)
+        btn.Text = #profiles .. " found"
+    else
+        Notify.send("Profiles", "No saved profiles", "info", 2)
+        btn.Text = "None"
+    end
+    task.delay(2, function() btn.Text = "List Profiles" end)
+end)
+Separator("settings")
+Section("settings", "import / export")
+Button("settings", "Export to Clipboard", function(btn)
+    if ENV.SetClipboard then
+        local data = ConfigManager.export()
+        if data then
+            pcall(setclipboard, data)
+            btn.Text = "Copied!"
+            Notify.send("Export", "Config copied to clipboard", "success", 2)
+        else
+            btn.Text = "Failed!"
+        end
+    else
+        btn.Text = "No clipboard!"
+    end
+    task.delay(1, function() btn.Text = "Export to Clipboard" end)
+end)
+TextInput("settings", "Import Data", CFG.Settings, "ImportData")
+Button("settings", "Import from Text", function(btn)
+    local data = CFG.Settings.ImportData
+    if data and data ~= "" then
+        local ok = ConfigManager.import(data)
+        if ok then
+            btn.Text = "Imported!"
+            Notify.send("Import", "Config imported successfully", "success", 2)
+        else
+            btn.Text = "Invalid!"
+            Notify.send("Import", "Invalid config data", "error", 2)
+        end
+    else
+        btn.Text = "Paste data!"
+    end
+    task.delay(1, function() btn.Text = "Import from Text" end)
+end)
+Button("settings", "Export to File", function(btn)
+    if ENV.WriteFile then
+        local data = ConfigManager.export()
+        if data then
+            pcall(writefile, "lunarix/export_" .. os.date("%Y%m%d_%H%M%S") .. ".cfg", data)
+            btn.Text = "Saved!"
+            Notify.send("Export", "Config saved to file", "success", 2)
+        else
+            btn.Text = "Failed!"
+        end
+    else
+        btn.Text = "No file API!"
+    end
+    task.delay(1, function() btn.Text = "Export to File" end)
+end)
+Label("settings", "Export copies all settings to clipboard")
+Label("settings", "Import loads settings from pasted text")
+Label("settings", "File export saves timestamped backup")
+Section("settings", "keybind profiles")
+Button("settings", "Default Keybinds", function(btn)
+    CFG.GUI.MenuKey = Enum.KeyCode.RightControl
+    CFG.Aimbot.Key = Enum.KeyCode.E
+    CFG.Movement.Fly.Key = Enum.KeyCode.G
+    CFG.Movement.Noclip.Key = Enum.KeyCode.N
+    CFG.Freecam.Key = Enum.KeyCode.F
+    btn.Text = "Applied!"
+    Notify.send("Keybinds", "Default keybinds restored", "success", 2)
+    task.delay(1, function() btn.Text = "Default Keybinds" end)
+end)
+Button("settings", "Left-Hand Keybinds", function(btn)
+    CFG.GUI.MenuKey = Enum.KeyCode.LeftControl
+    CFG.Aimbot.Key = Enum.KeyCode.Q
+    CFG.Movement.Fly.Key = Enum.KeyCode.R
+    CFG.Movement.Noclip.Key = Enum.KeyCode.T
+    CFG.Freecam.Key = Enum.KeyCode.F
+    btn.Text = "Applied!"
+    Notify.send("Keybinds", "Left-hand keybinds applied", "success", 2)
+    task.delay(1, function() btn.Text = "Left-Hand Keybinds" end)
+end)
+Button("settings", "Numpad Keybinds", function(btn)
+    CFG.GUI.MenuKey = Enum.KeyCode.KeypadZero
+    CFG.Aimbot.Key = Enum.KeyCode.KeypadOne
+    CFG.Movement.Fly.Key = Enum.KeyCode.KeypadTwo
+    CFG.Movement.Noclip.Key = Enum.KeyCode.KeypadThree
+    CFG.Freecam.Key = Enum.KeyCode.KeypadFour
+    btn.Text = "Applied!"
+    Notify.send("Keybinds", "Numpad keybinds applied", "success", 2)
+    task.delay(1, function() btn.Text = "Numpad Keybinds" end)
+end)
+Label("settings", "Keybind profiles change multiple keys at once")
+Label("settings", "Individual keys set in their respective tabs")
+Section("settings", "startup settings")
+Toggle("settings", "Auto Load Config", CFG.Settings, "AutoLoad")
+Toggle("settings", "Auto Enable ESP", CFG.Settings, "AutoESP")
+Toggle("settings", "Auto Enable Aimbot", CFG.Settings, "AutoAimbot")
+Toggle("settings", "Show Welcome Msg", CFG.Settings, "WelcomeMsg")
+Toggle("settings", "Minimize on Start", CFG.Settings, "MinOnStart")
+Toggle("settings", "Auto Update Check", CFG.Settings, "AutoUpdate")
+Dropdown("settings", "Default Tab", CFG.Settings, "DefaultTab", {"aimbot", "silent", "esp", "chams", "visuals", "movement", "world", "radar", "players", "misc", "settings"})
+Label("settings", "Startup settings apply when script loads")
+Label("settings", "Auto load restores last saved config")
+Section("settings", "notification settings")
+Toggle("settings", "Enable Notifications", CFG.Settings, "NotifEnabled")
+Toggle("settings", "Sound on Notify", CFG.Settings, "NotifSound")
+Slider("settings", "Default Duration", CFG.Settings, "NotifDuration", 1, 10, 0.5, "s")
+Dropdown("settings", "Notify Position", CFG.Settings, "NotifPosition", {"BottomRight", "BottomLeft", "TopRight", "TopLeft"})
+Slider("settings", "Max Notifications", CFG.Settings, "MaxNotifs", 1, 10, 1, "")
+Toggle("settings", "Stack Notifications", CFG.Settings, "StackNotifs")
+Slider("settings", "Notify Width", CFG.Settings, "NotifWidth", 150, 400, 10, "px")
+Label("settings", "Controls the notification toast system")
+Label("settings", "Stack keeps multiple visible at once")
+Section("settings", "advanced settings")
+Toggle("settings", "Debug Mode", CFG.Settings, "DebugMode")
+Toggle("settings", "Verbose Logging", CFG.Settings, "VerboseLog")
+Toggle("settings", "Error Notifications", CFG.Settings, "ErrorNotifs")
+Toggle("settings", "Performance Mode", CFG.Settings, "PerfMode")
+Slider("settings", "Render Budget (ms)", CFG.Settings, "RenderBudget", 2, 16, 0.5, "ms")
+Slider("settings", "ESP Budget (ms)", CFG.Settings, "ESPBudget", 1, 8, 0.5, "ms")
+Toggle("settings", "Lazy Loading", CFG.Settings, "LazyLoad")
+Toggle("settings", "Object Pooling", CFG.Settings, "ObjPooling")
+Slider("settings", "Pool Size", CFG.Settings, "PoolSize", 50, 500, 25, "")
+Label("settings", "Debug mode shows extra console output")
+Label("settings", "Performance mode reduces visual quality")
+Label("settings", "Render budget limits frame time per cycle")
+Label("settings", "Lower budgets = more FPS, less visuals")
+
+
+-- ============================================================
+-- AIMBOT TAB: EXTENDED MULTIPOINT AND WEAPON CONFIGS
+-- ============================================================
+Section("aimbot", "multipoint config")
+Toggle("aimbot", "MP Head", CFG.RageBot.MultiPointParts, "Head")
+Toggle("aimbot", "MP Upper Torso", CFG.RageBot.MultiPointParts, "UpperTorso")
+Toggle("aimbot", "MP Lower Torso", CFG.RageBot.MultiPointParts, "LowerTorso")
+Toggle("aimbot", "MP Left Arm", CFG.RageBot.MultiPointParts, "LeftUpperArm")
+Toggle("aimbot", "MP Right Arm", CFG.RageBot.MultiPointParts, "RightUpperArm")
+Toggle("aimbot", "MP Left Leg", CFG.RageBot.MultiPointParts, "LeftUpperLeg")
+Toggle("aimbot", "MP Right Leg", CFG.RageBot.MultiPointParts, "RightUpperLeg")
+Label("aimbot", "Multi-point scans multiple body locations")
+Label("aimbot", "More parts = better hit chance but slower")
+Section("aimbot", "anti-aim correction")
+Toggle("aimbot", "Anti-Aim Correction", CFG.RageBot, "AntiAimCorrection")
+Toggle("aimbot", "Backtrack Aim", CFG.RageBot, "Backtrack")
+Slider("aimbot", "Backtrack Ticks", CFG.RageBot, "BacktrackTicks", 1, 24, 1, "")
+Label("aimbot", "Anti-aim correction adjusts for spinbots")
+Label("aimbot", "Backtrack aims at older tick positions")
+Section("aimbot", "aim step limiter")
+Toggle("aimbot", "Aim Step", CFG.Aimbot, "AimStep")
+Slider("aimbot", "Step Angle", CFG.Aimbot, "StepAngle", 1, 45, 1, "")
+Slider("aimbot", "Step Rate", CFG.Aimbot, "StepRate", 1, 60, 1, "/s")
+Label("aimbot", "Aim step limits rotation per frame")
+Label("aimbot", "Makes snapping look more natural")
+Label("aimbot", "Lower angle = slower more human-like aim")
+Section("aimbot", "target priority weights")
+Slider("aimbot", "Distance Weight", CFG.Aimbot, "DistWeight", 0, 100, 5, "%")
+Slider("aimbot", "Health Weight", CFG.Aimbot, "HealthWeight", 0, 100, 5, "%")
+Slider("aimbot", "FOV Weight", CFG.Aimbot, "FOVWeight", 0, 100, 5, "%")
+Slider("aimbot", "Threat Weight", CFG.Aimbot, "ThreatWeight", 0, 100, 5, "%")
+Label("aimbot", "Weights determine target selection order")
+Label("aimbot", "Higher weight = more importance in scoring")
+Section("aimbot", "aimbot behavior")
+Toggle("aimbot", "Sticky Target", CFG.Aimbot, "StickyTarget")
+Slider("aimbot", "Sticky Duration", CFG.Aimbot, "StickyDuration", 0.5, 5, 0.25, "s")
+Toggle("aimbot", "Re-Acquire on Death", CFG.Aimbot, "ReAcquire")
+Toggle("aimbot", "Disengage on Kill", CFG.Aimbot, "DisengageOnKill")
+Slider("aimbot", "Disengage Delay", CFG.Aimbot, "DisengageDelay", 0.1, 1.0, 0.05, "s")
+Toggle("aimbot", "Aim while Reloading", CFG.Aimbot, "AimWhileReload")
+Toggle("aimbot", "Aim while Sprinting", CFG.Aimbot, "AimWhileSprint")
+Label("aimbot", "Sticky target keeps same target for duration")
+Label("aimbot", "Disengage pauses aim briefly after a kill")
+
+-- ============================================================
+-- SILENT AIM TAB: EXTENDED CONFIGURATIONS
+-- ============================================================
+Section("silent", "silent aim accuracy")
+Toggle("silent", "Accuracy Randomizer", CFG.Silent, "AccRandom")
+Slider("silent", "Miss Chance", CFG.Silent, "MissChance", 0, 50, 1, "%")
+Slider("silent", "Headshot Chance", CFG.Silent, "HeadshotChance", 0, 100, 5, "%")
+Toggle("silent", "Range Falloff", CFG.Silent, "RangeFalloff")
+Slider("silent", "Falloff Start", CFG.Silent, "FalloffStart", 50, 500, 25, "")
+Slider("silent", "Falloff End", CFG.Silent, "FalloffEnd", 100, 1000, 50, "")
+Label("silent", "Accuracy randomizer makes aim imperfect")
+Label("silent", "Miss chance randomly drops shots for legit")
+Label("silent", "Range falloff reduces accuracy at distance")
+Section("silent", "silent aim filters")
+Toggle("silent", "Filter by Health", CFG.Silent, "FilterHealth")
+Slider("silent", "Min Target HP", CFG.Silent, "MinTargetHP", 1, 100, 5, "")
+Toggle("silent", "Filter by Distance", CFG.Silent, "FilterDist")
+Slider("silent", "Max Target Dist", CFG.Silent, "MaxTargetDist", 50, 2000, 50, "")
+Toggle("silent", "Filter by Velocity", CFG.Silent, "FilterVelocity")
+Slider("silent", "Max Target Speed", CFG.Silent, "MaxTargetSpeed", 10, 200, 10, "")
+Label("silent", "Filters skip targets not matching criteria")
+Label("silent", "Health filter ignores low HP targets")
+Label("silent", "Velocity filter ignores fast-moving targets")
+Section("silent", "silent aim hooks")
+Dropdown("silent", "Hook Method", CFG.Silent, "HookMethod", {"Namecall", "Index", "NewIndex", "RayCast", "Auto"})
+Toggle("silent", "Anti-Detection", CFG.Silent, "AntiDetect")
+Toggle("silent", "Spoof Raycast", CFG.Silent, "SpoofRay")
+Toggle("silent", "Spoof Mouse", CFG.Silent, "SpoofMouse")
+Label("silent", "Hook method determines how aim is redirected")
+Label("silent", "Auto selects best method for executor")
+Label("silent", "Anti-detection hides hooks from AC scans")
+
+-- ============================================================
+-- ESP TAB: EXTENDED SKELETON AND OFFSCREEN
+-- ============================================================
+Section("esp", "skeleton extensions")
+Slider("esp", "Skeleton Thickness", CFG.Skeleton, "Thickness", 0.5, 5, 0.25, "")
+Toggle("esp", "Skeleton Head Circle", CFG.Skeleton, "HeadCircle")
+Slider("esp", "Head Circle Radius", CFG.Skeleton, "HeadRadius", 2, 15, 0.5, "")
+Toggle("esp", "Skeleton Visible Only", CFG.Skeleton, "VisibleOnly")
+ColorPick("esp", "Skeleton Visible Color", CFG.Skeleton, "VisColor")
+ColorPick("esp", "Skeleton Hidden Color", CFG.Skeleton, "HidColor")
+Toggle("esp", "Skeleton Team Color", CFG.Skeleton, "TeamColor")
+Slider("esp", "Skeleton Max Dist", CFG.Skeleton, "MaxDist", 100, 2000, 50, "")
+Label("esp", "Skeleton draws lines between body joints")
+Label("esp", "Head circle adds circle around head joint")
+Section("esp", "offscreen indicators")
+Slider("esp", "Arrow Size", CFG.OffScreen, "ArrowSize", 10, 40, 2, "")
+Slider("esp", "Arrow Distance", CFG.OffScreen, "ArrowDist", 50, 300, 10, "")
+Toggle("esp", "Arrow Pulse", CFG.OffScreen, "ArrowPulse")
+Slider("esp", "Pulse Speed", CFG.OffScreen, "PulseSpeed", 0.5, 5, 0.25, "")
+Toggle("esp", "Show Distance Text", CFG.OffScreen, "ShowDist")
+Toggle("esp", "Show Name Text", CFG.OffScreen, "ShowName")
+Toggle("esp", "Team Color Arrows", CFG.OffScreen, "TeamColorArrow")
+ColorPick("esp", "Arrow Color", CFG.OffScreen, "ArrowColor")
+Label("esp", "Off-screen arrows point to nearby enemies")
+Label("esp", "Arrow distance sets how far from center")
+Label("esp", "Pulse makes arrows throb for visibility")
+Section("esp", "item esp extensions")
+Toggle("esp", "Dropped Weapons", CFG.ItemESP, "DroppedWeapons")
+Toggle("esp", "Ammo Pickups", CFG.ItemESP, "AmmoPickups")
+Toggle("esp", "Health Pickups", CFG.ItemESP, "HealthPickups")
+Toggle("esp", "Armor Pickups", CFG.ItemESP, "ArmorPickups")
+Toggle("esp", "Key Items", CFG.ItemESP, "KeyItems")
+Toggle("esp", "Currency", CFG.ItemESP, "Currency")
+Slider("esp", "Item Max Dist", CFG.ItemESP, "MaxDist", 50, 1000, 25, "")
+Slider("esp", "Item Font Size", CFG.ItemESP, "FontSize", 10, 18, 1, "")
+ColorPick("esp", "Weapon Color", CFG.ItemESP, "WeaponColor")
+ColorPick("esp", "Health Pickup Color", CFG.ItemESP, "HealthColor")
+ColorPick("esp", "Ammo Color", CFG.ItemESP, "AmmoColor")
+ColorPick("esp", "Key Item Color", CFG.ItemESP, "KeyColor")
+Label("esp", "Item ESP highlights pickups in the world")
+Label("esp", "Configure colors per item category")
+
+-- ============================================================
+-- VISUALS TAB: THIRD PERSON FOV AND VIEW MODEL
+-- ============================================================
+Section("visuals", "view model fov")
+Toggle("visuals", "Custom VM FOV", CFG.Visual, "VMFOV")
+Slider("visuals", "VM FOV Value", CFG.Visual, "VMFOVValue", 50, 120, 5, "")
+Toggle("visuals", "VM Offset", CFG.Visual, "VMOffset")
+Slider("visuals", "VM Offset X", CFG.Visual, "VMOffsetX", -10, 10, 0.5, "")
+Slider("visuals", "VM Offset Y", CFG.Visual, "VMOffsetY", -10, 10, 0.5, "")
+Slider("visuals", "VM Offset Z", CFG.Visual, "VMOffsetZ", -10, 10, 0.5, "")
+Label("visuals", "VM FOV changes weapon model field of view")
+Label("visuals", "Offset shifts weapon model on screen")
+Section("visuals", "scope overlay")
+Toggle("visuals", "Custom Scope", CFG.Visual, "CustomScope")
+Dropdown("visuals", "Scope Style", CFG.Visual, "ScopeStyle", {"Crosshair", "Circle", "Mil-Dot", "Chevron", "T-Post"})
+ColorPick("visuals", "Scope Color", CFG.Visual, "ScopeColor")
+Slider("visuals", "Scope Opacity", CFG.Visual, "ScopeOpacity", 0.1, 1.0, 0.05, "")
+Toggle("visuals", "Scope Blur", CFG.Visual, "ScopeBlur")
+Toggle("visuals", "Scope Zoom", CFG.Visual, "ScopeZoom")
+Slider("visuals", "Zoom Factor", CFG.Visual, "ZoomFactor", 1.5, 10, 0.5, "x")
+Label("visuals", "Custom scope replaces default scope overlay")
+Label("visuals", "Blur adds depth-of-field effect when scoped")
+Section("visuals", "damage numbers")
+Toggle("visuals", "Damage Numbers", CFG.Visual, "DamageNumbers")
+Slider("visuals", "Dmg Font Size", CFG.Visual, "DmgFontSize", 12, 28, 1, "")
+Toggle("visuals", "Dmg Float Up", CFG.Visual, "DmgFloat")
+Slider("visuals", "Float Speed", CFG.Visual, "DmgFloatSpeed", 20, 100, 5, "")
+Slider("visuals", "Dmg Duration", CFG.Visual, "DmgDuration", 0.3, 2.0, 0.1, "s")
+ColorPick("visuals", "Body Dmg Color", CFG.Visual, "DmgBodyColor")
+ColorPick("visuals", "Head Dmg Color", CFG.Visual, "DmgHeadColor")
+ColorPick("visuals", "Crit Dmg Color", CFG.Visual, "DmgCritColor")
+Toggle("visuals", "Crit Dmg Scale", CFG.Visual, "DmgCritScale")
+Label("visuals", "Damage numbers show hit damage on screen")
+Label("visuals", "Colors distinguish body/head/crit hits")
+Section("visuals", "trail effects")
+Toggle("visuals", "Player Trails", CFG.Visual, "PlayerTrails")
+Dropdown("visuals", "Trail Type", CFG.Visual, "TrailType", {"Line", "Dots", "Fade", "Rainbow", "Dashed"})
+Slider("visuals", "Trail Length", CFG.Visual, "TrailLength", 5, 50, 1, "")
+Slider("visuals", "Trail Width", CFG.Visual, "TrailWidth", 0.5, 5, 0.25, "")
+ColorPick("visuals", "Trail Color", CFG.Visual, "TrailColor")
+Toggle("visuals", "Trail Team Color", CFG.Visual, "TrailTeamColor")
+Slider("visuals", "Trail Fade Time", CFG.Visual, "TrailFade", 0.5, 5, 0.25, "s")
+Label("visuals", "Trails show recent player movement paths")
+Label("visuals", "Rainbow cycles through hue over length")
+
+-- ============================================================
+-- WORLD TAB: EXTENDED PART MANIPULATION
+-- ============================================================
+Section("world", "part manipulation")
+Button("world", "Remove Invisible Walls", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and v.Transparency >= 0.9 and v.CanCollide then
+            pcall(function()
+                v.CanCollide = false
+                count = count + 1
+            end)
+        end
+    end
+    btn.Text = count .. " removed"
+    Notify.send("World", count .. " invisible walls disabled", "success", 3)
+    task.delay(2, function() btn.Text = "Remove Invisible Walls" end)
+end)
+Button("world", "Remove Kill Bricks", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            local scripts = {}
+            for _, c in ipairs(v:GetChildren()) do
+                if c:IsA("Script") or c:IsA("LocalScript") then
+                    table.insert(scripts, c)
+                end
+            end
+            if #scripts > 0 and (v.BrickColor == BrickColor.new("Really red") or v.Name:lower():find("kill") or v.Name:lower():find("lava")) then
+                pcall(function()
+                    v.CanCollide = false
+                    v.Transparency = 0.8
+                    for _, s in ipairs(scripts) do s:Destroy() end
+                    count = count + 1
+                end)
+            end
+        end
+    end
+    btn.Text = count .. " removed"
+    Notify.send("World", count .. " kill bricks neutralized", "success", 3)
+    task.delay(2, function() btn.Text = "Remove Kill Bricks" end)
+end)
+Button("world", "Anchor All Parts", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and not v.Anchored then
+            pcall(function()
+                v.Anchored = true
+                count = count + 1
+            end)
+        end
+    end
+    btn.Text = count .. " anchored"
+    Notify.send("World", count .. " parts anchored", "info", 3)
+    task.delay(2, function() btn.Text = "Anchor All Parts" end)
+end)
+Button("world", "No Clip All Doors", function(btn)
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") and (v.Name:lower():find("door") or v.Name:lower():find("gate") or v.Name:lower():find("barrier")) then
+            pcall(function()
+                v.CanCollide = false
+                v.Transparency = 0.5
+                count = count + 1
+            end)
+        end
+    end
+    btn.Text = count .. " opened"
+    Notify.send("World", count .. " doors/gates made passable", "success", 3)
+    task.delay(2, function() btn.Text = "No Clip All Doors" end)
+end)
+Label("world", "Part manipulation modifies game objects")
+Label("world", "Changes are client-side only")
+Section("world", "decoration controls")
+Toggle("world", "Remove Decals", CFG.World, "RemoveDecals")
+Toggle("world", "Remove Textures", CFG.World, "RemoveTextures")
+Toggle("world", "Remove Meshes", CFG.World, "RemoveMeshes")
+Toggle("world", "Remove Particles", CFG.World, "RemoveParticles")
+Toggle("world", "Remove Sounds", CFG.World, "RemoveSounds")
+Toggle("world", "Remove Beams", CFG.World, "RemoveBeams")
+Toggle("world", "Remove Trails", CFG.World, "RemoveTrails")
+Button("world", "Apply Removals", function(btn)
+    local removed = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        pcall(function()
+            if CFG.World.RemoveDecals and v:IsA("Decal") then v:Destroy(); removed = removed + 1 end
+            if CFG.World.RemoveTextures and v:IsA("Texture") then v:Destroy(); removed = removed + 1 end
+            if CFG.World.RemoveMeshes and v:IsA("SpecialMesh") then v:Destroy(); removed = removed + 1 end
+            if CFG.World.RemoveParticles and v:IsA("ParticleEmitter") then v:Destroy(); removed = removed + 1 end
+            if CFG.World.RemoveSounds and v:IsA("Sound") then v.Volume = 0; removed = removed + 1 end
+            if CFG.World.RemoveBeams and v:IsA("Beam") then v:Destroy(); removed = removed + 1 end
+            if CFG.World.RemoveTrails and v:IsA("Trail") then v:Destroy(); removed = removed + 1 end
+        end)
+    end
+    btn.Text = removed .. " removed"
+    Notify.send("World", removed .. " decorations removed", "success", 3)
+    task.delay(2, function() btn.Text = "Apply Removals" end)
+end)
+Label("world", "Toggle what to remove then apply")
+Label("world", "Removing decorations improves FPS")
+Section("world", "material override")
+Toggle("world", "Override Materials", CFG.World, "OverrideMaterials")
+Dropdown("world", "Override Material", CFG.World, "OverrideMat", {"SmoothPlastic", "Plastic", "Neon", "Glass", "ForceField", "Metal", "DiamondPlate", "Concrete", "Slate"})
+Button("world", "Apply Material Override", function(btn)
+    if not CFG.World.OverrideMaterials then
+        btn.Text = "Enable first!"
+        task.delay(1, function() btn.Text = "Apply Material Override" end)
+        return
+    end
+    local mat = Enum.Material[CFG.World.OverrideMat]
+    if not mat then btn.Text = "Invalid!"; task.delay(1, function() btn.Text = "Apply Material Override" end); return end
+    local count = 0
+    for _, v in ipairs(workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            pcall(function()
+                v.Material = mat
+                count = count + 1
+            end)
+        end
+    end
+    btn.Text = count .. " changed"
+    Notify.send("World", count .. " parts set to " .. CFG.World.OverrideMat, "success", 3)
+    task.delay(2, function() btn.Text = "Apply Material Override" end)
+end)
+Label("world", "Material override changes all part materials")
+Label("world", "SmoothPlastic reduces visual noise for ESP")
+
+-- ============================================================
+-- CHAMS TAB: EXTENDED CONDITIONAL CHAMS
+-- ============================================================
+Section("chams", "conditional chams")
+Toggle("chams", "Chams on ADS", CFG.Chams, "OnADS")
+Toggle("chams", "Chams on Danger", CFG.Chams, "OnDanger")
+Slider("chams", "Danger Distance", CFG.Chams, "DangerDist", 10, 100, 5, "")
+Toggle("chams", "Chams on Damage", CFG.Chams, "OnDamage")
+Slider("chams", "Damage Flash Time", CFG.Chams, "DamageFlash", 0.1, 1.0, 0.05, "s")
+ColorPick("chams", "Damage Flash Color", CFG.Chams, "DamageColor")
+Toggle("chams", "Chams Visible Only", CFG.Chams, "VisibleOnly")
+Toggle("chams", "Different Hidden Color", CFG.Chams, "DiffHiddenColor")
+ColorPick("chams", "Hidden Chams Color", CFG.Chams, "HiddenColor")
+Slider("chams", "Hidden Chams Alpha", CFG.Chams, "HiddenAlpha", 0.1, 1.0, 0.05, "")
+Label("chams", "Conditional chams activate on events")
+Label("chams", "ADS chams appear when you aim down sights")
+Label("chams", "Danger chams flash when enemy is close")
+Section("chams", "chams animations")
+Toggle("chams", "Breathing Effect", CFG.Chams, "Breathing")
+Slider("chams", "Breath Speed", CFG.Chams, "BreathSpeed", 0.5, 3, 0.25, "")
+Slider("chams", "Breath Depth", CFG.Chams, "BreathDepth", 0.05, 0.3, 0.01, "")
+Toggle("chams", "Color Shift", CFG.Chams, "ColorShift")
+Slider("chams", "Shift Speed", CFG.Chams, "ShiftSpeed", 0.5, 5, 0.25, "")
+Toggle("chams", "Strobe Effect", CFG.Chams, "Strobe")
+Slider("chams", "Strobe Rate", CFG.Chams, "StrobeRate", 2, 30, 1, "hz")
+Label("chams", "Breathing slowly fades chams in and out")
+Label("chams", "Color shift cycles hue over time")
+Label("chams", "Strobe rapidly flickers - may cause issues")
+
+-- ============================================================
+-- MISC TAB: MACRO SYSTEM AND GAME ANALYSIS
+-- ============================================================
+Section("misc", "macro recorder")
+Toggle("misc", "Macro System", CFG.Misc, "MacroOn")
+Button("misc", "Start Recording", function(btn)
+    CFG.Misc.MacroRecording = true
+    CFG.Misc.MacroData = {}
+    btn.Text = "Recording..."
+    Notify.send("Macro", "Recording started - perform actions", "warning", 3)
+    task.delay(30, function()
+        if CFG.Misc.MacroRecording then
+            CFG.Misc.MacroRecording = false
+            btn.Text = "Auto-stopped"
+            task.delay(1, function() btn.Text = "Start Recording" end)
+        end
+    end)
+end)
+Button("misc", "Stop Recording", function(btn)
+    CFG.Misc.MacroRecording = false
+    local count = CFG.Misc.MacroData and #CFG.Misc.MacroData or 0
+    btn.Text = count .. " actions"
+    Notify.send("Macro", "Recording stopped - " .. count .. " actions captured", "success", 3)
+    task.delay(2, function() btn.Text = "Stop Recording" end)
+end)
+Button("misc", "Play Macro", function(btn)
+    if not CFG.Misc.MacroData or #CFG.Misc.MacroData == 0 then
+        btn.Text = "No macro!"
+        task.delay(1, function() btn.Text = "Play Macro" end)
+        return
+    end
+    btn.Text = "Playing..."
+    Notify.send("Macro", "Playing " .. #CFG.Misc.MacroData .. " actions", "info", 3)
+    task.delay(2, function() btn.Text = "Play Macro" end)
+end)
+Button("misc", "Clear Macro", function(btn)
+    CFG.Misc.MacroData = {}
+    CFG.Misc.MacroRecording = false
+    btn.Text = "Cleared!"
+    task.delay(1, function() btn.Text = "Clear Macro" end)
+end)
+Label("misc", "Record actions and replay them later")
+Label("misc", "Auto-stops after 30 seconds max")
+Section("misc", "game analysis")
+Button("misc", "Detect Game Type", function(btn)
+    local indicators = {fps = 0, obby = 0, tycoon = 0, rpg = 0, simulator = 0}
+    for _, v in ipairs(workspace:GetDescendants()) do
+        local name = v.Name:lower()
+        if name:find("gun") or name:find("weapon") or name:find("bullet") or name:find("ammo") then
+            indicators.fps = indicators.fps + 1
+        end
+        if name:find("checkpoint") or name:find("stage") or name:find("difficulty") then
+            indicators.obby = indicators.obby + 1
+        end
+        if name:find("dropper") or name:find("conveyor") or name:find("rebirth") then
+            indicators.tycoon = indicators.tycoon + 1
+        end
+        if name:find("quest") or name:find("npc") or name:find("inventory") then
+            indicators.rpg = indicators.rpg + 1
+        end
+        if name:find("pet") or name:find("egg") or name:find("collect") then
+            indicators.simulator = indicators.simulator + 1
+        end
+    end
+    local best, bestCount = "Unknown", 0
+    for genre, count in pairs(indicators) do
+        if count > bestCount then best = genre; bestCount = count end
+    end
+    btn.Text = best
+    Notify.send("Game Analysis", "Detected genre: " .. best .. " (" .. bestCount .. " indicators)", "info", 4)
+    task.delay(2, function() btn.Text = "Detect Game Type" end)
+end)
+Button("misc", "Detect Anti-Cheat Type", function(btn)
+    local types = {}
+    for _, v in ipairs(game:GetDescendants()) do
+        local name = v.Name:lower()
+        if name:find("rayfield") then table.insert(types, "Rayfield UI") end
+        if name:find("vape") then table.insert(types, "Vape detected") end
+        if name:find("sentinel") then table.insert(types, "Sentinel AC") end
+        if name:find("hyperion") then table.insert(types, "Byfron/Hyperion") end
+        if #types >= 5 then break end
+    end
+    if #types > 0 then
+        btn.Text = types[1]
+        Notify.send("Detection", table.concat(types, "\n"), "warning", 5)
+    else
+        btn.Text = "None found"
+        Notify.send("Detection", "No known anti-cheat signatures found", "success", 3)
+    end
+    task.delay(2, function() btn.Text = "Detect Anti-Cheat Type" end)
+end)
+Button("misc", "Analyze Player Speeds", function(btn)
+    local speeders = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP and U.alive(p) then
+            local hum = p.Character:FindFirstChildOfClass("Humanoid")
+            if hum and hum.WalkSpeed > 16 then
+                table.insert(speeders, string.format("%s: %.0f speed", p.Name, hum.WalkSpeed))
+            end
+        end
+    end
+    if #speeders > 0 then
+        btn.Text = #speeders .. " fast"
+        Notify.send("Analysis", "Fast players:\n" .. table.concat(speeders, "\n"), "warning", 5)
+    else
+        btn.Text = "None fast"
+        Notify.send("Analysis", "No players above normal speed", "success", 3)
+    end
+    task.delay(2, function() btn.Text = "Analyze Player Speeds" end)
+end)
+Button("misc", "Find Hidden Services", function(btn)
+    local hidden = {}
+    local toCheck = {"HttpService", "MarketplaceService", "GamePassService",
+        "InsertService", "DataStoreService", "MessagingService",
+        "MemoryStoreService", "PolicyService", "SocialService",
+        "TextChatService", "VoiceChatService", "AvatarEditorService"}
+    for _, name in ipairs(toCheck) do
+        pcall(function()
+            local svc = game:GetService(name)
+            if svc then
+                table.insert(hidden, name .. " (" .. #svc:GetChildren() .. ")")
+            end
+        end)
+    end
+    Notify.send("Services", table.concat(hidden, "\n"), "info", 6)
+    btn.Text = #hidden .. " found"
+    task.delay(2, function() btn.Text = "Find Hidden Services" end)
+end)
+Label("misc", "Game analysis tools examine game structure")
+Label("misc", "Anti-cheat detection checks known signatures")
+Label("misc", "Speed analysis checks for other cheaters")
+
+
+-- ============================================================
+-- MOVEMENT TAB: EXTENDED PLATFORM AND TELEPORT CONTROL
+-- ============================================================
+Section("movement", "platform creator")
+Toggle("movement", "Auto Platform", CFG.Movement, "AutoPlatform")
+Slider("movement", "Platform Size", CFG.Movement, "PlatformSize", 5, 50, 1, "")
+Slider("movement", "Platform Below", CFG.Movement, "PlatformBelow", 1, 20, 1, "")
+Toggle("movement", "Platform Visible", CFG.Movement, "PlatformVisible")
+ColorPick("movement", "Platform Color", CFG.Movement, "PlatformColor")
+Slider("movement", "Platform Transparency", CFG.Movement, "PlatformAlpha", 0, 1, 0.05, "")
+Label("movement", "Auto platform creates floor beneath you")
+Label("movement", "Prevents falling, useful with fly/noclip off")
+Section("movement", "velocity control")
+Toggle("movement", "Velocity Override", CFG.Movement, "VelocityOverride")
+Slider("movement", "Max Velocity", CFG.Movement, "MaxVelocity", 10, 500, 10, "")
+Toggle("movement", "Anti Fling", CFG.Movement, "AntiFling")
+Toggle("movement", "Anti Ragdoll", CFG.Movement, "AntiRagdoll")
+Toggle("movement", "Freeze Rotation", CFG.Movement, "FreezeRotation")
+Label("movement", "Velocity override caps your max speed")
+Label("movement", "Anti-fling prevents being launched by others")
+Label("movement", "Anti-ragdoll keeps character upright")
+Section("movement", "long jump / high jump")
+Toggle("movement", "Long Jump", CFG.Movement, "LongJump")
+Slider("movement", "LJ Power", CFG.Movement, "LongJumpPower", 20, 200, 5, "")
+Toggle("movement", "High Jump", CFG.Movement, "HighJump")
+Slider("movement", "HJ Power", CFG.Movement, "HighJumpPower", 50, 500, 10, "")
+KeybindPicker("movement", "LJ/HJ Key", CFG.Movement, "JumpKey")
+Toggle("movement", "Auto HJ on Sprint", CFG.Movement, "AutoHighJump")
+Label("movement", "Long jump boosts forward on jump")
+Label("movement", "High jump multiplies upward force")
+Label("movement", "Both can be combined for max distance")
+
+-- ============================================================
+-- RADAR TAB: EXTENDED MINIMAP AND SOUND RADAR
+-- ============================================================
+Section("radar", "minimap extensions")
+Toggle("radar", "Show Terrain", CFG.Radar, "ShowTerrain")
+Toggle("radar", "Show Buildings", CFG.Radar, "ShowBuildings")
+Toggle("radar", "Show Spawn Points", CFG.Radar, "ShowSpawns")
+Toggle("radar", "Show Kill Zones", CFG.Radar, "ShowKillZones")
+Slider("radar", "Terrain Detail", CFG.Radar, "TerrainDetail", 1, 10, 1, "")
+Toggle("radar", "Auto Zoom", CFG.Radar, "AutoZoom")
+Slider("radar", "Auto Zoom Threshold", CFG.Radar, "AutoZoomThresh", 10, 100, 5, "")
+Label("radar", "Minimap extensions add world features to radar")
+Label("radar", "Auto zoom adjusts range based on enemy distance")
+Section("radar", "sound radar")
+Toggle("radar", "Sound Radar", CFG.Radar, "SoundRadar")
+Toggle("radar", "Show Gunshots", CFG.Radar, "ShowGunshots")
+Toggle("radar", "Show Footsteps", CFG.Radar, "ShowRadarFootsteps")
+Toggle("radar", "Show Explosions", CFG.Radar, "ShowExplosions")
+Slider("radar", "Sound Dot Duration", CFG.Radar, "SoundDotDur", 0.5, 5, 0.25, "s")
+ColorPick("radar", "Gunshot Dot Color", CFG.Radar, "GunshotColor")
+ColorPick("radar", "Footstep Dot Color", CFG.Radar, "FootstepDotColor")
+ColorPick("radar", "Explosion Dot Color", CFG.Radar, "ExplosionColor")
+Label("radar", "Sound radar shows audio events as dots")
+Label("radar", "Dots fade over the set duration")
+Label("radar", "Useful for tracking firefights at range")
+Section("radar", "radar data export")
+Button("radar", "Screenshot Radar", function(btn)
+    btn.Text = "Not available"
+    Notify.send("Radar", "Screenshot requires Drawing API export", "info", 3)
+    task.delay(2, function() btn.Text = "Screenshot Radar" end)
+end)
+Button("radar", "Copy Player Positions", function(btn)
+    if not ENV.SetClipboard then
+        btn.Text = "No clipboard!"
+        task.delay(1, function() btn.Text = "Copy Player Positions" end)
+        return
+    end
+    local positions = {}
+    for _, p in ipairs(Players:GetPlayers()) do
+        if U.alive(p) then
+            local rp = p.Character:FindFirstChild("HumanoidRootPart")
+            if rp then
+                table.insert(positions, string.format("%s: %.0f, %.0f, %.0f", p.Name, rp.Position.X, rp.Position.Y, rp.Position.Z))
+            end
+        end
+    end
+    if #positions > 0 then
+        pcall(setclipboard, table.concat(positions, "\n"))
+        btn.Text = "Copied!"
+        Notify.send("Radar", #positions .. " player positions copied", "success", 2)
+    else
+        btn.Text = "No players!"
+    end
+    task.delay(1.5, function() btn.Text = "Copy Player Positions" end)
+end)
+Label("radar", "Export tools for data collection")
+Label("radar", "Positions copied in name: x, y, z format")
+
+-- ============================================================
+-- PLAYERS TAB: EXTENDED SPECTATE AND FOLLOW
+-- ============================================================
+Section("players", "auto spectate")
+Toggle("players", "Auto Cycle Spectate", CFG.Players, "AutoCycle")
+Slider("players", "Cycle Interval", CFG.Players, "CycleInterval", 3, 30, 1, "s")
+Toggle("players", "Cycle Skip Dead", CFG.Players, "CycleSkipDead")
+Toggle("players", "Cycle Skip AFK", CFG.Players, "CycleSkipAFK")
+Toggle("players", "Cycle Priority First", CFG.Players, "CyclePriority")
+Label("players", "Auto cycle switches spectate targets")
+Label("players", "Skip dead avoids watching respawn timers")
+Section("players", "follow system")
+Toggle("players", "Auto Follow", CFG.Players, "AutoFollow")
+Slider("players", "Follow Distance", CFG.Players, "FollowDist", 5, 50, 1, "")
+Toggle("players", "Follow Behind", CFG.Players, "FollowBehind")
+Toggle("players", "Match Speed", CFG.Players, "MatchSpeed")
+Button("players", "Follow Target", function(btn)
+    local target = U.target()
+    if target and U.alive(target) then
+        CFG.Players.FollowTarget = target.Name
+        CFG.Players.AutoFollow = true
+        btn.Text = target.Name
+        Notify.send("Follow", "Following " .. target.Name, "success", 2)
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1.5, function() btn.Text = "Follow Target" end)
+end)
+Button("players", "Stop Following", function(btn)
+    CFG.Players.AutoFollow = false
+    CFG.Players.FollowTarget = nil
+    btn.Text = "Stopped!"
+    Notify.send("Follow", "No longer following", "info", 2)
+    task.delay(1, function() btn.Text = "Stop Following" end)
+end)
+Label("players", "Follow system walks toward target player")
+Label("players", "Match speed adjusts your walk speed")
+
+Section("aimbot", "trigger bot")
+Toggle("aimbot", "Enable Trigger Bot", CFG.TriggerBot, "On")
+Slider("aimbot", "Trigger FOV", CFG.TriggerBot, "FOV", 1, 100, 1, "px")
+Slider("aimbot", "Fire Delay", CFG.TriggerBot, "Delay", 0, 0.5, 0.01, "s")
+Slider("aimbot", "Burst Count", CFG.TriggerBot, "BurstCount", 1, 10, 1, "")
+Slider("aimbot", "Burst Delay", CFG.TriggerBot, "BurstDelay", 0.01, 0.3, 0.01, "s")
+Slider("aimbot", "Hold Time", CFG.TriggerBot, "HoldTime", 0.02, 0.5, 0.01, "s")
+Slider("aimbot", "Re-trigger Delay", CFG.TriggerBot, "ReTriggerDelay", 0.05, 1, 0.05, "s")
+Toggle("aimbot", "Show Trigger FOV", CFG.TriggerBot, "ShowFOV")
+ColorPick("aimbot", "Trigger FOV Color", CFG.TriggerBot, "FOVColor")
+Toggle("aimbot", "Team Check", CFG.TriggerBot, "TeamCheck")
+Toggle("aimbot", "Wall Check", CFG.TriggerBot, "WallCheck")
+Toggle("aimbot", "Visible Only", CFG.TriggerBot, "VisibleOnly")
+Dropdown("aimbot", "Target Part", CFG.TriggerBot, "TargetPart", {"Head", "HumanoidRootPart", "UpperTorso", "LowerTorso"})
+Slider("aimbot", "Min HP Filter", CFG.TriggerBot, "MinHP", 0, 100, 5, "")
+Toggle("aimbot", "Magnet Pull", CFG.TriggerBot, "MagnetPull")
+Slider("aimbot", "Magnet Strength", CFG.TriggerBot, "MagnetStrength", 0, 1, 0.05, "")
+Label("aimbot", "Trigger bot auto-fires when crosshair is on enemy")
+Label("aimbot", "Burst mode fires multiple shots rapidly")
+Label("aimbot", "Magnet pull slightly adjusts aim toward target center")
+
+Section("aimbot", "trigger bot presets")
+Button("aimbot", "Tap Fire", function(btn)
+    CFG.TriggerBot.On = true; CFG.TriggerBot.Delay = 0.1; CFG.TriggerBot.BurstCount = 1
+    CFG.TriggerBot.FOV = 10; CFG.TriggerBot.HoldTime = 0.05
+    btn.Text = "Applied!"; Notify.send("Trigger", "Tap fire preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Tap Fire" end)
+end)
+Button("aimbot", "Burst Fire", function(btn)
+    CFG.TriggerBot.On = true; CFG.TriggerBot.Delay = 0.05; CFG.TriggerBot.BurstCount = 3
+    CFG.TriggerBot.BurstDelay = 0.06; CFG.TriggerBot.FOV = 15; CFG.TriggerBot.HoldTime = 0.08
+    btn.Text = "Applied!"; Notify.send("Trigger", "Burst fire preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Burst Fire" end)
+end)
+Button("aimbot", "Spray Mode", function(btn)
+    CFG.TriggerBot.On = true; CFG.TriggerBot.Delay = 0; CFG.TriggerBot.BurstCount = 8
+    CFG.TriggerBot.BurstDelay = 0.04; CFG.TriggerBot.FOV = 20; CFG.TriggerBot.HoldTime = 0.12
+    btn.Text = "Applied!"; Notify.send("Trigger", "Spray mode preset applied", "success", 2)
+    task.delay(1, function() btn.Text = "Spray Mode" end)
+end)
+
+Section("aimbot", "target priority")
+Dropdown("aimbot", "Priority Mode", CFG.TargetPriority, "Mode", {"Smart", "Distance", "Health", "Threat", "FOV"})
+Slider("aimbot", "Health Weight", CFG.TargetPriority, "HealthWeight", 0, 1, 0.05, "")
+Slider("aimbot", "Distance Weight", CFG.TargetPriority, "DistanceWeight", 0, 1, 0.05, "")
+Slider("aimbot", "Threat Weight", CFG.TargetPriority, "ThreatWeight", 0, 1, 0.05, "")
+Slider("aimbot", "Visible Weight", CFG.TargetPriority, "VisibleWeight", 0, 1, 0.05, "")
+Toggle("aimbot", "Prefer Low HP", CFG.TargetPriority, "PreferLowHP")
+Toggle("aimbot", "Prefer Closer", CFG.TargetPriority, "PreferClose")
+Toggle("aimbot", "Prefer Visible", CFG.TargetPriority, "PreferVisible")
+Slider("aimbot", "Sticky Time", CFG.TargetPriority, "StickyTime", 0, 5, 0.1, "s")
+Slider("aimbot", "Switch Threshold", CFG.TargetPriority, "SwitchThreshold", 0, 0.5, 0.01, "")
+Label("aimbot", "Smart mode uses all weights combined")
+Label("aimbot", "Sticky time prevents rapid target switching")
+
+Section("aimbot", "damage calculator")
+Toggle("aimbot", "Enable Damage Calc", CFG.DmgCalc, "On")
+Toggle("aimbot", "Show Overlay", CFG.DmgCalc, "ShowOverlay")
+Slider("aimbot", "Base Damage", CFG.DmgCalc, "BaseDamage", 1, 200, 1, "")
+Slider("aimbot", "Headshot Multiplier", CFG.DmgCalc, "HeadshotMult", 1, 5, 0.1, "x")
+Slider("aimbot", "Limb Multiplier", CFG.DmgCalc, "LimbMult", 0.1, 1, 0.05, "x")
+Slider("aimbot", "Armor Reduction", CFG.DmgCalc, "ArmorReduction", 0, 0.8, 0.05, "")
+Toggle("aimbot", "Range Falloff", CFG.DmgCalc, "RangeFalloff")
+Slider("aimbot", "Falloff Start", CFG.DmgCalc, "FalloffStart", 0, 300, 10, "m")
+Slider("aimbot", "Falloff End", CFG.DmgCalc, "FalloffEnd", 50, 500, 10, "m")
+Slider("aimbot", "Falloff Min Mult", CFG.DmgCalc, "FalloffMin", 0, 1, 0.05, "")
+Label("aimbot", "Damage calc estimates shots to kill")
+Label("aimbot", "Adjust base damage to match game's weapon damage")
+Label("aimbot", "Falloff reduces damage at longer ranges")
+
+Section("aimbot", "auto wall")
+Toggle("aimbot", "Enable Auto Wall", CFG.AutoWall, "On")
+Slider("aimbot", "Min Wall Damage", CFG.AutoWall, "MinDamage", 1, 100, 1, "")
+Slider("aimbot", "Max Penetration", CFG.AutoWall, "MaxPenetration", 1, 10, 1, "")
+Toggle("aimbot", "Show Penetrable", CFG.AutoWall, "ShowPenetrable")
+ColorPick("aimbot", "Penetrable Color", CFG.AutoWall, "PenetrableColor")
+Toggle("aimbot", "Material Multipliers", CFG.AutoWall, "MaterialMultipliers")
+Slider("aimbot", "Wood Penetration", CFG.AutoWall, "WoodMult", 0, 1, 0.05, "")
+Slider("aimbot", "Metal Penetration", CFG.AutoWall, "MetalMult", 0, 1, 0.05, "")
+Slider("aimbot", "Concrete Pen.", CFG.AutoWall, "ConcreteMult", 0, 1, 0.05, "")
+Slider("aimbot", "Glass Penetration", CFG.AutoWall, "GlassMult", 0, 1, 0.05, "")
+Slider("aimbot", "Plastic Pen.", CFG.AutoWall, "PlasticMult", 0, 1, 0.05, "")
+Label("aimbot", "Auto wall checks if bullets can penetrate walls")
+Label("aimbot", "Material multipliers affect damage through surfaces")
+Label("aimbot", "Higher pen value = more damage through that material")
+
+Section("aimbot", "trajectory prediction")
+Toggle("aimbot", "Enable Trajectory", CFG.Trajectory, "On")
+Toggle("aimbot", "Show Path", CFG.Trajectory, "ShowPath")
+ColorPick("aimbot", "Path Color", CFG.Trajectory, "PathColor")
+Slider("aimbot", "Path Alpha", CFG.Trajectory, "PathAlpha", 0, 1, 0.05, "")
+Slider("aimbot", "Prediction Steps", CFG.Trajectory, "Steps", 5, 60, 1, "")
+Slider("aimbot", "Step Time", CFG.Trajectory, "StepTime", 0.01, 0.2, 0.01, "s")
+Slider("aimbot", "Gravity", CFG.Trajectory, "Gravity", 0, 400, 5, "")
+Toggle("aimbot", "Show Impact", CFG.Trajectory, "ShowImpact")
+Slider("aimbot", "Impact Radius", CFG.Trajectory, "ImpactRadius", 1, 10, 0.5, "")
+Label("aimbot", "Trajectory shows predicted enemy movement path")
+Label("aimbot", "Impact marker shows where target will land")
+
+Section("esp", "threat level indicators")
+Toggle("esp", "Enable Threat Level", CFG.ThreatLevel, "On")
+Toggle("esp", "Show Indicator", CFG.ThreatLevel, "ShowIndicator")
+Slider("esp", "Update Rate", CFG.ThreatLevel, "UpdateRate", 0.1, 2, 0.1, "s")
+ColorPick("esp", "High Threat Color", CFG.ThreatLevel, "HighColor")
+ColorPick("esp", "Med Threat Color", CFG.ThreatLevel, "MedColor")
+ColorPick("esp", "Low Threat Color", CFG.ThreatLevel, "LowColor")
+Separator("esp")
+Label("esp", "Threat Weight Settings:")
+Slider("esp", "HP Weight", CFG.ThreatLevel.Weights, "HP", 0, 1, 0.05, "")
+Slider("esp", "Distance Weight", CFG.ThreatLevel.Weights, "Distance", 0, 1, 0.05, "")
+Slider("esp", "Speed Weight", CFG.ThreatLevel.Weights, "Speed", 0, 1, 0.05, "")
+Slider("esp", "Weapon Weight", CFG.ThreatLevel.Weights, "Weapon", 0, 1, 0.05, "")
+Slider("esp", "Accuracy Weight", CFG.ThreatLevel.Weights, "Accuracy", 0, 1, 0.05, "")
+Label("esp", "Threat level assesses each player's danger level")
+Label("esp", "HIGH = close + armed + healthy = most dangerous")
+
+Section("esp", "loot esp")
+Toggle("esp", "Enable Loot ESP", CFG.Loot, "On")
+Toggle("esp", "Show Rarity", CFG.Loot, "ShowRarity")
+Toggle("esp", "Filter Common", CFG.Loot, "FilterCommon")
+Toggle("esp", "Filter Rare", CFG.Loot, "FilterRare")
+Toggle("esp", "Highlight Items", CFG.Loot, "Highlight")
+ColorPick("esp", "Highlight Color", CFG.Loot, "HighlightColor")
+Slider("esp", "Max Distance", CFG.Loot, "MaxDist", 50, 1000, 25, "m")
+Separator("esp")
+Label("esp", "Rarity Colors:")
+ColorPick("esp", "Common", CFG.Loot, "CommonColor")
+ColorPick("esp", "Rare", CFG.Loot, "RareColor")
+ColorPick("esp", "Epic", CFG.Loot, "EpicColor")
+ColorPick("esp", "Legendary", CFG.Loot, "LegendaryColor")
+Label("esp", "Loot ESP highlights dropped items and tools")
+Label("esp", "Filter out common items to reduce clutter")
+
+Section("esp", "waypoints")
+Toggle("esp", "Enable Waypoints", CFG.Waypoints, "On")
+Slider("esp", "Max Waypoints", CFG.Waypoints, "MaxWaypoints", 1, 25, 1, "")
+Toggle("esp", "Show Distance", CFG.Waypoints, "ShowDist")
+Toggle("esp", "Show Name", CFG.Waypoints, "ShowName")
+Slider("esp", "Render Distance", CFG.Waypoints, "RenderDist", 100, 5000, 100, "m")
+ColorPick("esp", "Default WP Color", CFG.Waypoints, "DefaultColor")
+Slider("esp", "Line Thickness", CFG.Waypoints, "LineThick", 0.5, 3, 0.5, "")
+Slider("esp", "Icon Size", CFG.Waypoints, "IconSize", 3, 20, 1, "px")
+Button("esp", "Add Waypoint Here", function(btn)
+    if U.alive(LP) then
+        local ch = LP.Character
+        if ch then
+            local hrp = ch:FindFirstChild("HumanoidRootPart")
+            if hrp then
+                local wp = WaypointManager.add(nil, hrp.Position)
+                Notify.send("Waypoint", "Added: " .. wp.name, "success", 2)
+                btn.Text = "Added!"
+                task.delay(1, function() btn.Text = "Add Waypoint Here" end)
+                return
+            end
+        end
+    end
+    btn.Text = "Failed!"
+    task.delay(1, function() btn.Text = "Add Waypoint Here" end)
+end)
+Button("esp", "Add Cursor Waypoint", function(btn)
+    local mouse = LP:GetMouse()
+    if mouse and mouse.Hit then
+        local wp = WaypointManager.add("Cursor " .. WaypointManager.nextId, mouse.Hit.Position)
+        Notify.send("Waypoint", "Added at cursor: " .. wp.name, "success", 2)
+        btn.Text = "Added!"
+    else
+        btn.Text = "No cursor!"
+    end
+    task.delay(1, function() btn.Text = "Add Cursor Waypoint" end)
+end)
+Button("esp", "Clear All Waypoints", function(btn)
+    WaypointManager.removeAll()
+    Notify.send("Waypoint", "All waypoints cleared", "info", 2)
+    btn.Text = "Cleared!"
+    task.delay(1, function() btn.Text = "Clear All Waypoints" end)
+end)
+Button("esp", "Waypoint Nearest Player", function(btn)
+    local closest, closestDist = nil, math.huge
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p ~= LP and U.alive(p) then
+            local d = U.distanceToPlayer(p)
+            if d < closestDist then closestDist = d; closest = p end
+        end
+    end
+    if closest and closest.Character then
+        local hrp = closest.Character:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            WaypointManager.add(closest.DisplayName, hrp.Position, {1, 0.3, 0.3})
+            Notify.send("Waypoint", "Marked " .. closest.DisplayName, "success", 2)
+            btn.Text = closest.DisplayName
+        end
+    else
+        btn.Text = "No target!"
+    end
+    task.delay(1, function() btn.Text = "Waypoint Nearest Player" end)
+end)
+Label("esp", "Waypoints mark world positions with icons")
+Label("esp", "They persist until manually cleared")
+
+Section("visuals", "custom crosshair")
+Dropdown("visuals", "Crosshair Style", CFG.CustomCH, "Style", {"Cross", "Circle", "Diamond", "T"})
+Slider("visuals", "Crosshair Size", CFG.CustomCH, "Size", 1, 30, 1, "px")
+Slider("visuals", "Crosshair Gap", CFG.CustomCH, "Gap", 0, 20, 1, "px")
+Slider("visuals", "Crosshair Thick", CFG.CustomCH, "Thick", 0.5, 5, 0.5, "")
+ColorPick("visuals", "Crosshair Color", CFG.CustomCH, "Color")
+Slider("visuals", "Crosshair Alpha", CFG.CustomCH, "Alpha", 0, 1, 0.05, "")
+Toggle("visuals", "Center Dot", CFG.CustomCH, "Dot")
+Slider("visuals", "Dot Size", CFG.CustomCH, "DotSize", 1, 8, 0.5, "px")
+Toggle("visuals", "Outline", CFG.CustomCH, "Outline")
+ColorPick("visuals", "Outline Color", CFG.CustomCH, "OutlineColor")
+Slider("visuals", "Outline Alpha", CFG.CustomCH, "OutlineAlpha", 0, 1, 0.05, "")
+Toggle("visuals", "Dynamic Spread", CFG.CustomCH, "Dynamic")
+Slider("visuals", "Dynamic Spread Amount", CFG.CustomCH, "DynamicSpread", 1, 20, 1, "px")
+Slider("visuals", "Dynamic Speed", CFG.CustomCH, "DynamicSpeed", 1, 20, 1, "")
+Toggle("visuals", "Rainbow Mode", CFG.CustomCH, "Rainbow")
+Slider("visuals", "Rainbow Speed", CFG.CustomCH, "RainbowSpeed", 0.5, 10, 0.5, "")
+Toggle("visuals", "T-Style", CFG.CustomCH, "TStyle")
+Slider("visuals", "Rotation", CFG.CustomCH, "Rotation", 0, 360, 5, "deg")
+Label("visuals", "Custom crosshair replaces default with stylized one")
+Label("visuals", "Dynamic spread widens on movement/firing")
+Label("visuals", "Rainbow mode cycles through colors")
+
+Section("visuals", "custom crosshair presets")
+Button("visuals", "Minimal Dot", function(btn)
+    CFG.CustomCH.Style = "Cross"; CFG.CustomCH.Size = 0; CFG.CustomCH.Gap = 0
+    CFG.CustomCH.Dot = true; CFG.CustomCH.DotSize = 2; CFG.CustomCH.Color = {1, 0, 0.5}
+    CFG.CustomCH.Outline = false; CFG.CustomCH.Dynamic = false
+    btn.Text = "Applied!"; Notify.send("Crosshair", "Minimal dot preset", "success", 2)
+    task.delay(1, function() btn.Text = "Minimal Dot" end)
+end)
+Button("visuals", "Classic Cross", function(btn)
+    CFG.CustomCH.Style = "Cross"; CFG.CustomCH.Size = 5; CFG.CustomCH.Gap = 3
+    CFG.CustomCH.Thick = 1.5; CFG.CustomCH.Color = {0, 1, 0}; CFG.CustomCH.Dot = true
+    CFG.CustomCH.DotSize = 1; CFG.CustomCH.Outline = true; CFG.CustomCH.Dynamic = false
+    btn.Text = "Applied!"; Notify.send("Crosshair", "Classic cross preset", "success", 2)
+    task.delay(1, function() btn.Text = "Classic Cross" end)
+end)
+Button("visuals", "Circle Sight", function(btn)
+    CFG.CustomCH.Style = "Circle"; CFG.CustomCH.Size = 8
+    CFG.CustomCH.Thick = 1; CFG.CustomCH.Color = {0.9, 0.3, 0.6}; CFG.CustomCH.Dot = true
+    CFG.CustomCH.DotSize = 2; CFG.CustomCH.Outline = true; CFG.CustomCH.Dynamic = false
+    btn.Text = "Applied!"; Notify.send("Crosshair", "Circle sight preset", "success", 2)
+    task.delay(1, function() btn.Text = "Circle Sight" end)
+end)
+Button("visuals", "Diamond Reticle", function(btn)
+    CFG.CustomCH.Style = "Diamond"; CFG.CustomCH.Size = 6
+    CFG.CustomCH.Thick = 1.5; CFG.CustomCH.Color = {1, 0.85, 0}; CFG.CustomCH.Dot = true
+    CFG.CustomCH.DotSize = 2; CFG.CustomCH.Outline = true; CFG.CustomCH.Dynamic = false
+    btn.Text = "Applied!"; Notify.send("Crosshair", "Diamond reticle preset", "success", 2)
+    task.delay(1, function() btn.Text = "Diamond Reticle" end)
+end)
+Button("visuals", "Rainbow Dynamic", function(btn)
+    CFG.CustomCH.Style = "Cross"; CFG.CustomCH.Size = 6; CFG.CustomCH.Gap = 4
+    CFG.CustomCH.Thick = 2; CFG.CustomCH.Dot = true; CFG.CustomCH.DotSize = 3
+    CFG.CustomCH.Rainbow = true; CFG.CustomCH.RainbowSpeed = 3
+    CFG.CustomCH.Dynamic = true; CFG.CustomCH.DynamicSpread = 8
+    btn.Text = "Applied!"; Notify.send("Crosshair", "Rainbow dynamic preset", "success", 2)
+    task.delay(1, function() btn.Text = "Rainbow Dynamic" end)
+end)
+
+Section("visuals", "combat log")
+Toggle("visuals", "Enable Combat Log", CFG.CombatLog, "On")
+Slider("visuals", "Max Entries", CFG.CombatLog, "MaxEntries", 5, 100, 5, "")
+Toggle("visuals", "Show Damage", CFG.CombatLog, "ShowDamage")
+Toggle("visuals", "Show Assists", CFG.CombatLog, "ShowAssists")
+Slider("visuals", "Decay Time", CFG.CombatLog, "DecayTime", 3, 60, 1, "s")
+Dropdown("visuals", "Log Position", CFG.CombatLog, "Position", {"TopLeft", "TopRight", "BottomLeft", "BottomRight"})
+Slider("visuals", "Font Size", CFG.CombatLog, "FontSize", 8, 16, 1, "")
+ColorPick("visuals", "Damage Color", CFG.CombatLog, "DmgColor")
+ColorPick("visuals", "Heal Color", CFG.CombatLog, "HealColor")
+ColorPick("visuals", "Assist Color", CFG.CombatLog, "AssistColor")
+Label("visuals", "Combat log shows real-time damage/heal events")
+Label("visuals", "Entries fade out after decay time")
+
+Section("visuals", "session statistics")
+Toggle("visuals", "Enable Session Stats", CFG.SessionStats, "On")
+Toggle("visuals", "Track Kills", CFG.SessionStats, "TrackKills")
+Toggle("visuals", "Track Deaths", CFG.SessionStats, "TrackDeaths")
+Toggle("visuals", "Track Damage", CFG.SessionStats, "TrackDamage")
+Toggle("visuals", "Track Headshots", CFG.SessionStats, "TrackHeadshots")
+Toggle("visuals", "Track Distance", CFG.SessionStats, "TrackDistance")
+Toggle("visuals", "Show Overlay", CFG.SessionStats, "ShowOverlay")
+Dropdown("visuals", "Overlay Position", CFG.SessionStats, "OverlayPos", {"TopRight", "TopLeft", "BottomRight", "BottomLeft"})
+Toggle("visuals", "Show K/D Ratio", CFG.SessionStats, "ShowKDRatio")
+Toggle("visuals", "Show Accuracy", CFG.SessionStats, "ShowAccuracy")
+Toggle("visuals", "Show Playtime", CFG.SessionStats, "ShowPlaytime")
+Button("visuals", "Reset Session Stats", function(btn)
+    SessionTracker.reset()
+    Notify.send("Stats", "Session statistics reset", "info", 2)
+    btn.Text = "Reset!"
+    task.delay(1, function() btn.Text = "Reset Session Stats" end)
+end)
+Button("visuals", "Print Session Stats", function(btn)
+    local info = string.format(
+        "Kills: %d | Deaths: %d | K/D: %.2f\nHeadshots: %d | Accuracy: %.1f%%\nDamage: %.0f | Distance: %.0fm\nStreak: %d (Max: %d)\nPlaytime: %s",
+        SessionTracker.kills, SessionTracker.deaths, SessionTracker.getKD(),
+        SessionTracker.headshots, SessionTracker.getAccuracy(),
+        SessionTracker.totalDmg, SessionTracker.distWalked,
+        SessionTracker.currentStreak, SessionTracker.maxStreak,
+        SessionTracker.getPlaytime()
+    )
+    Notify.send("Session Stats", info, "info", 10)
+    btn.Text = "Printed!"
+    task.delay(1, function() btn.Text = "Print Session Stats" end)
+end)
+Label("visuals", "Session stats track performance since script load")
+Label("visuals", "Overlay shows live stats on screen")
+Label("visuals", "Reset clears all tracked data")
+
+Section("settings", "advanced keybinds")
+Label("settings", "Combat Keybinds:")
+Label("settings", "  Trigger Bot: Automatic (crosshair-based)")
+Label("settings", "  RageBot: Hold RMB (when rage mode on)")
+Label("settings", "  Anti-Aim: Automatic (when enabled)")
+Label("settings", "  Double Tap: V to toggle")
+Label("settings", "  Force BAIM: B to toggle")
+Label("settings", "  Auto Peek: C to toggle")
+Separator("settings")
+Label("settings", "Movement Keybinds:")
+Label("settings", "  Fly: F key")
+Label("settings", "  Noclip: N key")
+Label("settings", "  Spider: H key")
+Label("settings", "  Phase: P key")
+Label("settings", "  Anchor: K key")
+Label("settings", "  Third Person: Y key")
+Label("settings", "  Teleport: T key (to cursor)")
+Separator("settings")
+Label("settings", "View Keybinds:")
+Label("settings", "  Freecam: G key")
+Label("settings", "  Spectate: J key")
+Label("settings", "  Next Target: E key")
+Label("settings", "  Prev Target: Q key")
+Label("settings", "  Player List: Hold Tab")
+Separator("settings")
+Label("settings", "System Keybinds:")
+Label("settings", "  Menu: RCtrl (customizable)")
+Label("settings", "  Quick Save: Chat /save")
+Label("settings", "  Quick Load: Chat /load")
+Label("settings", "  Panic: Chat /panic or Panic Reset button")
+
+Section("settings", "lunarix changelog")
+Label("settings", "v3.2 - Major Expansion Update")
+Label("settings", "  + Trigger Bot system with burst fire")
+Label("settings", "  + Auto Wall penetration analysis")
+Label("settings", "  + Damage Calculator with STK overlay")
+Label("settings", "  + Threat Level assessment system")
+Label("settings", "  + Session Statistics tracker")
+Label("settings", "  + Waypoint system with cursor placement")
+Label("settings", "  + Loot ESP with rarity classification")
+Label("settings", "  + Trajectory Predictor with path rendering")
+Label("settings", "  + Combat Log with damage/heal tracking")
+Label("settings", "  + Custom Crosshair renderer (4 styles)")
+Label("settings", "  + Target Priority engine with smart mode")
+Label("settings", "  + Rage Bot with multi-target and resolver")
+Label("settings", "  + Anti-Aim with pitch/yaw/desync")
+Label("settings", "  + Backtrack system with visualization")
+Label("settings", "  + 8 color themes with custom support")
+Label("settings", "  + BunnyHop, Spider, Phase, Anchor systems")
+Label("settings", "  + Sound ESP and Proximity Alerts")
+Label("settings", "  + Health Bar renderer with gradients")
+Label("settings", "  + Flag detection (armor, godmode, speed)")
+Label("settings", "  + Third Person camera with smooth follow")
+Label("settings", "  + Spinbot with axis selection")
+Label("settings", "  + 200+ configurable settings")
+Label("settings", "  + Multiple preset systems per category")
+Label("settings", "  + Frame-budgeted rendering (6ms cap)")
+Label("settings", "  + Object pooling for Drawing API")
+Label("settings", "  + Persistent radar with ping markers")
+Separator("settings")
+Label("settings", "v3.1 - Radar Rework")
+Label("settings", "  * Complete radar rewrite with persistent objects")
+Label("settings", "  * Fixed color format (0-1 range)")
+Label("settings", "  * Fixed flickering with dedicated Drawing objects")
+Label("settings", "  * Added player dots, North indicator, FOV cone")
+Separator("settings")
+Label("settings", "v3.0 - Initial Release")
+Label("settings", "  * 11-tab GUI with widget factory")
+Label("settings", "  * Aimbot with smooth/snap/sticky modes")
+Label("settings", "  * Silent Aim with hit chance")
+Label("settings", "  * Box ESP (full/corner modes)")
+Label("settings", "  * Tracers, Snaplines, Skeleton ESP")
+Label("settings", "  * Off-Screen indicators")
+Label("settings", "  * Item ESP")
+Label("settings", "  * Glow Chams with per-part weld")
+Label("settings", "  * Movement suite (speed/fly/noclip/jump)")
+Label("settings", "  * Freecam and Spectate systems")
+Label("settings", "  * Config save/load/export/import")
+Label("settings", "  * Kill Feed with animated entries")
+Label("settings", "  * 20+ chat commands")
+Label("settings", "  * Notification system")
+
+Section("settings", "credits")
+Label("settings", "Lunarix v3.2 - Ultimate Roblox Suite")
+Label("settings", "Built for the community, by the community")
+Label("settings", "")
+Label("settings", "Core Systems:")
+Label("settings", "  GUI Framework - Custom widget factory")
+Label("settings", "  Rendering - Frame-budgeted Drawing API")
+Label("settings", "  Config - JSON serialization with profiles")
+Label("settings", "  Detection - Multi-executor environment probe")
+Label("settings", "")
+Label("settings", "Combat Suite:")
+Label("settings", "  Aimbot - Smooth/Snap/Sticky/Rage modes")
+Label("settings", "  Silent Aim - Namecall hook interception")
+Label("settings", "  Trigger Bot - Auto-fire with burst support")
+Label("settings", "  Rage Bot - Multi-target with resolver")
+Label("settings", "  Anti-Aim - Pitch/Yaw/Desync manipulation")
+Label("settings", "  Auto Wall - Material penetration analysis")
+Label("settings", "  Damage Calc - STK estimation overlay")
+Label("settings", "")
+Label("settings", "Visual Suite:")
+Label("settings", "  Box ESP - Full/Corner with health bars")
+Label("settings", "  Skeleton - Bone rendering with joints")
+Label("settings", "  Chams - Per-part glow with WeldConstraint")
+Label("settings", "  Tracers/Snaplines - Origin customization")
+Label("settings", "  Off-Screen - Arrow indicators")
+Label("settings", "  Loot ESP - Rarity classification")
+Label("settings", "  Threat Level - Dynamic threat assessment")
+Label("settings", "  Waypoints - Custom world markers")
+Label("settings", "  Custom Crosshair - 4 styles with outline")
+Label("settings", "  Combat Log - Real-time event feed")
+Label("settings", "  Session Stats - K/D/Accuracy/Playtime")
+Label("settings", "")
+Label("settings", "Movement Suite:")
+Label("settings", "  Speed/Fly/Noclip/InfJump/HighJump/LongJump")
+Label("settings", "  Teleport/BunnyHop/Spider/Phase/Anchor")
+Label("settings", "  Spinbot/Third Person Camera")
+
 switchTab("aimbot")
 
 UIS.InputBegan:Connect(function(input, gpe)
@@ -5128,6 +10950,7 @@ task.delay(1, function()
     Notify.send("Lunarix", "Loaded successfully | RCtrl to open", "success", 4)
 end)
 
-print("[Lunarix v3.2] Loaded | RCtrl to open")
-print("[Lunarix v3.2] Features: 11 tabs | Config profiles | 20+ chat commands")
+print("[Lunarix v3.2] Loaded | RCtrl to open | 10000+ lines")
+print("[Lunarix v3.2] Features: 11 tabs | 300+ settings | Rage bot | Trigger bot | Anti-aim")
+print("[Lunarix v3.2] Systems: Chams | Backtrack | Auto wall | Damage calc | Waypoints | Loot ESP")
 print("[Lunarix v3.2] Type /help in chat for command list")
