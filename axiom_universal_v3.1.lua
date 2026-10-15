@@ -1,97 +1,41 @@
---// ═══════════════════════════════════════════════════════════════════
---// AXIOM UNIVERSAL SUITE v3.1 — FULL BUILD
---// Maximum Executor Compatibility
---// Synapse X | Fluxus | Hydrogen | Delta | Arceus | Solara | Wave | AWP
---// ═══════════════════════════════════════════════════════════════════
---// MODULES:
---//   Silent Aim | Aimbot (Smoothed) | FOV Circle | FOV Changer
---//   Box ESP | Name ESP | Health Bar | Distance | Tracers | Snaplines
---//   Skeleton ESP (R6/R15) | Chams (Standard/Neon/Rainbow)
---//   Item ESP | Crosshair | Watermark | FPS Counter
---//   Full Tabbed GUI | Color Pickers | Menu Scaling | Keybinds
---// ═══════════════════════════════════════════════════════════════════
-
 local unpack = unpack or table.unpack
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+local Camera = workspace.CurrentCamera
+local LP = Players.LocalPlayer
+local Mouse = LP:GetMouse()
 
---------------------------------------------------------------
--- SERVICES
---------------------------------------------------------------
-local Players         = game:GetService("Players")
-local RunService      = game:GetService("RunService")
-local UIS             = game:GetService("UserInputService")
-local TweenService    = game:GetService("TweenService")
-local StarterGui      = game:GetService("StarterGui")
-local Lighting        = game:GetService("Lighting")
-local Camera          = workspace.CurrentCamera
-local LP              = Players.LocalPlayer
-local Mouse           = LP:GetMouse()
-
---------------------------------------------------------------
--- EXECUTOR FEATURE DETECTION
---------------------------------------------------------------
 local ENV = {}
-
 ENV.Drawing = (function()
-    local ok = pcall(function()
-        local t = Drawing.new("Line")
-        t:Remove()
-    end)
+    local ok = pcall(function() local t = Drawing.new("Line"); t:Remove() end)
     return ok
 end)()
-
 ENV.Hook = (function()
     if typeof(hookmetamethod) == "function" then return "hookmetamethod" end
     if typeof(hookfunction) == "function" then return "hookfunction" end
     return nil
 end)()
-
 ENV.Namecall = typeof(getnamecallmethod) == "function"
 ENV.CClosure = typeof(newcclosure) == "function"
 local wrap = ENV.CClosure and newcclosure or function(f) return f end
-
 ENV.CoreGui = (function()
-    local ok = pcall(function()
-        local t = Instance.new("Folder")
-        t.Parent = game:GetService("CoreGui")
-        t:Destroy()
-    end)
+    local ok = pcall(function() local t = Instance.new("Folder"); t.Parent = game:GetService("CoreGui"); t:Destroy() end)
     return ok
 end)()
-
 ENV.GetHUI = typeof(gethui) == "function"
 ENV.ProtectGui = typeof(protect_gui) == "function" or (typeof(syn) == "table" and typeof(syn.protect_gui) == "function")
-ENV.ReadOnly = typeof(setreadonly) == "function" or typeof(make_writeable) == "function"
-ENV.Mouse1 = typeof(mouse1click) == "function"
 ENV.RawMT = typeof(getrawmetatable) == "function"
-ENV.CheckCaller = typeof(checkcaller) == "function"
 
-local tag = "[Axiom v3.1]"
-print(tag .. " ═══════════════════════════════════════")
-print(tag .. " Drawing: " .. tostring(ENV.Drawing))
-print(tag .. " Hook: " .. tostring(ENV.Hook))
-print(tag .. " Namecall: " .. tostring(ENV.Namecall))
-print(tag .. " CoreGui: " .. tostring(ENV.CoreGui))
-print(tag .. " CClosure: " .. tostring(ENV.CClosure))
-print(tag .. " ═══════════════════════════════════════")
-
-if not ENV.Drawing then
-    warn(tag .. " NO DRAWING API — ESP will use BillboardGui fallback")
-end
-if not ENV.Hook then
-    warn(tag .. " NO HOOK — Silent Aim using camera-based redirect")
-end
-
---------------------------------------------------------------
--- MASTER CONFIG
---------------------------------------------------------------
 local CFG = {
-    -- AIMBOT
     Aimbot = {
         On = false,
         Key = Enum.UserInputType.MouseButton2,
-        Mode = "Smooth",          -- "Snap" or "Smooth"
-        Smoothness = 0.15,        -- lower = faster (0.01 to 1)
-        Part = "Head",            -- "Head", "Torso", "Closest"
+        Mode = "Smooth",
+        Smoothness = 0.15,
+        Part = "Head",
         FOV = 200,
         ShowFOV = true,
         FOVColor = {1, 0.2, 0.2},
@@ -105,10 +49,8 @@ local CFG = {
         WallCheck = false,
         VisCheck = false,
         MaxDist = 2500,
-        Priority = "FOV",         -- "FOV", "Distance", "Health"
+        Priority = "FOV",
     },
-
-    -- SILENT AIM
     SilentAim = {
         On = false,
         FOV = 180,
@@ -124,16 +66,14 @@ local CFG = {
         TeamCheck = true,
         HitChance = 100,
     },
-
-    -- BOX ESP
     BoxESP = {
         On = false,
-        Mode = "Full",            -- "Full", "Corner", "3D"
+        Mode = "Full",
         EnemyColor = {1, 0.15, 0.15},
         TeamColor = {0.15, 1, 0.15},
         EnemyFill = {1, 0, 0},
         TeamFill = {0, 1, 0},
-        FillAlpha = 0,            -- 0=off, >0=filled box
+        FillAlpha = 0,
         Thick = 1.4,
         CornerLength = 6,
         Name = true,
@@ -149,27 +89,21 @@ local CFG = {
         OutlineColor = {0, 0, 0},
         OutlineThick = 3,
     },
-
-    -- TRACERS
     Tracers = {
         On = false,
-        Origin = "Bottom",        -- "Bottom", "Center", "Mouse"
+        Origin = "Bottom",
         EnemyColor = {1, 0.3, 0.3},
         TeamColor = {0.3, 1, 0.3},
         Thick = 1.2,
         MaxDist = 2000,
         ShowTeam = false,
     },
-
-    -- SNAPLINES
     Snaplines = {
         On = false,
         Color = {1, 1, 0},
         Thick = 0.8,
         Part = "Head",
     },
-
-    -- SKELETON ESP
     Skeleton = {
         On = false,
         EnemyColor = {1, 1, 1},
@@ -178,29 +112,28 @@ local CFG = {
         MaxDist = 1200,
         ShowTeam = false,
     },
-
-    -- CHAMS
     Chams = {
         On = false,
-        Mode = "Standard",        -- "Standard", "Neon", "Rainbow", "Flat"
-        FillColor = {0.5, 0, 1},
-        OutColor = {1, 1, 1},
-        FillAlpha = 0.6,
-        OutAlpha = 0.0,
+        Mode = "Glow",
+        GlowColor = {0.5, 0, 1},
+        GlowAlpha = 0.35,
+        GlowSize = 0.06,
+        HighlightFill = {0.5, 0, 1},
+        HighlightOut = {1, 1, 1},
+        HighlightFillAlpha = 0.6,
+        HighlightOutAlpha = 0.0,
+        XRayVisibleFill = {0, 1, 0.5},
+        XRayVisibleAlpha = 0.4,
+        XRayOccludedFill = {1, 0, 0.3},
+        XRayOccludedAlpha = 0.7,
         NeonColor = {0, 1, 0.8},
-        NeonAlpha = 0.3,
-        NeonOutAlpha = 0,
+        NeonAlpha = 0.25,
         RainbowSpeed = 1,
-        EnemyFill = {1, 0, 0.3},
-        TeamFill = {0, 0.4, 1},
-        EnemyOut = {1, 0.5, 0.5},
-        TeamOut = {0.5, 0.5, 1},
+        EnemyColor = {1, 0, 0.3},
+        TeamColor = {0, 0.4, 1},
         TeamCheck = true,
-        VisibleOnly = false,
-        DepthMode = "AlwaysOnTop",-- "AlwaysOnTop", "Occluded"
+        DepthMode = "AlwaysOnTop",
     },
-
-    -- ITEM ESP
     ItemESP = {
         On = false,
         Color = {1, 1, 0},
@@ -212,10 +145,7 @@ local CFG = {
         Tracers = true,
         TracerThick = 1,
         Icon = true,
-        Filter = {},              -- empty = show all
     },
-
-    -- CROSSHAIR
     Crosshair = {
         On = false,
         Color = {0, 1, 0},
@@ -227,18 +157,14 @@ local CFG = {
         Outline = true,
         Rotate = false,
         RotateSpeed = 2,
-        Style = "Cross",          -- "Cross", "Circle", "Dot", "Diamond"
+        Style = "Cross",
     },
-
-    -- FOV CHANGER
     FOVChanger = {
         On = false,
         Value = 70,
         Smooth = true,
         SmoothSpeed = 0.1,
     },
-
-    -- WATERMARK
     Watermark = {
         On = true,
         ShowFPS = true,
@@ -246,37 +172,26 @@ local CFG = {
         ShowTime = true,
         ShowGame = true,
     },
-
-    -- GUI
     GUI = {
         MenuKey = Enum.KeyCode.RightControl,
         Scale = 1.0,
-        Opacity = 0.96,
-        AnimSpeed = 0.2,
+        Opacity = 0.97,
+        AnimSpeed = 0.25,
         Accent = {130, 60, 255},
         AccentAlt = {90, 200, 255},
         BlurBackground = true,
     },
 }
 
---------------------------------------------------------------
--- UTILITIES
---------------------------------------------------------------
 local U = {}
-
 function U.c3(t) return Color3.new(t[1], t[2], t[3]) end
 function U.c3rgb(t) return Color3.fromRGB(t[1], t[2], t[3]) end
-function U.rgb(r, g, b) return Color3.fromRGB(r, g, b) end
-
 function U.w2s(pos)
     local s, on = Camera:WorldToViewportPoint(pos)
     return Vector2.new(s.X, s.Y), on, s.Z
 end
-
 function U.dist2d(a, b) return ((a.X - b.X) ^ 2 + (a.Y - b.Y) ^ 2) ^ 0.5 end
-
 function U.dist3d(a, b) return (a - b).Magnitude end
-
 function U.alive(p)
     if not p then return false end
     local ch = p.Character
@@ -285,39 +200,32 @@ function U.alive(p)
     if not h or h.Health <= 0 then return false end
     return ch:FindFirstChild("HumanoidRootPart") ~= nil
 end
-
 function U.hpFrac(p)
     local ch = p.Character
     if not ch then return 0 end
     local h = ch:FindFirstChildOfClass("Humanoid")
     return h and math.clamp(h.Health / h.MaxHealth, 0, 1) or 0
 end
-
 function U.hp(p)
     local ch = p.Character
     if not ch then return 0 end
     local h = ch:FindFirstChildOfClass("Humanoid")
     return h and h.Health or 0
 end
-
 function U.team(p) return LP.Team and p.Team and LP.Team == p.Team end
-
 function U.myPos()
     local ch = LP.Character
     local r = ch and ch:FindFirstChild("HumanoidRootPart")
     return r and r.Position or Camera.CFrame.Position
 end
-
 function U.wallCheck(from, to)
     local params = RaycastParams.new()
     params.FilterType = Enum.RaycastFilterType.Exclude
     local filter = {Camera}
     if LP.Character then table.insert(filter, LP.Character) end
     params.FilterDescendantsInstances = filter
-    local result = workspace:Raycast(from, to - from, params)
-    return result == nil
+    return workspace:Raycast(from, to - from, params) == nil
 end
-
 function U.visCheck(from, to, targetChar)
     local params = RaycastParams.new()
     params.FilterType = Enum.RaycastFilterType.Exclude
@@ -325,56 +233,32 @@ function U.visCheck(from, to, targetChar)
     if LP.Character then table.insert(filter, LP.Character) end
     if targetChar then table.insert(filter, targetChar) end
     params.FilterDescendantsInstances = filter
-    local result = workspace:Raycast(from, to - from, params)
-    return result == nil
+    return workspace:Raycast(from, to - from, params) == nil
 end
-
 function U.getWeapon(p)
     local ch = p.Character
     if not ch then return "None" end
     local tool = ch:FindFirstChildOfClass("Tool")
     return tool and tool.Name or "None"
 end
-
 function U.closestPart(ch, origin)
     local bestPart, bestDist = nil, math.huge
-    for _, partName in ipairs({"Head", "HumanoidRootPart", "UpperTorso", "LowerTorso", "Torso"}) do
-        local part = ch:FindFirstChild(partName)
+    for _, name in ipairs({"Head", "HumanoidRootPart", "UpperTorso", "LowerTorso", "Torso"}) do
+        local part = ch:FindFirstChild(name)
         if part then
             local d = (part.Position - origin).Magnitude
-            if d < bestDist then
-                bestDist = d
-                bestPart = part
-            end
+            if d < bestDist then bestDist = d; bestPart = part end
         end
     end
     return bestPart
 end
-
 function U.lerp(a, b, t) return a + (b - a) * t end
-
 function U.lerpColor(a, b, t)
-    return Color3.new(
-        U.lerp(a.R, b.R, t),
-        U.lerp(a.G, b.G, t),
-        U.lerp(a.B, b.B, t)
-    )
+    return Color3.new(U.lerp(a.R, b.R, t), U.lerp(a.G, b.G, t), U.lerp(a.B, b.B, t))
 end
-
 function U.rainbow(speed, offset)
-    offset = offset or 0
-    return Color3.fromHSV((tick() * (speed or 1) + offset) % 1, 1, 1)
+    return Color3.fromHSV((tick() * (speed or 1) + (offset or 0)) % 1, 1, 1)
 end
-
-function U.formatDist(d) return string.format("[%dm]", math.floor(d)) end
-
-function U.formatHP(p)
-    local ch = p.Character
-    if not ch then return "0" end
-    local h = ch:FindFirstChildOfClass("Humanoid")
-    return h and tostring(math.floor(h.Health)) or "0"
-end
-
 function U.hpColor(frac)
     if frac > 0.5 then
         return U.lerpColor(Color3.fromRGB(255, 200, 0), Color3.fromRGB(0, 255, 0), (frac - 0.5) * 2)
@@ -382,372 +266,376 @@ function U.hpColor(frac)
         return U.lerpColor(Color3.fromRGB(255, 0, 0), Color3.fromRGB(255, 200, 0), frac * 2)
     end
 end
+function U.formatDist(d) return string.format("[%dm]", math.floor(d)) end
+function U.formatHP(p)
+    local ch = p.Character
+    if not ch then return "0" end
+    local h = ch:FindFirstChildOfClass("Humanoid")
+    return h and tostring(math.floor(h.Health)) or "0"
+end
 
---------------------------------------------------------------
--- DRAWING LAYER (Drawing API or BillboardGui fallback)
---------------------------------------------------------------
 local Draw = {}
-
 if ENV.Drawing then
-    -- Object pool for performant drawing
     local Pool = {}
     Pool.__index = Pool
-
     function Pool.new(cls, defs)
-        return setmetatable({c = cls, d = defs, p = {}, n = 0, peak = 0}, Pool)
+        return setmetatable({c = cls, d = defs, p = {}, n = 0}, Pool)
     end
-
     function Pool:get()
         self.n = self.n + 1
-        if self.n > self.peak then self.peak = self.n end
         if self.p[self.n] then return self.p[self.n] end
         local obj = Drawing.new(self.c)
         for k, v in pairs(self.d) do obj[k] = v end
         self.p[self.n] = obj
         return obj
     end
-
     function Pool:flush()
-        for i = 1, self.n do
-            self.p[i].Visible = false
-        end
+        for i = 1, self.n do self.p[i].Visible = false end
         self.n = 0
     end
-
     function Pool:destroy()
-        for i = 1, #self.p do
-            pcall(function() self.p[i]:Remove() end)
-        end
-        self.p = {}
-        self.n = 0
+        for i = 1, #self.p do pcall(function() self.p[i]:Remove() end) end
+        self.p = {}; self.n = 0
     end
 
-    Draw.Lines   = Pool.new("Line", {Visible = false, Thickness = 1})
-    Draw.Texts   = Pool.new("Text", {Visible = false, Size = 13, Center = true, Outline = true, Font = 2})
+    Draw.Lines = Pool.new("Line", {Visible = false, Thickness = 1})
+    Draw.Texts = Pool.new("Text", {Visible = false, Size = 13, Center = true, Outline = true, Font = 2})
     Draw.Circles = Pool.new("Circle", {Visible = false, Thickness = 1, NumSides = 30})
-    Draw.Squares = Pool.new("Square", {Visible = false, Thickness = 1})
-    Draw.Quads   = Pool.new("Quad", {Visible = false, Thickness = 1})
+    Draw.Quads = Pool.new("Quad", {Visible = false, Thickness = 1})
 
     Draw.flush = function()
-        Draw.Lines:flush()
-        Draw.Texts:flush()
-        Draw.Circles:flush()
-        Draw.Squares:flush()
-        Draw.Quads:flush()
+        Draw.Lines:flush(); Draw.Texts:flush(); Draw.Circles:flush(); Draw.Quads:flush()
     end
-
     Draw.line = function(from, to, col, thick)
         local l = Draw.Lines:get()
-        l.From = from
-        l.To = to
-        l.Color = col
-        l.Thickness = thick or 1
-        l.Visible = true
+        l.From = from; l.To = to; l.Color = col; l.Thickness = thick or 1; l.Visible = true
         return l
     end
-
     Draw.text = function(pos, txt, col, size, center, outline)
         local t = Draw.Texts:get()
-        t.Position = pos
-        t.Text = txt
-        t.Color = col
-        t.Size = size or 13
-        t.Center = center ~= false
-        t.Outline = outline ~= false
-        t.Visible = true
+        t.Position = pos; t.Text = txt; t.Color = col; t.Size = size or 13
+        t.Center = center ~= false; t.Outline = outline ~= false; t.Visible = true
         return t
     end
-
     Draw.circle = function(pos, radius, col, thick, filled, sides, alpha)
         local c = Draw.Circles:get()
-        c.Position = pos
-        c.Radius = radius
-        c.Color = col
-        c.Thickness = thick or 1
-        c.Filled = filled or false
-        c.NumSides = sides or 30
-        c.Transparency = alpha or 1
-        c.Visible = true
+        c.Position = pos; c.Radius = radius; c.Color = col; c.Thickness = thick or 1
+        c.Filled = filled or false; c.NumSides = sides or 30; c.Transparency = alpha or 1; c.Visible = true
         return c
     end
-
-    Draw.square = function(pos, size, col, thick, filled)
-        local s = Draw.Squares:get()
-        s.Position = pos
-        s.Size = size
-        s.Color = col
-        s.Thickness = thick or 1
-        s.Filled = filled or false
-        s.Visible = true
-        return s
-    end
-
     Draw.quad = function(a, b, c2, d, col, thick, filled)
         local q = Draw.Quads:get()
-        q.PointA = a
-        q.PointB = b
-        q.PointC = c2
-        q.PointD = d
-        q.Color = col
-        q.Thickness = thick or 1
-        q.Filled = filled or false
-        q.Visible = true
+        q.PointA = a; q.PointB = b; q.PointC = c2; q.PointD = d
+        q.Color = col; q.Thickness = thick or 1; q.Filled = filled or false; q.Visible = true
         return q
     end
 
-    -- Persistent drawing objects
     Draw.AimbotFOV = Drawing.new("Circle")
-    Draw.AimbotFOV.NumSides = 64
-    Draw.AimbotFOV.Filled = false
-    Draw.AimbotFOV.Thickness = 1.5
-    Draw.AimbotFOV.Transparency = 0.8
-    Draw.AimbotFOV.Visible = false
+    Draw.AimbotFOV.NumSides = 64; Draw.AimbotFOV.Filled = false
+    Draw.AimbotFOV.Thickness = 1.5; Draw.AimbotFOV.Transparency = 0.8; Draw.AimbotFOV.Visible = false
 
     Draw.SilentFOV = Drawing.new("Circle")
-    Draw.SilentFOV.NumSides = 48
-    Draw.SilentFOV.Filled = false
-    Draw.SilentFOV.Thickness = 1.2
-    Draw.SilentFOV.Transparency = 0.6
-    Draw.SilentFOV.Visible = false
+    Draw.SilentFOV.NumSides = 48; Draw.SilentFOV.Filled = false
+    Draw.SilentFOV.Thickness = 1.2; Draw.SilentFOV.Transparency = 0.6; Draw.SilentFOV.Visible = false
 
-    -- Crosshair lines (persistent)
     Draw.CrossLines = {}
     for i = 1, 8 do
         Draw.CrossLines[i] = Drawing.new("Line")
-        Draw.CrossLines[i].Visible = false
-        Draw.CrossLines[i].Thickness = 1.5
+        Draw.CrossLines[i].Visible = false; Draw.CrossLines[i].Thickness = 1.5
     end
-
     Draw.CrossDot = Drawing.new("Circle")
-    Draw.CrossDot.Filled = true
-    Draw.CrossDot.NumSides = 20
-    Draw.CrossDot.Visible = false
+    Draw.CrossDot.Filled = true; Draw.CrossDot.NumSides = 20; Draw.CrossDot.Visible = false
 
-    -- Watermark
-    Draw.WatermarkBG = Drawing.new("Square")
-    Draw.WatermarkBG.Filled = true
-    Draw.WatermarkBG.Visible = false
-    Draw.WatermarkBG.Color = Color3.fromRGB(14, 14, 18)
-    Draw.WatermarkBG.Transparency = 0.85
+    Draw.WmBG = Drawing.new("Square")
+    Draw.WmBG.Filled = true; Draw.WmBG.Visible = false
+    Draw.WmBG.Color = Color3.fromRGB(10, 10, 14); Draw.WmBG.Transparency = 0.88
 
-    Draw.WatermarkBorder = Drawing.new("Square")
-    Draw.WatermarkBorder.Filled = false
-    Draw.WatermarkBorder.Visible = false
-    Draw.WatermarkBorder.Color = Color3.fromRGB(130, 60, 255)
-    Draw.WatermarkBorder.Thickness = 1
+    Draw.WmBorder = Drawing.new("Square")
+    Draw.WmBorder.Filled = false; Draw.WmBorder.Visible = false
+    Draw.WmBorder.Thickness = 1
 
-    Draw.WatermarkAccent = Drawing.new("Line")
-    Draw.WatermarkAccent.Visible = false
-    Draw.WatermarkAccent.Thickness = 2
+    Draw.WmAccent = Drawing.new("Line")
+    Draw.WmAccent.Visible = false; Draw.WmAccent.Thickness = 2
 
-    Draw.WatermarkText = Drawing.new("Text")
-    Draw.WatermarkText.Visible = false
-    Draw.WatermarkText.Size = 13
-    Draw.WatermarkText.Font = 2
-    Draw.WatermarkText.Outline = true
-    Draw.WatermarkText.Center = false
-
+    Draw.WmText = Drawing.new("Text")
+    Draw.WmText.Visible = false; Draw.WmText.Size = 13; Draw.WmText.Font = 2
+    Draw.WmText.Outline = true; Draw.WmText.Center = false
 else
-    -- BillboardGui fallback
     local bbgFolder = Instance.new("Folder")
-    bbgFolder.Name = "AxiomESP"
-    bbgFolder.Parent = workspace.CurrentCamera
-
+    bbgFolder.Name = "AX_E"; bbgFolder.Parent = workspace.CurrentCamera
     local bbgCache = {}
-
     Draw.flush = function()
         for _, v in pairs(bbgCache) do
-            if v and v.Parent then
-                pcall(function() v:Destroy() end)
-            end
+            if v and v.Parent then pcall(function() v:Destroy() end) end
         end
         bbgCache = {}
     end
-
     Draw.line = function() end
     Draw.text = function() end
     Draw.circle = function() end
-    Draw.square = function() end
     Draw.quad = function() end
-
     Draw.bbgText = function(adornee, txt, col, offset)
         local bg = Instance.new("BillboardGui")
         bg.Size = UDim2.new(0, 200, 0, 50)
         bg.StudsOffset = offset or Vector3.new(0, 3.5, 0)
-        bg.AlwaysOnTop = true
-        bg.Adornee = adornee
-        bg.Parent = bbgFolder
-
+        bg.AlwaysOnTop = true; bg.Adornee = adornee; bg.Parent = bbgFolder
         local tl = Instance.new("TextLabel", bg)
-        tl.Size = UDim2.new(1, 0, 1, 0)
-        tl.BackgroundTransparency = 1
-        tl.TextColor3 = col
-        tl.Text = txt
-        tl.Font = Enum.Font.GothamBold
-        tl.TextSize = 14
-        tl.TextStrokeTransparency = 0.5
-
+        tl.Size = UDim2.new(1, 0, 1, 0); tl.BackgroundTransparency = 1
+        tl.TextColor3 = col; tl.Text = txt; tl.Font = Enum.Font.GothamBold
+        tl.TextSize = 14; tl.TextStrokeTransparency = 0.5
         bbgCache[#bbgCache + 1] = bg
         return bg
     end
-
     Draw.bbgHealth = function(adornee, frac)
         local bg = Instance.new("BillboardGui")
         bg.Size = UDim2.new(0, 60, 0, 8)
         bg.StudsOffset = Vector3.new(0, 2.8, 0)
-        bg.AlwaysOnTop = true
-        bg.Adornee = adornee
-        bg.Parent = bbgFolder
-
+        bg.AlwaysOnTop = true; bg.Adornee = adornee; bg.Parent = bbgFolder
         local outer = Instance.new("Frame", bg)
-        outer.Size = UDim2.new(1, 0, 1, 0)
-        outer.BackgroundColor3 = Color3.new(0, 0, 0)
-        outer.BackgroundTransparency = 0.3
-        outer.BorderSizePixel = 0
+        outer.Size = UDim2.new(1, 0, 1, 0); outer.BackgroundColor3 = Color3.new(0, 0, 0)
+        outer.BackgroundTransparency = 0.3; outer.BorderSizePixel = 0
         Instance.new("UICorner", outer).CornerRadius = UDim.new(0, 3)
-
         local inner = Instance.new("Frame", outer)
-        inner.Size = UDim2.new(frac, -2, 1, -2)
-        inner.Position = UDim2.new(0, 1, 0, 1)
-        inner.BackgroundColor3 = U.hpColor(frac)
-        inner.BorderSizePixel = 0
+        inner.Size = UDim2.new(frac, -2, 1, -2); inner.Position = UDim2.new(0, 1, 0, 1)
+        inner.BackgroundColor3 = U.hpColor(frac); inner.BorderSizePixel = 0
         Instance.new("UICorner", inner).CornerRadius = UDim.new(0, 2)
-
         bbgCache[#bbgCache + 1] = bg
         return bg
     end
-
-    Draw.AimbotFOV = nil
-    Draw.SilentFOV = nil
-    Draw.CrossLines = {}
-    Draw.CrossDot = nil
-    Draw.WatermarkBG = nil
-    Draw.WatermarkBorder = nil
-    Draw.WatermarkAccent = nil
-    Draw.WatermarkText = nil
+    Draw.AimbotFOV = nil; Draw.SilentFOV = nil
+    Draw.CrossLines = {}; Draw.CrossDot = nil
+    Draw.WmBG = nil; Draw.WmBorder = nil; Draw.WmAccent = nil; Draw.WmText = nil
 end
 
---------------------------------------------------------------
--- CHAMS SYSTEM (Standard / Neon / Rainbow / Flat)
---------------------------------------------------------------
-local chamsCache = {}
-local rainbowTick = 0
+local glowCache = {}
+local hlCache = {}
+local xrayVisCache = {}
+local xrayOccCache = {}
 
-local function getChamsColors(p)
-    local mode = CFG.Chams.Mode
+local GLOW_PARTS = {
+    "Head", "UpperTorso", "LowerTorso", "Torso",
+    "LeftUpperArm", "LeftLowerArm", "LeftHand",
+    "RightUpperArm", "RightLowerArm", "RightHand",
+    "LeftUpperLeg", "LeftLowerLeg", "LeftFoot",
+    "RightUpperLeg", "RightLowerLeg", "RightFoot",
+    "Left Arm", "Right Arm", "Left Leg", "Right Leg",
+}
+
+local function clearGlow(p)
+    if glowCache[p] then
+        for _, data in pairs(glowCache[p]) do
+            pcall(function() data.weld:Destroy() end)
+            pcall(function() data.clone:Destroy() end)
+        end
+        glowCache[p] = nil
+    end
+end
+
+local function updateGlow(p)
+    local ch = p.Character
+    if not ch then clearGlow(p); return end
+
     local isEnemy = not U.team(p)
+    local baseColor
+    if CFG.Chams.Mode == "Rainbow" then
+        baseColor = U.rainbow(CFG.Chams.RainbowSpeed)
+    elseif CFG.Chams.Mode == "Neon" then
+        baseColor = U.c3(CFG.Chams.NeonColor)
+    elseif CFG.Chams.TeamCheck then
+        baseColor = isEnemy and U.c3(CFG.Chams.EnemyColor) or U.c3(CFG.Chams.TeamColor)
+    else
+        baseColor = U.c3(CFG.Chams.GlowColor)
+    end
 
-    if mode == "Neon" then
-        return U.c3(CFG.Chams.NeonColor), U.c3(CFG.Chams.NeonColor),
-               CFG.Chams.NeonAlpha, CFG.Chams.NeonOutAlpha
-    elseif mode == "Rainbow" then
-        local hue = (tick() * CFG.Chams.RainbowSpeed) % 1
-        local col = Color3.fromHSV(hue, 0.8, 1)
-        return col, col, CFG.Chams.FillAlpha, CFG.Chams.OutAlpha
-    elseif mode == "Flat" then
-        local fill = isEnemy and U.c3(CFG.Chams.EnemyFill) or U.c3(CFG.Chams.TeamFill)
-        return fill, fill, 0.5, 1
-    else -- Standard
-        if CFG.Chams.TeamCheck then
-            local fill = isEnemy and U.c3(CFG.Chams.EnemyFill) or U.c3(CFG.Chams.TeamFill)
-            local out = isEnemy and U.c3(CFG.Chams.EnemyOut) or U.c3(CFG.Chams.TeamOut)
-            return fill, out, CFG.Chams.FillAlpha, CFG.Chams.OutAlpha
+    local alpha = CFG.Chams.GlowAlpha
+    if CFG.Chams.Mode == "Neon" then alpha = CFG.Chams.NeonAlpha end
+    local expand = CFG.Chams.GlowSize
+
+    if not glowCache[p] then glowCache[p] = {} end
+
+    for _, partName in ipairs(GLOW_PARTS) do
+        local part = ch:FindFirstChild(partName)
+        if part and part:IsA("BasePart") then
+            if not glowCache[p][partName] or not glowCache[p][partName].clone.Parent then
+                if glowCache[p][partName] then
+                    pcall(function() glowCache[p][partName].weld:Destroy() end)
+                    pcall(function() glowCache[p][partName].clone:Destroy() end)
+                end
+
+                local clone = Instance.new("Part")
+                clone.Name = "AX_G"
+                clone.Anchored = false
+                clone.CanCollide = false
+                clone.CanTouch = false
+                clone.CanQuery = false
+                clone.CastShadow = false
+                clone.Material = Enum.Material.Neon
+                clone.Color = baseColor
+                clone.Transparency = alpha
+                clone.Size = part.Size + Vector3.new(expand, expand, expand)
+
+                if part.Name == "Head" and part:FindFirstChildOfClass("SpecialMesh") then
+                    local mesh = part:FindFirstChildOfClass("SpecialMesh"):Clone()
+                    mesh.Scale = mesh.Scale * (1 + expand / 2)
+                    mesh.Parent = clone
+                elseif part.Name == "Head" then
+                    local mesh = Instance.new("SpecialMesh", clone)
+                    mesh.MeshType = Enum.MeshType.Head
+                    mesh.Scale = Vector3.new(1 + expand, 1 + expand, 1 + expand)
+                end
+
+                local weld = Instance.new("WeldConstraint")
+                weld.Part0 = part
+                weld.Part1 = clone
+                clone.CFrame = part.CFrame
+                clone.Parent = ch
+                weld.Parent = clone
+
+                glowCache[p][partName] = {clone = clone, weld = weld, part = part}
+            else
+                local data = glowCache[p][partName]
+                data.clone.Color = baseColor
+                data.clone.Transparency = alpha
+                data.clone.Size = data.part.Size + Vector3.new(expand, expand, expand)
+            end
         else
-            return U.c3(CFG.Chams.FillColor), U.c3(CFG.Chams.OutColor),
-                   CFG.Chams.FillAlpha, CFG.Chams.OutAlpha
+            if glowCache[p] and glowCache[p][partName] then
+                pcall(function() glowCache[p][partName].weld:Destroy() end)
+                pcall(function() glowCache[p][partName].clone:Destroy() end)
+                glowCache[p][partName] = nil
+            end
         end
     end
 end
 
-local function setChams(p)
+local function setHighlight(p)
     local ch = p.Character
     if not ch then return end
-
-    if CFG.Chams.VisibleOnly and not U.visCheck(U.myPos(), ch:FindFirstChild("HumanoidRootPart") and ch.HumanoidRootPart.Position or ch:GetPivot().Position, ch) then
-        killChams(p)
+    local isEnemy = not U.team(p)
+    local fillCol, outCol, fillA, outA
+    if CFG.Chams.Mode == "Rainbow" then
+        local col = U.rainbow(CFG.Chams.RainbowSpeed)
+        fillCol = col; outCol = col; fillA = CFG.Chams.HighlightFillAlpha; outA = CFG.Chams.HighlightOutAlpha
+    elseif CFG.Chams.Mode == "Neon" then
+        fillCol = U.c3(CFG.Chams.NeonColor); outCol = fillCol; fillA = CFG.Chams.NeonAlpha; outA = 0
+    elseif CFG.Chams.TeamCheck then
+        fillCol = isEnemy and U.c3(CFG.Chams.EnemyColor) or U.c3(CFG.Chams.TeamColor)
+        outCol = fillCol; fillA = CFG.Chams.HighlightFillAlpha; outA = CFG.Chams.HighlightOutAlpha
+    else
+        fillCol = U.c3(CFG.Chams.HighlightFill); outCol = U.c3(CFG.Chams.HighlightOut)
+        fillA = CFG.Chams.HighlightFillAlpha; outA = CFG.Chams.HighlightOutAlpha
+    end
+    local depth = CFG.Chams.DepthMode == "AlwaysOnTop" and Enum.HighlightDepthMode.AlwaysOnTop or Enum.HighlightDepthMode.Occluded
+    if hlCache[p] then
+        local hl = hlCache[p]
+        hl.FillColor = fillCol; hl.OutlineColor = outCol
+        hl.FillTransparency = fillA; hl.OutlineTransparency = outA; hl.DepthMode = depth
+        if not hl.Parent or hl.Adornee ~= ch then hl.Adornee = ch; hl.Parent = ch end
         return
     end
-
-    local fillCol, outCol, fillA, outA = getChamsColors(p)
-    local depthMode = CFG.Chams.DepthMode == "AlwaysOnTop"
-        and Enum.HighlightDepthMode.AlwaysOnTop
-        or Enum.HighlightDepthMode.Occluded
-
-    if chamsCache[p] then
-        local hl = chamsCache[p]
-        hl.FillColor = fillCol
-        hl.OutlineColor = outCol
-        hl.FillTransparency = fillA
-        hl.OutlineTransparency = outA
-        hl.DepthMode = depthMode
-        if not hl.Parent or hl.Adornee ~= ch then
-            hl.Adornee = ch
-            hl.Parent = ch
-        end
-        return
-    end
-
     local hl = Instance.new("Highlight")
-    hl.FillColor = fillCol
-    hl.OutlineColor = outCol
-    hl.FillTransparency = fillA
-    hl.OutlineTransparency = outA
-    hl.DepthMode = depthMode
-    hl.Adornee = ch
-    hl.Parent = ch
-    chamsCache[p] = hl
+    hl.FillColor = fillCol; hl.OutlineColor = outCol
+    hl.FillTransparency = fillA; hl.OutlineTransparency = outA
+    hl.DepthMode = depth; hl.Adornee = ch; hl.Parent = ch
+    hlCache[p] = hl
 end
 
-function killChams(p)
-    if chamsCache[p] then
-        pcall(function() chamsCache[p]:Destroy() end)
-        chamsCache[p] = nil
+local function setXRay(p)
+    local ch = p.Character
+    if not ch then return end
+    local isEnemy = not U.team(p)
+    local visFill = U.c3(CFG.Chams.XRayVisibleFill)
+    local visAlpha = CFG.Chams.XRayVisibleAlpha
+    local occFill = U.c3(CFG.Chams.XRayOccludedFill)
+    local occAlpha = CFG.Chams.XRayOccludedAlpha
+    if CFG.Chams.Mode == "Rainbow" then
+        local col = U.rainbow(CFG.Chams.RainbowSpeed)
+        visFill = col; occFill = U.lerpColor(col, Color3.new(0, 0, 0), 0.5)
+    end
+
+    if not xrayVisCache[p] then
+        local hl = Instance.new("Highlight")
+        hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        hl.Adornee = ch; hl.Parent = ch
+        xrayVisCache[p] = hl
+    end
+    local vis = xrayVisCache[p]
+    vis.FillColor = visFill; vis.OutlineColor = visFill
+    vis.FillTransparency = visAlpha; vis.OutlineTransparency = 0.8
+    if not vis.Parent or vis.Adornee ~= ch then vis.Adornee = ch; vis.Parent = ch end
+
+    if not xrayOccCache[p] then
+        local hl = Instance.new("Highlight")
+        hl.DepthMode = Enum.HighlightDepthMode.Occluded
+        hl.Adornee = ch; hl.Parent = ch
+        xrayOccCache[p] = hl
+    end
+    local occ = xrayOccCache[p]
+    occ.FillColor = occFill; occ.OutlineColor = occFill
+    occ.FillTransparency = occAlpha; occ.OutlineTransparency = 0.5
+    if not occ.Parent or occ.Adornee ~= ch then occ.Adornee = ch; occ.Parent = ch end
+end
+
+local function killChams(p)
+    clearGlow(p)
+    if hlCache[p] then pcall(function() hlCache[p]:Destroy() end); hlCache[p] = nil end
+    if xrayVisCache[p] then pcall(function() xrayVisCache[p]:Destroy() end); xrayVisCache[p] = nil end
+    if xrayOccCache[p] then pcall(function() xrayOccCache[p]:Destroy() end); xrayOccCache[p] = nil end
+end
+
+local function updateChams(p)
+    if not CFG.Chams.On then killChams(p); return end
+    local mode = CFG.Chams.Mode
+    if mode == "Glow" or mode == "Neon" then
+        if hlCache[p] then pcall(function() hlCache[p]:Destroy() end); hlCache[p] = nil end
+        if xrayVisCache[p] then pcall(function() xrayVisCache[p]:Destroy() end); xrayVisCache[p] = nil end
+        if xrayOccCache[p] then pcall(function() xrayOccCache[p]:Destroy() end); xrayOccCache[p] = nil end
+        updateGlow(p)
+    elseif mode == "X-Ray" then
+        clearGlow(p)
+        if hlCache[p] then pcall(function() hlCache[p]:Destroy() end); hlCache[p] = nil end
+        setXRay(p)
+    elseif mode == "Rainbow" then
+        clearGlow(p)
+        if xrayVisCache[p] then pcall(function() xrayVisCache[p]:Destroy() end); xrayVisCache[p] = nil end
+        if xrayOccCache[p] then pcall(function() xrayOccCache[p]:Destroy() end); xrayOccCache[p] = nil end
+        setHighlight(p)
+    else
+        clearGlow(p)
+        if xrayVisCache[p] then pcall(function() xrayVisCache[p]:Destroy() end); xrayVisCache[p] = nil end
+        if xrayOccCache[p] then pcall(function() xrayOccCache[p]:Destroy() end); xrayOccCache[p] = nil end
+        setHighlight(p)
     end
 end
 
---------------------------------------------------------------
--- SKELETON BONES
---------------------------------------------------------------
 local BONES_R15 = {
-    {"Head", "UpperTorso"},
-    {"UpperTorso", "LowerTorso"},
+    {"Head", "UpperTorso"}, {"UpperTorso", "LowerTorso"},
     {"UpperTorso", "LeftUpperArm"}, {"LeftUpperArm", "LeftLowerArm"}, {"LeftLowerArm", "LeftHand"},
     {"UpperTorso", "RightUpperArm"}, {"RightUpperArm", "RightLowerArm"}, {"RightLowerArm", "RightHand"},
     {"LowerTorso", "LeftUpperLeg"}, {"LeftUpperLeg", "LeftLowerLeg"}, {"LeftLowerLeg", "LeftFoot"},
     {"LowerTorso", "RightUpperLeg"}, {"RightUpperLeg", "RightLowerLeg"}, {"RightLowerLeg", "RightFoot"},
 }
 local BONES_R6 = {
-    {"Head", "Torso"},
-    {"Torso", "Left Arm"}, {"Torso", "Right Arm"},
+    {"Head", "Torso"}, {"Torso", "Left Arm"}, {"Torso", "Right Arm"},
     {"Torso", "Left Leg"}, {"Torso", "Right Leg"},
 }
+local function getBones(ch) return ch:FindFirstChild("UpperTorso") and BONES_R15 or BONES_R6 end
 
-local function getBones(ch)
-    return ch:FindFirstChild("UpperTorso") and BONES_R15 or BONES_R6
-end
-
---------------------------------------------------------------
--- TARGET ACQUISITION
---------------------------------------------------------------
-local currentTarget = nil
 local silentTarget = nil
+local currentTarget = nil
 local aimHeld = false
 
 local function getTargetPart(ch, partName)
-    if partName == "Closest" then
-        return U.closestPart(ch, Camera.CFrame.Position)
-    end
+    if partName == "Closest" then return U.closestPart(ch, Camera.CFrame.Position) end
     return ch:FindFirstChild(partName) or ch:FindFirstChild("Head") or ch:FindFirstChild("HumanoidRootPart")
 end
 
-local function getPredictedPos(ch, partName)
+local function getPredictedPos(ch, partName, scale)
     local part = getTargetPart(ch, partName)
     if not part then return nil end
     local pos = part.Position
     local rp = ch:FindFirstChild("HumanoidRootPart")
-    if rp then
-        pos = pos + rp.AssemblyLinearVelocity * CFG.Aimbot.PredictScale
-    end
+    if rp then pos = pos + rp.AssemblyLinearVelocity * scale end
     return pos
 end
 
@@ -756,29 +644,20 @@ local function scoreTarget(p, cfg)
     if not ch then return nil end
     local part = getTargetPart(ch, cfg.Part or "Head")
     if not part then return nil end
-
     local sp, on = U.w2s(part.Position)
     if not on then return nil end
-
     local center = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
     local fovDist = U.dist2d(center, sp)
     if fovDist > (cfg.FOV or 500) then return nil end
-
     local dist3d = U.dist3d(U.myPos(), part.Position)
     if dist3d > (cfg.MaxDist or 2500) then return nil end
-
     if cfg.TeamCheck ~= false and U.team(p) then return nil end
     if cfg.WallCheck and not U.wallCheck(U.myPos(), part.Position) then return nil end
     if cfg.VisCheck and not U.visCheck(U.myPos(), part.Position, ch) then return nil end
-
     local priority = cfg.Priority or "FOV"
-    if priority == "Distance" then
-        return dist3d
-    elseif priority == "Health" then
-        return U.hp(p)
-    else
-        return fovDist
-    end
+    if priority == "Distance" then return dist3d
+    elseif priority == "Health" then return U.hp(p)
+    else return fovDist end
 end
 
 local function findBestTarget(cfg)
@@ -786,18 +665,12 @@ local function findBestTarget(cfg)
     for _, p in ipairs(Players:GetPlayers()) do
         if p ~= LP and U.alive(p) then
             local score = scoreTarget(p, cfg)
-            if score and score < bestScore then
-                bestScore = score
-                best = p
-            end
+            if score and score < bestScore then bestScore = score; best = p end
         end
     end
     return best
 end
 
---------------------------------------------------------------
--- SILENT AIM HOOKS
---------------------------------------------------------------
 if ENV.Hook == "hookmetamethod" and ENV.Namecall then
     pcall(function()
         local old
@@ -813,9 +686,7 @@ if ENV.Hook == "hookmetamethod" and ENV.Namecall then
                             local tPos = tp.Position
                             if CFG.SilentAim.Predict then
                                 local rp = ch:FindFirstChild("HumanoidRootPart")
-                                if rp then
-                                    tPos = tPos + rp.AssemblyLinearVelocity * CFG.SilentAim.PredictScale
-                                end
+                                if rp then tPos = tPos + rp.AssemblyLinearVelocity * CFG.SilentAim.PredictScale end
                             end
                             if typeof(args[1]) == "Ray" then
                                 args[1] = Ray.new(args[1].Origin, (tPos - args[1].Origin).Unit * 5000)
@@ -826,17 +697,11 @@ if ENV.Hook == "hookmetamethod" and ENV.Namecall then
             end
             return old(self, unpack(args))
         end))
-        print(tag .. " Silent Aim: hookmetamethod active")
     end)
-
 elseif ENV.RawMT then
     pcall(function()
         local mt = getrawmetatable(game)
-        if setreadonly then
-            setreadonly(mt, false)
-        elseif make_writeable then
-            make_writeable(mt)
-        end
+        if setreadonly then setreadonly(mt, false) elseif make_writeable then make_writeable(mt) end
         local oldNC = mt.__namecall
         mt.__namecall = wrap(function(self, ...)
             local args = {...}
@@ -850,9 +715,7 @@ elseif ENV.RawMT then
                             local tPos = tp.Position
                             if CFG.SilentAim.Predict then
                                 local rp = ch:FindFirstChild("HumanoidRootPart")
-                                if rp then
-                                    tPos = tPos + rp.AssemblyLinearVelocity * CFG.SilentAim.PredictScale
-                                end
+                                if rp then tPos = tPos + rp.AssemblyLinearVelocity * CFG.SilentAim.PredictScale end
                             end
                             if typeof(args[1]) == "Ray" then
                                 args[1] = Ray.new(args[1].Origin, (tPos - args[1].Origin).Unit * 5000)
@@ -864,24 +727,15 @@ elseif ENV.RawMT then
             return oldNC(self, unpack(args))
         end)
         if setreadonly then setreadonly(mt, true) end
-        print(tag .. " Silent Aim: rawmetatable active")
     end)
-
-else
-    print(tag .. " Silent Aim: camera redirect mode (no hook available)")
 end
 
---------------------------------------------------------------
--- ITEM DETECTION
---------------------------------------------------------------
-local ITEM_KEYWORDS = {
-    "loot", "item", "drop", "pickup", "spawn", "ground", "collect",
-    "weapon", "chest", "crate", "supply", "ammo", "heal", "med",
-    "armor", "shield", "gun", "rifle", "pistol", "shotgun", "sniper",
-    "grenade", "explosive", "consumable", "currency", "coin", "gem",
-    "key", "card", "relic", "artifact", "treasure", "reward"
+local ITEM_KW = {
+    "loot", "item", "drop", "pickup", "spawn", "ground", "collect", "weapon",
+    "chest", "crate", "supply", "ammo", "heal", "med", "armor", "shield",
+    "gun", "rifle", "pistol", "shotgun", "sniper", "grenade", "consumable",
+    "currency", "coin", "gem", "key", "treasure", "reward"
 }
-
 local function isItem(obj)
     if obj:IsA("Tool") then return true end
     if obj:IsA("BasePart") or obj:IsA("Model") then
@@ -890,38 +744,27 @@ local function isItem(obj)
         local p = obj.Parent
         if p and p ~= workspace then
             local n = string.lower(p.Name)
-            for _, kw in ipairs(ITEM_KEYWORDS) do
-                if string.find(n, kw) then return true end
-            end
+            for _, kw in ipairs(ITEM_KW) do if string.find(n, kw) then return true end end
         end
         local n2 = string.lower(obj.Name)
-        for _, kw in ipairs(ITEM_KEYWORDS) do
-            if string.find(n2, kw) then return true end
-        end
+        for _, kw in ipairs(ITEM_KW) do if string.find(n2, kw) then return true end end
     end
     return false
 end
-
 local function getItemPos(obj)
     if obj:IsA("Model") then
         local pp = obj.PrimaryPart
         if pp then return pp.Position end
         local ok, cf = pcall(function() return obj:GetBoundingBox() end)
         return ok and cf.Position or nil
-    elseif obj:IsA("BasePart") then
-        return obj.Position
+    elseif obj:IsA("BasePart") then return obj.Position
     elseif obj:IsA("Tool") then
-        local h = obj:FindFirstChild("Handle")
-        return h and h.Position or nil
+        local h = obj:FindFirstChild("Handle"); return h and h.Position or nil
     end
     return nil
 end
 
---------------------------------------------------------------
--- CROSSHAIR SYSTEM
---------------------------------------------------------------
 local crossAngle = 0
-
 local function renderCrosshair(ctr)
     if not ENV.Drawing then return end
     local cfg = CFG.Crosshair
@@ -930,61 +773,31 @@ local function renderCrosshair(ctr)
         if Draw.CrossDot then Draw.CrossDot.Visible = false end
         return
     end
-
     local col = U.c3(cfg.Color)
-    local s = cfg.Size
-    local g = cfg.Gap
-    local th = cfg.Thick
-
-    if cfg.Rotate then
-        crossAngle = crossAngle + cfg.RotateSpeed * 0.016
-    else
-        crossAngle = 0
-    end
-
+    local s, g, th = cfg.Size, cfg.Gap, cfg.Thick
+    if cfg.Rotate then crossAngle = crossAngle + cfg.RotateSpeed * 0.016 else crossAngle = 0 end
     if cfg.Style == "Cross" then
-        local cos_a = math.cos(crossAngle)
-        local sin_a = math.sin(crossAngle)
-
-        local dirs = {
-            {0, -1}, {0, 1}, {-1, 0}, {1, 0}
-        }
-
+        local ca, sa = math.cos(crossAngle), math.sin(crossAngle)
+        local dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}}
         for i, dir in ipairs(dirs) do
             local dx, dy = dir[1], dir[2]
-            local rdx = dx * cos_a - dy * sin_a
-            local rdy = dx * sin_a + dy * cos_a
-
-            local fromX = ctr.X + rdx * g
-            local fromY = ctr.Y + rdy * g
-            local toX = ctr.X + rdx * (g + s)
-            local toY = ctr.Y + rdy * (g + s)
-
+            local rdx, rdy = dx * ca - dy * sa, dx * sa + dy * ca
+            local fx, fy = ctr.X + rdx * g, ctr.Y + rdy * g
+            local tx, ty = ctr.X + rdx * (g + s), ctr.Y + rdy * (g + s)
             if cfg.Outline then
                 local ol = Draw.CrossLines[i + 4]
-                ol.From = Vector2.new(fromX, fromY)
-                ol.To = Vector2.new(toX, toY)
-                ol.Color = Color3.new(0, 0, 0)
-                ol.Thickness = th + 2
-                ol.Visible = true
-            else
-                Draw.CrossLines[i + 4].Visible = false
-            end
-
+                ol.From = Vector2.new(fx, fy); ol.To = Vector2.new(tx, ty)
+                ol.Color = Color3.new(0, 0, 0); ol.Thickness = th + 2; ol.Visible = true
+            else Draw.CrossLines[i + 4].Visible = false end
             local ln = Draw.CrossLines[i]
-            ln.From = Vector2.new(fromX, fromY)
-            ln.To = Vector2.new(toX, toY)
-            ln.Color = col
-            ln.Thickness = th
-            ln.Visible = true
+            ln.From = Vector2.new(fx, fy); ln.To = Vector2.new(tx, ty)
+            ln.Color = col; ln.Thickness = th; ln.Visible = true
         end
-
     elseif cfg.Style == "Circle" then
         for i = 1, 8 do Draw.CrossLines[i].Visible = false end
         Draw.circle(ctr, s, col, th, false, 40)
-
     elseif cfg.Style == "Diamond" then
-        local offsets = {
+        local pts = {
             {Vector2.new(ctr.X, ctr.Y - g - s), Vector2.new(ctr.X + g + s, ctr.Y)},
             {Vector2.new(ctr.X + g + s, ctr.Y), Vector2.new(ctr.X, ctr.Y + g + s)},
             {Vector2.new(ctr.X, ctr.Y + g + s), Vector2.new(ctr.X - g - s, ctr.Y)},
@@ -992,258 +805,144 @@ local function renderCrosshair(ctr)
         }
         for i = 1, 4 do
             if cfg.Outline then
-                local ol = Draw.CrossLines[i + 4]
-                ol.From = offsets[i][1]
-                ol.To = offsets[i][2]
-                ol.Color = Color3.new(0, 0, 0)
-                ol.Thickness = th + 2
-                ol.Visible = true
-            else
-                Draw.CrossLines[i + 4].Visible = false
-            end
-            local ln = Draw.CrossLines[i]
-            ln.From = offsets[i][1]
-            ln.To = offsets[i][2]
-            ln.Color = col
-            ln.Thickness = th
-            ln.Visible = true
+                Draw.CrossLines[i + 4].From = pts[i][1]; Draw.CrossLines[i + 4].To = pts[i][2]
+                Draw.CrossLines[i + 4].Color = Color3.new(0, 0, 0); Draw.CrossLines[i + 4].Thickness = th + 2
+                Draw.CrossLines[i + 4].Visible = true
+            else Draw.CrossLines[i + 4].Visible = false end
+            Draw.CrossLines[i].From = pts[i][1]; Draw.CrossLines[i].To = pts[i][2]
+            Draw.CrossLines[i].Color = col; Draw.CrossLines[i].Thickness = th; Draw.CrossLines[i].Visible = true
         end
-        Draw.CrossLines[5].Visible = false
-        Draw.CrossLines[6].Visible = false
-        Draw.CrossLines[7].Visible = false
-        Draw.CrossLines[8].Visible = false
     else
         for i = 1, 8 do Draw.CrossLines[i].Visible = false end
     end
-
     if Draw.CrossDot and cfg.Dot then
-        Draw.CrossDot.Position = ctr
-        Draw.CrossDot.Radius = cfg.DotSize
-        Draw.CrossDot.Color = col
-        Draw.CrossDot.Visible = true
-    elseif Draw.CrossDot then
-        Draw.CrossDot.Visible = false
-    end
+        Draw.CrossDot.Position = ctr; Draw.CrossDot.Radius = cfg.DotSize
+        Draw.CrossDot.Color = col; Draw.CrossDot.Visible = true
+    elseif Draw.CrossDot then Draw.CrossDot.Visible = false end
 end
 
---------------------------------------------------------------
--- WATERMARK SYSTEM
---------------------------------------------------------------
-local fpsBuffer = {}
-local fpsIdx = 0
+local fpsBuffer, fpsIdx = {}, 0
 local FPS_SAMPLES = 30
+local cachedGameName = nil
 
 local function renderWatermark()
-    if not ENV.Drawing or not Draw.WatermarkBG then return end
+    if not ENV.Drawing or not Draw.WmBG then return end
     if not CFG.Watermark.On then
-        Draw.WatermarkBG.Visible = false
-        Draw.WatermarkBorder.Visible = false
-        Draw.WatermarkAccent.Visible = false
-        Draw.WatermarkText.Visible = false
+        Draw.WmBG.Visible = false; Draw.WmBorder.Visible = false
+        Draw.WmAccent.Visible = false; Draw.WmText.Visible = false
         return
     end
-
-    local parts = {"AXIOM v3.1"}
-
+    local parts = {"AXIOM"}
     if CFG.Watermark.ShowFPS then
         fpsIdx = (fpsIdx % FPS_SAMPLES) + 1
-        fpsBuffer[fpsIdx] = 1 / RunService.RenderStepped:Wait()
-        local sum = 0
-        local count = math.min(#fpsBuffer, FPS_SAMPLES)
+        fpsBuffer[fpsIdx] = 1 / (RunService.RenderStepped:Wait() + 0.001)
+        local sum, count = 0, math.min(#fpsBuffer, FPS_SAMPLES)
         for i = 1, count do sum = sum + (fpsBuffer[i] or 60) end
         table.insert(parts, math.floor(sum / count) .. " FPS")
     end
-
     if CFG.Watermark.ShowPing then
-        local ping = math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
-        table.insert(parts, ping .. "ms")
+        local ok, ping = pcall(function()
+            return math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
+        end)
+        if ok then table.insert(parts, ping .. "ms") end
     end
-
-    if CFG.Watermark.ShowTime then
-        table.insert(parts, os.date("%H:%M:%S"))
-    end
-
+    if CFG.Watermark.ShowTime then table.insert(parts, os.date("%H:%M:%S")) end
     if CFG.Watermark.ShowGame then
-        local gname = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-        if #gname > 20 then gname = string.sub(gname, 1, 18) .. ".." end
-        table.insert(parts, gname)
+        if not cachedGameName then
+            pcall(function()
+                cachedGameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+                if #cachedGameName > 20 then cachedGameName = string.sub(cachedGameName, 1, 18) .. ".." end
+            end)
+        end
+        if cachedGameName then table.insert(parts, cachedGameName) end
     end
-
     local txt = table.concat(parts, " | ")
     local txtW = #txt * 7
-    local h = 24
-    local pad = 10
-    local x = 10
-    local y = 10
-
-    Draw.WatermarkBG.Position = Vector2.new(x, y)
-    Draw.WatermarkBG.Size = Vector2.new(txtW + pad * 2, h)
-    Draw.WatermarkBG.Visible = true
-
-    Draw.WatermarkBorder.Position = Vector2.new(x, y)
-    Draw.WatermarkBorder.Size = Vector2.new(txtW + pad * 2, h)
-    Draw.WatermarkBorder.Color = U.c3rgb(CFG.GUI.Accent)
-    Draw.WatermarkBorder.Visible = true
-
-    Draw.WatermarkAccent.From = Vector2.new(x, y)
-    Draw.WatermarkAccent.To = Vector2.new(x + txtW + pad * 2, y)
-    Draw.WatermarkAccent.Color = U.c3rgb(CFG.GUI.Accent)
-    Draw.WatermarkAccent.Visible = true
-
-    Draw.WatermarkText.Position = Vector2.new(x + pad, y + 5)
-    Draw.WatermarkText.Text = txt
-    Draw.WatermarkText.Color = Color3.new(1, 1, 1)
-    Draw.WatermarkText.Visible = true
+    local h, pad, x, y = 24, 10, 10, 10
+    Draw.WmBG.Position = Vector2.new(x, y); Draw.WmBG.Size = Vector2.new(txtW + pad * 2, h); Draw.WmBG.Visible = true
+    Draw.WmBorder.Position = Vector2.new(x, y); Draw.WmBorder.Size = Vector2.new(txtW + pad * 2, h)
+    Draw.WmBorder.Color = U.c3rgb(CFG.GUI.Accent); Draw.WmBorder.Visible = true
+    Draw.WmAccent.From = Vector2.new(x, y); Draw.WmAccent.To = Vector2.new(x + txtW + pad * 2, y)
+    Draw.WmAccent.Color = U.c3rgb(CFG.GUI.Accent); Draw.WmAccent.Visible = true
+    Draw.WmText.Position = Vector2.new(x + pad, y + 5); Draw.WmText.Text = txt
+    Draw.WmText.Color = Color3.new(1, 1, 1); Draw.WmText.Visible = true
 end
 
---------------------------------------------------------------
--- ESP RENDERERS
---------------------------------------------------------------
 local function renderBoxESP(p, ch, root, d3, col, myP, ctr, vp)
     if not CFG.BoxESP.On or d3 > CFG.BoxESP.MaxDist then return end
     if not CFG.BoxESP.ShowTeam and U.team(p) then return end
-
     local topP, topOn = U.w2s((root.CFrame * CFrame.new(0, 3.2, 0)).Position)
     local botP, botOn = U.w2s((root.CFrame * CFrame.new(0, -3.2, 0)).Position)
     if not topOn and not botOn then return end
-
     local h = math.abs(topP.Y - botP.Y)
     local w = h * 0.55
     local thick = CFG.BoxESP.Thick
-
     local tl = Vector2.new(topP.X - w / 2, topP.Y)
     local tr = Vector2.new(topP.X + w / 2, topP.Y)
     local bl = Vector2.new(botP.X - w / 2, botP.Y)
     local br = Vector2.new(botP.X + w / 2, botP.Y)
 
     if CFG.BoxESP.Mode == "Full" then
-        -- Outline
         if CFG.BoxESP.Outline then
             local oc = U.c3(CFG.BoxESP.OutlineColor)
             local ot = CFG.BoxESP.OutlineThick
-            Draw.line(tl, tr, oc, ot)
-            Draw.line(tr, br, oc, ot)
-            Draw.line(br, bl, oc, ot)
-            Draw.line(bl, tl, oc, ot)
+            Draw.line(tl, tr, oc, ot); Draw.line(tr, br, oc, ot)
+            Draw.line(br, bl, oc, ot); Draw.line(bl, tl, oc, ot)
         end
-        -- Box
-        Draw.line(tl, tr, col, thick)
-        Draw.line(tr, br, col, thick)
-        Draw.line(br, bl, col, thick)
-        Draw.line(bl, tl, col, thick)
-
-        -- Fill
+        Draw.line(tl, tr, col, thick); Draw.line(tr, br, col, thick)
+        Draw.line(br, bl, col, thick); Draw.line(bl, tl, col, thick)
         if CFG.BoxESP.FillAlpha > 0 then
-            local isEnemy = not U.team(p)
-            local fillCol = isEnemy and U.c3(CFG.BoxESP.EnemyFill) or U.c3(CFG.BoxESP.TeamFill)
-            Draw.quad(tl, tr, br, bl, fillCol, 1, true)
+            local isE = not U.team(p)
+            Draw.quad(tl, tr, br, bl, isE and U.c3(CFG.BoxESP.EnemyFill) or U.c3(CFG.BoxESP.TeamFill), 1, true)
         end
-
     elseif CFG.BoxESP.Mode == "Corner" then
-        local cl = CFG.BoxESP.CornerLength
-        local cLen = math.min(cl, w / 3, h / 3)
-
-        -- Top-left
-        Draw.line(tl, Vector2.new(tl.X + cLen, tl.Y), col, thick)
-        Draw.line(tl, Vector2.new(tl.X, tl.Y + cLen), col, thick)
-        -- Top-right
-        Draw.line(tr, Vector2.new(tr.X - cLen, tr.Y), col, thick)
-        Draw.line(tr, Vector2.new(tr.X, tr.Y + cLen), col, thick)
-        -- Bottom-left
-        Draw.line(bl, Vector2.new(bl.X + cLen, bl.Y), col, thick)
-        Draw.line(bl, Vector2.new(bl.X, bl.Y - cLen), col, thick)
-        -- Bottom-right
-        Draw.line(br, Vector2.new(br.X - cLen, br.Y), col, thick)
-        Draw.line(br, Vector2.new(br.X, br.Y - cLen), col, thick)
-
+        local cl = math.min(CFG.BoxESP.CornerLength, w / 3, h / 3)
+        Draw.line(tl, Vector2.new(tl.X + cl, tl.Y), col, thick)
+        Draw.line(tl, Vector2.new(tl.X, tl.Y + cl), col, thick)
+        Draw.line(tr, Vector2.new(tr.X - cl, tr.Y), col, thick)
+        Draw.line(tr, Vector2.new(tr.X, tr.Y + cl), col, thick)
+        Draw.line(bl, Vector2.new(bl.X + cl, bl.Y), col, thick)
+        Draw.line(bl, Vector2.new(bl.X, bl.Y - cl), col, thick)
+        Draw.line(br, Vector2.new(br.X - cl, br.Y), col, thick)
+        Draw.line(br, Vector2.new(br.X, br.Y - cl), col, thick)
     elseif CFG.BoxESP.Mode == "3D" then
         local cf = root.CFrame
-        local size = Vector3.new(4, 6.4, 2.5)
-        local hs = size / 2
-        local corners3D = {
-            cf * CFrame.new(-hs.X,  hs.Y, -hs.Z),
-            cf * CFrame.new( hs.X,  hs.Y, -hs.Z),
-            cf * CFrame.new( hs.X,  hs.Y,  hs.Z),
-            cf * CFrame.new(-hs.X,  hs.Y,  hs.Z),
-            cf * CFrame.new(-hs.X, -hs.Y, -hs.Z),
-            cf * CFrame.new( hs.X, -hs.Y, -hs.Z),
-            cf * CFrame.new( hs.X, -hs.Y,  hs.Z),
-            cf * CFrame.new(-hs.X, -hs.Y,  hs.Z),
-        }
-        local s2d = {}
-        local anyOn = false
+        local hs = Vector3.new(2, 3.2, 1.25)
+        local corners = {}
+        for _, o in ipairs({{-1,1,-1},{1,1,-1},{1,1,1},{-1,1,1},{-1,-1,-1},{1,-1,-1},{1,-1,1},{-1,-1,1}}) do
+            table.insert(corners, (cf * CFrame.new(o[1]*hs.X, o[2]*hs.Y, o[3]*hs.Z)).Position)
+        end
+        local s2d = {}; local anyOn = false
         for i = 1, 8 do
-            local sp, on2 = U.w2s(corners3D[i].Position)
-            s2d[i] = sp
-            if on2 then anyOn = true end
+            local sp, on2 = U.w2s(corners[i]); s2d[i] = sp; if on2 then anyOn = true end
         end
         if anyOn then
-            local edges = {
-                {1,2},{2,3},{3,4},{4,1},
-                {5,6},{6,7},{7,8},{8,5},
-                {1,5},{2,6},{3,7},{4,8},
-            }
-            for _, e in ipairs(edges) do
+            for _, e in ipairs({{1,2},{2,3},{3,4},{4,1},{5,6},{6,7},{7,8},{8,5},{1,5},{2,6},{3,7},{4,8}}) do
                 Draw.line(s2d[e[1]], s2d[e[2]], col, thick)
             end
         end
     end
 
-    -- Name
     if CFG.BoxESP.Name then
-        Draw.text(
-            Vector2.new(topP.X, topP.Y - CFG.BoxESP.NameSize - 4),
-            p.DisplayName,
-            col,
-            CFG.BoxESP.NameSize
-        )
+        Draw.text(Vector2.new(topP.X, topP.Y - CFG.BoxESP.NameSize - 4), p.DisplayName, col, CFG.BoxESP.NameSize)
     end
-
-    -- Health bar
     if CFG.BoxESP.Health then
         local frac = U.hpFrac(p)
         local hCol = U.hpColor(frac)
         local bx = tl.X - 6
-
-        -- Background
         Draw.line(Vector2.new(bx, botP.Y), Vector2.new(bx, topP.Y), Color3.new(0, 0, 0), 4)
-        -- Fill
-        Draw.line(
-            Vector2.new(bx, botP.Y),
-            Vector2.new(bx, botP.Y - (botP.Y - topP.Y) * frac),
-            hCol, 2.5
-        )
-
+        Draw.line(Vector2.new(bx, botP.Y), Vector2.new(bx, botP.Y - (botP.Y - topP.Y) * frac), hCol, 2.5)
         if CFG.BoxESP.HealthNum then
-            Draw.text(
-                Vector2.new(bx - 16, botP.Y - (botP.Y - topP.Y) * frac - 6),
-                U.formatHP(p),
-                hCol, 10, true
-            )
+            Draw.text(Vector2.new(bx - 16, botP.Y - (botP.Y - topP.Y) * frac - 6), U.formatHP(p), hCol, 10)
         end
     end
-
-    -- Distance
     if CFG.BoxESP.Dist then
-        Draw.text(
-            Vector2.new(botP.X, botP.Y + 2),
-            U.formatDist(d3),
-            Color3.fromRGB(200, 200, 200),
-            CFG.BoxESP.DistSize
-        )
+        Draw.text(Vector2.new(botP.X, botP.Y + 2), U.formatDist(d3), Color3.fromRGB(200, 200, 200), CFG.BoxESP.DistSize)
     end
-
-    -- Weapon
     if CFG.BoxESP.Weapon then
         local wep = U.getWeapon(p)
         if wep ~= "None" then
-            local yOff = CFG.BoxESP.Dist and 16 or 2
-            Draw.text(
-                Vector2.new(botP.X, botP.Y + yOff),
-                "[" .. wep .. "]",
-                Color3.fromRGB(180, 180, 200),
-                11
-            )
+            Draw.text(Vector2.new(botP.X, botP.Y + (CFG.BoxESP.Dist and 16 or 2)), "[" .. wep .. "]", Color3.fromRGB(180, 180, 200), 11)
         end
     end
 end
@@ -1251,88 +950,61 @@ end
 local function renderTracers(p, ch, root, d3, col, myP, ctr, vp)
     if not CFG.Tracers.On or d3 > CFG.Tracers.MaxDist then return end
     if not CFG.Tracers.ShowTeam and U.team(p) then return end
-
-    local isEnemy = not U.team(p)
-    local tCol = isEnemy and U.c3(CFG.Tracers.EnemyColor) or U.c3(CFG.Tracers.TeamColor)
-
-    local footPos = (root.CFrame * CFrame.new(0, -3.2, 0)).Position
-    local sp, on = U.w2s(footPos)
+    local isE = not U.team(p)
+    local tCol = isE and U.c3(CFG.Tracers.EnemyColor) or U.c3(CFG.Tracers.TeamColor)
+    local fp = (root.CFrame * CFrame.new(0, -3.2, 0)).Position
+    local sp, on = U.w2s(fp)
     if not on then return end
-
     local origin
-    if CFG.Tracers.Origin == "Bottom" then
-        origin = Vector2.new(ctr.X, vp.Y)
-    elseif CFG.Tracers.Origin == "Center" then
-        origin = ctr
-    else
-        origin = Vector2.new(Mouse.X, Mouse.Y)
-    end
-
+    if CFG.Tracers.Origin == "Bottom" then origin = Vector2.new(ctr.X, vp.Y)
+    elseif CFG.Tracers.Origin == "Center" then origin = ctr
+    else origin = Vector2.new(Mouse.X, Mouse.Y) end
     Draw.line(origin, sp, tCol, CFG.Tracers.Thick)
 end
 
-local function renderSnaplines(p, ch, root, d3, col, myP, ctr, vp)
+local function renderSnaplines(p, ch, root, d3, col, myP, ctr)
     if not CFG.Snaplines.On then return end
-
     local part = ch:FindFirstChild(CFG.Snaplines.Part) or ch:FindFirstChild("Head")
     if not part then return end
-
     local sp, on = U.w2s(part.Position)
     if not on then return end
-
     Draw.line(ctr, sp, U.c3(CFG.Snaplines.Color), CFG.Snaplines.Thick)
 end
 
 local function renderSkeleton(p, ch, root, d3, myP)
     if not CFG.Skeleton.On or d3 > CFG.Skeleton.MaxDist then return end
     if not CFG.Skeleton.ShowTeam and U.team(p) then return end
-
-    local isEnemy = not U.team(p)
-    local sCol = isEnemy and U.c3(CFG.Skeleton.EnemyColor) or U.c3(CFG.Skeleton.TeamColor)
-
+    local isE = not U.team(p)
+    local sCol = isE and U.c3(CFG.Skeleton.EnemyColor) or U.c3(CFG.Skeleton.TeamColor)
     for _, bone in ipairs(getBones(ch)) do
-        local a = ch:FindFirstChild(bone[1])
-        local b = ch:FindFirstChild(bone[2])
+        local a, b = ch:FindFirstChild(bone[1]), ch:FindFirstChild(bone[2])
         if a and b then
             local sa, onA = U.w2s(a.Position)
             local sb, onB = U.w2s(b.Position)
-            if onA and onB then
-                Draw.line(sa, sb, sCol, CFG.Skeleton.Thick)
-            end
+            if onA and onB then Draw.line(sa, sb, sCol, CFG.Skeleton.Thick) end
         end
     end
 end
 
---------------------------------------------------------------
--- MAIN RENDER LOOP
---------------------------------------------------------------
 local BUDGET_MS = 6
-local ESP_RATE = 2
-local ITEM_RATE = 8
-local WATERMARK_RATE = 15
 local frame = 0
 local clk = os.clock
 
 UIS.InputBegan:Connect(function(input, gpe)
     if gpe then return end
-    if input.UserInputType == CFG.Aimbot.Key then
-        aimHeld = true
-    end
+    if input.UserInputType == CFG.Aimbot.Key then aimHeld = true end
 end)
 UIS.InputEnded:Connect(function(input)
-    if input.UserInputType == CFG.Aimbot.Key then
-        aimHeld = false
-    end
+    if input.UserInputType == CFG.Aimbot.Key then aimHeld = false end
 end)
 
-RunService.RenderStepped:Connect(function(dt)
+RunService.RenderStepped:Connect(function()
     frame = frame + 1
     local t0 = clk()
     local vp = Camera.ViewportSize
     local ctr = Vector2.new(vp.X / 2, vp.Y / 2)
     Camera = workspace.CurrentCamera
 
-    -- FOV CHANGER
     if CFG.FOVChanger.On then
         if CFG.FOVChanger.Smooth then
             Camera.FieldOfView = U.lerp(Camera.FieldOfView, CFG.FOVChanger.Value, CFG.FOVChanger.SmoothSpeed)
@@ -1341,70 +1013,53 @@ RunService.RenderStepped:Connect(function(dt)
         end
     end
 
-    -- FOV CIRCLES
     if Draw.AimbotFOV then
-        Draw.AimbotFOV.Position = ctr
-        Draw.AimbotFOV.Radius = CFG.Aimbot.FOV
-        Draw.AimbotFOV.Color = U.c3(CFG.Aimbot.FOVColor)
-        Draw.AimbotFOV.Transparency = CFG.Aimbot.FOVAlpha
-        Draw.AimbotFOV.Thickness = CFG.Aimbot.FOVThick
-        Draw.AimbotFOV.NumSides = CFG.Aimbot.FOVSides
-        Draw.AimbotFOV.Filled = CFG.Aimbot.FOVFilled
-        Draw.AimbotFOV.Visible = CFG.Aimbot.On and CFG.Aimbot.ShowFOV
+        Draw.AimbotFOV.Position = ctr; Draw.AimbotFOV.Radius = CFG.Aimbot.FOV
+        Draw.AimbotFOV.Color = U.c3(CFG.Aimbot.FOVColor); Draw.AimbotFOV.Transparency = CFG.Aimbot.FOVAlpha
+        Draw.AimbotFOV.Thickness = CFG.Aimbot.FOVThick; Draw.AimbotFOV.NumSides = CFG.Aimbot.FOVSides
+        Draw.AimbotFOV.Filled = CFG.Aimbot.FOVFilled; Draw.AimbotFOV.Visible = CFG.Aimbot.On and CFG.Aimbot.ShowFOV
     end
-
     if Draw.SilentFOV then
-        Draw.SilentFOV.Position = ctr
-        Draw.SilentFOV.Radius = CFG.SilentAim.FOV
-        Draw.SilentFOV.Color = U.c3(CFG.SilentAim.FOVColor)
-        Draw.SilentFOV.Transparency = CFG.SilentAim.FOVAlpha
-        Draw.SilentFOV.Thickness = CFG.SilentAim.FOVThick
-        Draw.SilentFOV.NumSides = CFG.SilentAim.FOVSides
+        Draw.SilentFOV.Position = ctr; Draw.SilentFOV.Radius = CFG.SilentAim.FOV
+        Draw.SilentFOV.Color = U.c3(CFG.SilentAim.FOVColor); Draw.SilentFOV.Transparency = CFG.SilentAim.FOVAlpha
+        Draw.SilentFOV.Thickness = CFG.SilentAim.FOVThick; Draw.SilentFOV.NumSides = CFG.SilentAim.FOVSides
         Draw.SilentFOV.Visible = CFG.SilentAim.On and CFG.SilentAim.ShowFOV
     end
 
-    -- TARGET ACQUISITION
     silentTarget = CFG.SilentAim.On and findBestTarget(CFG.SilentAim) or nil
     currentTarget = CFG.Aimbot.On and aimHeld and findBestTarget(CFG.Aimbot) or nil
 
-    -- AIMBOT (smoothed or snap)
     if currentTarget and aimHeld then
         local ch = currentTarget.Character
         if ch then
-            local tPos = getPredictedPos(ch, CFG.Aimbot.Part)
+            local tPos = getPredictedPos(ch, CFG.Aimbot.Part, CFG.Aimbot.Predict and CFG.Aimbot.PredictScale or 0)
             if tPos then
                 if CFG.Aimbot.Mode == "Snap" then
                     Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, tPos)
                 else
-                    local currentLook = Camera.CFrame.LookVector
-                    local desiredDir = (tPos - Camera.CFrame.Position).Unit
-                    local newDir = currentLook:Lerp(desiredDir, math.clamp(CFG.Aimbot.Smoothness, 0.01, 1))
-                    Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, Camera.CFrame.Position + newDir)
+                    local cur = Camera.CFrame.LookVector
+                    local des = (tPos - Camera.CFrame.Position).Unit
+                    local nw = cur:Lerp(des, math.clamp(CFG.Aimbot.Smoothness, 0.01, 1))
+                    Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, Camera.CFrame.Position + nw)
                 end
             end
         end
     end
 
-    -- SILENT AIM CAMERA REDIRECT (fallback, no hook)
     if not ENV.Hook and not ENV.RawMT and CFG.SilentAim.On and silentTarget and aimHeld then
         local ch = silentTarget.Character
         if ch then
-            local tPos = getPredictedPos(ch, CFG.SilentAim.Part)
-            if tPos then
-                Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, tPos)
-            end
+            local tPos = getPredictedPos(ch, CFG.SilentAim.Part, CFG.SilentAim.Predict and CFG.SilentAim.PredictScale or 0)
+            if tPos then Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, tPos) end
         end
     end
 
-    -- CROSSHAIR
     renderCrosshair(ctr)
-
-    -- FLUSH POOLED DRAWINGS
     Draw.flush()
 
-    local doESP = frame % ESP_RATE == 0
-    local doItem = frame % ITEM_RATE == 0
-    local doWM = frame % WATERMARK_RATE == 0
+    local doESP = frame % 2 == 0
+    local doItem = frame % 8 == 0
+    local doWM = frame % 15 == 0
 
     if not doESP and not doItem then
         if doWM then renderWatermark() end
@@ -1413,109 +1068,75 @@ RunService.RenderStepped:Connect(function(dt)
 
     local myP = U.myPos()
 
-    -- PLAYER ESP
     if doESP then
         for _, p in ipairs(Players:GetPlayers()) do
             if p == LP then continue end
-            if not U.alive(p) then
-                killChams(p)
-                continue
-            end
-
+            if not U.alive(p) then killChams(p); continue end
             local ch = p.Character
             local root = ch:FindFirstChild("HumanoidRootPart")
             if not root then continue end
-
             local d3 = (myP - root.Position).Magnitude
             if (clk() - t0) * 1000 > BUDGET_MS then break end
 
-            -- Chams (Instance-based, always works)
-            if CFG.Chams.On then
-                setChams(p)
-            else
-                killChams(p)
-            end
+            updateChams(p)
 
             if not ENV.Drawing then
-                -- BillboardGui fallback
-                local isEnemy = not U.team(p)
-                local col = isEnemy and U.c3(CFG.BoxESP.EnemyColor) or U.c3(CFG.BoxESP.TeamColor)
-
+                local isE = not U.team(p)
+                local col = isE and U.c3(CFG.BoxESP.EnemyColor) or U.c3(CFG.BoxESP.TeamColor)
                 if CFG.BoxESP.On and d3 <= CFG.BoxESP.MaxDist then
-                    if not CFG.BoxESP.ShowTeam and not isEnemy then continue end
-                    local head = ch:FindFirstChild("Head")
-                    if head then
-                        local txt = p.DisplayName
-                        if CFG.BoxESP.Dist then
-                            txt = txt .. " " .. U.formatDist(d3)
-                        end
-                        Draw.bbgText(head, txt, col)
-                        if CFG.BoxESP.Health then
-                            Draw.bbgHealth(head, U.hpFrac(p))
+                    if CFG.BoxESP.ShowTeam or isE then
+                        local head = ch:FindFirstChild("Head")
+                        if head then
+                            local txt = p.DisplayName
+                            if CFG.BoxESP.Dist then txt = txt .. " " .. U.formatDist(d3) end
+                            Draw.bbgText(head, txt, col)
+                            if CFG.BoxESP.Health then Draw.bbgHealth(head, U.hpFrac(p)) end
                         end
                     end
                 end
                 continue
             end
 
-            -- Drawing API renderers
-            local isEnemy = not U.team(p)
-            local col = isEnemy and U.c3(CFG.BoxESP.EnemyColor) or U.c3(CFG.BoxESP.TeamColor)
-
+            local isE = not U.team(p)
+            local col = isE and U.c3(CFG.BoxESP.EnemyColor) or U.c3(CFG.BoxESP.TeamColor)
             renderBoxESP(p, ch, root, d3, col, myP, ctr, vp)
             renderTracers(p, ch, root, d3, col, myP, ctr, vp)
-            renderSnaplines(p, ch, root, d3, col, myP, ctr, vp)
+            renderSnaplines(p, ch, root, d3, col, myP, ctr)
             renderSkeleton(p, ch, root, d3, myP)
         end
     end
 
-    -- ITEM ESP
     if doItem and CFG.ItemESP.On and ENV.Drawing then
         local iCol = U.c3(CFG.ItemESP.Color)
         local tCol = U.c3(CFG.ItemESP.TracerColor)
-
         for _, obj in ipairs(workspace:GetDescendants()) do
             if (clk() - t0) * 1000 > BUDGET_MS then break end
             if not isItem(obj) then continue end
-
             local pos = getItemPos(obj)
             if not pos then continue end
-
             local dist = (myP - pos).Magnitude
             if dist > CFG.ItemESP.MaxDist then continue end
-
             local sp, on = U.w2s(pos)
             if not on then continue end
-
             if CFG.ItemESP.Names then
                 local label = obj.Name
-                if CFG.ItemESP.Dist then
-                    label = label .. " " .. U.formatDist(dist)
-                end
+                if CFG.ItemESP.Dist then label = label .. " " .. U.formatDist(dist) end
                 Draw.text(sp, label, iCol, CFG.ItemESP.NameSize)
             end
-
             if CFG.ItemESP.Tracers then
                 Draw.line(Vector2.new(ctr.X, vp.Y), sp, tCol, CFG.ItemESP.TracerThick)
             end
-
             if CFG.ItemESP.Icon then
                 Draw.text(Vector2.new(sp.X, sp.Y - 16), "[*]", Color3.fromRGB(255, 200, 50), 11)
             end
         end
     end
 
-    -- WATERMARK (every N frames)
-    if doWM then
-        renderWatermark()
-    end
+    if doWM then renderWatermark() end
 end)
 
 Players.PlayerRemoving:Connect(function(p) killChams(p) end)
 
---------------------------------------------------------------
--- GUI — PROFESSIONAL TABBED MENU
---------------------------------------------------------------
 local SG = Instance.new("ScreenGui")
 SG.Name = "AX_" .. tostring(math.random(10000, 99999))
 SG.ResetOnSpawn = false
@@ -1524,142 +1145,121 @@ SG.DisplayOrder = 999
 
 if ENV.ProtectGui then
     pcall(function()
-        if typeof(syn) == "table" and syn.protect_gui then
-            syn.protect_gui(SG)
-        elseif protect_gui then
-            protect_gui(SG)
-        end
+        if typeof(syn) == "table" and syn.protect_gui then syn.protect_gui(SG)
+        elseif protect_gui then protect_gui(SG) end
     end)
 end
+if ENV.GetHUI then pcall(function() SG.Parent = gethui() end) end
+if not SG.Parent and ENV.CoreGui then pcall(function() SG.Parent = game:GetService("CoreGui") end) end
+if not SG.Parent then pcall(function() SG.Parent = LP:WaitForChild("PlayerGui") end) end
 
-if ENV.GetHUI then
-    pcall(function() SG.Parent = gethui() end)
-end
-if not SG.Parent and ENV.CoreGui then
-    pcall(function() SG.Parent = game:GetService("CoreGui") end)
-end
-if not SG.Parent then
-    pcall(function() SG.Parent = LP:WaitForChild("PlayerGui") end)
-end
-
-if not SG.Parent then
-    warn(tag .. " CRITICAL: Could not parent GUI anywhere")
-end
-
--- Blur effect
-local blur = nil
+local blur
 if CFG.GUI.BlurBackground then
-    pcall(function()
-        blur = Instance.new("BlurEffect")
-        blur.Size = 0
-        blur.Parent = Lighting
-    end)
+    pcall(function() blur = Instance.new("BlurEffect"); blur.Size = 0; blur.Parent = Lighting end)
 end
 
 local menuOpen = false
+local SC = CFG.GUI.Scale
 
--- Theme colors
 local TH = {
-    BG       = Color3.fromRGB(12, 12, 16),
-    Panel    = Color3.fromRGB(20, 20, 26),
-    Header   = Color3.fromRGB(24, 24, 32),
+    BG       = Color3.fromRGB(8, 8, 12),
+    Panel    = Color3.fromRGB(16, 16, 22),
+    Header   = Color3.fromRGB(14, 14, 20),
     Accent   = Color3.fromRGB(CFG.GUI.Accent[1], CFG.GUI.Accent[2], CFG.GUI.Accent[3]),
-    AccentD  = Color3.fromRGB(90, 40, 180),
+    AccentD  = Color3.fromRGB(80, 30, 160),
     AccentAlt = Color3.fromRGB(CFG.GUI.AccentAlt[1], CFG.GUI.AccentAlt[2], CFG.GUI.AccentAlt[3]),
-    Text     = Color3.fromRGB(220, 220, 230),
-    Sub      = Color3.fromRGB(120, 120, 140),
-    On       = Color3.fromRGB(80, 220, 60),
-    Off      = Color3.fromRGB(55, 55, 70),
-    SlBG     = Color3.fromRGB(32, 32, 44),
+    Text     = Color3.fromRGB(225, 225, 235),
+    Sub      = Color3.fromRGB(100, 100, 120),
+    Dim      = Color3.fromRGB(65, 65, 80),
+    On       = Color3.fromRGB(70, 220, 50),
+    Off      = Color3.fromRGB(45, 45, 58),
+    SlBG     = Color3.fromRGB(26, 26, 36),
     SlFill   = Color3.fromRGB(CFG.GUI.Accent[1], CFG.GUI.Accent[2], CFG.GUI.Accent[3]),
-    Bdr      = Color3.fromRGB(40, 40, 54),
-    Tab      = Color3.fromRGB(18, 18, 24),
-    TabHov   = Color3.fromRGB(28, 28, 38),
-    TabAct   = Color3.fromRGB(CFG.GUI.Accent[1], CFG.GUI.Accent[2], CFG.GUI.Accent[3]),
-    Hover    = Color3.fromRGB(28, 28, 36),
-    Sep      = Color3.fromRGB(36, 36, 48),
+    Bdr      = Color3.fromRGB(30, 30, 42),
+    Tab      = Color3.fromRGB(11, 11, 16),
+    TabHov   = Color3.fromRGB(22, 22, 32),
+    Sep      = Color3.fromRGB(28, 28, 40),
+    Hover    = Color3.fromRGB(24, 24, 34),
+    Input    = Color3.fromRGB(20, 20, 28),
 }
 
--- Dimensions
-local MENU_W = math.floor(520 * CFG.GUI.Scale)
-local MENU_H = math.floor(620 * CFG.GUI.Scale)
-local TAB_W = math.floor(120 * CFG.GUI.Scale)
-local HDR_H = math.floor(44 * CFG.GUI.Scale)
+local MW = math.floor(560 * SC)
+local MH = math.floor(640 * SC)
+local TW = math.floor(130 * SC)
+local HH = math.floor(48 * SC)
 
--- Main frame
 local Main = Instance.new("Frame", SG)
-Main.Size = UDim2.new(0, MENU_W, 0, MENU_H)
-Main.Position = UDim2.new(0.5, -MENU_W / 2, 0.5, -MENU_H / 2)
+Main.Size = UDim2.new(0, MW, 0, MH)
+Main.Position = UDim2.new(0.5, -MW / 2, 0.5, -MH / 2)
 Main.BackgroundColor3 = TH.BG
 Main.BackgroundTransparency = 1 - CFG.GUI.Opacity
-Main.BorderSizePixel = 0
-Main.Visible = false
-Main.ClipsDescendants = true
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 8)
-
+Main.BorderSizePixel = 0; Main.Visible = false; Main.ClipsDescendants = true
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 10)
 local mainStroke = Instance.new("UIStroke", Main)
-mainStroke.Color = TH.Bdr
-mainStroke.Thickness = 1
+mainStroke.Color = TH.Bdr; mainStroke.Thickness = 1
 
--- Accent line at top
-local accentLine = Instance.new("Frame", Main)
-accentLine.Size = UDim2.new(1, 0, 0, 2)
-accentLine.BackgroundColor3 = TH.Accent
-accentLine.BorderSizePixel = 0
-accentLine.ZIndex = 10
+local shadow = Instance.new("ImageLabel", Main)
+shadow.Size = UDim2.new(1, 40, 1, 40); shadow.Position = UDim2.new(0, -20, 0, -20)
+shadow.BackgroundTransparency = 1; shadow.ImageTransparency = 0.5
+shadow.Image = "rbxassetid://6014261993"; shadow.ImageColor3 = Color3.new(0, 0, 0)
+shadow.ScaleType = Enum.ScaleType.Slice; shadow.SliceCenter = Rect.new(49, 49, 450, 450)
+shadow.ZIndex = 0
 
-local accentGrad = Instance.new("UIGradient", accentLine)
-accentGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
+local accentBar = Instance.new("Frame", Main)
+accentBar.Size = UDim2.new(1, 0, 0, 2); accentBar.BackgroundColor3 = TH.Accent; accentBar.BorderSizePixel = 0; accentBar.ZIndex = 10
+local accentGrad = Instance.new("UIGradient", accentBar)
+accentGrad.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, TH.Accent),
+    ColorSequenceKeypoint.new(0.5, TH.AccentAlt),
+    ColorSequenceKeypoint.new(1, TH.Accent),
+})
 
--- Header
 local Hdr = Instance.new("Frame", Main)
-Hdr.Size = UDim2.new(1, 0, 0, HDR_H)
-Hdr.Position = UDim2.new(0, 0, 0, 2)
-Hdr.BackgroundColor3 = TH.Header
-Hdr.BorderSizePixel = 0
+Hdr.Size = UDim2.new(1, 0, 0, HH); Hdr.Position = UDim2.new(0, 0, 0, 2)
+Hdr.BackgroundColor3 = TH.Header; Hdr.BorderSizePixel = 0
+
+local logoFrame = Instance.new("Frame", Hdr)
+logoFrame.Size = UDim2.new(0, 28, 0, 28); logoFrame.Position = UDim2.new(0, 12, 0.5, -14)
+logoFrame.BackgroundColor3 = TH.Accent; logoFrame.BorderSizePixel = 0
+Instance.new("UICorner", logoFrame).CornerRadius = UDim.new(0, 6)
+local logoGrad = Instance.new("UIGradient", logoFrame)
+logoGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
+logoGrad.Rotation = 45
+local logoLbl = Instance.new("TextLabel", logoFrame)
+logoLbl.Text = "A"; logoLbl.Font = Enum.Font.GothamBlack; logoLbl.TextSize = math.floor(16 * SC)
+logoLbl.TextColor3 = Color3.new(1, 1, 1); logoLbl.BackgroundTransparency = 1; logoLbl.Size = UDim2.new(1, 0, 1, 0)
 
 local tLbl = Instance.new("TextLabel", Hdr)
-tLbl.Text = "  AXIOM UNIVERSAL"
-tLbl.Font = Enum.Font.GothamBold
-tLbl.TextSize = math.floor(16 * CFG.GUI.Scale)
-tLbl.TextColor3 = TH.Accent
-tLbl.BackgroundTransparency = 1
-tLbl.Position = UDim2.new(0, 0, 0, 0)
-tLbl.Size = UDim2.new(0.5, 0, 1, 0)
+tLbl.Text = "AXIOM"; tLbl.Font = Enum.Font.GothamBlack; tLbl.TextSize = math.floor(18 * SC)
+tLbl.TextColor3 = TH.Text; tLbl.BackgroundTransparency = 1
+tLbl.Position = UDim2.new(0, 48, 0, 4); tLbl.Size = UDim2.new(0, 100, 0, 20)
 tLbl.TextXAlignment = Enum.TextXAlignment.Left
 
-local vLbl = Instance.new("TextLabel", Hdr)
-vLbl.Text = "v3.1 | Universal  "
-vLbl.Font = Enum.Font.Gotham
-vLbl.TextSize = math.floor(11 * CFG.GUI.Scale)
-vLbl.TextColor3 = TH.Sub
-vLbl.BackgroundTransparency = 1
-vLbl.Position = UDim2.new(0.5, 0, 0, 0)
-vLbl.Size = UDim2.new(0.5, 0, 1, 0)
-vLbl.TextXAlignment = Enum.TextXAlignment.Right
+local subLbl = Instance.new("TextLabel", Hdr)
+subLbl.Text = "UNIVERSAL"; subLbl.Font = Enum.Font.GothamBold; subLbl.TextSize = math.floor(9 * SC)
+subLbl.TextColor3 = TH.Accent; subLbl.BackgroundTransparency = 1
+subLbl.Position = UDim2.new(0, 48, 0, 24); subLbl.Size = UDim2.new(0, 100, 0, 14)
+subLbl.TextXAlignment = Enum.TextXAlignment.Left
 
--- Status dot
+local verLbl = Instance.new("TextLabel", Hdr)
+verLbl.Text = "v3.1"; verLbl.Font = Enum.Font.Gotham; verLbl.TextSize = math.floor(10 * SC)
+verLbl.TextColor3 = TH.Dim; verLbl.BackgroundTransparency = 1
+verLbl.Position = UDim2.new(1, -50, 0, 0); verLbl.Size = UDim2.new(0, 40, 1, 0)
+verLbl.TextXAlignment = Enum.TextXAlignment.Right
+
 local statusDot = Instance.new("Frame", Hdr)
-statusDot.Size = UDim2.new(0, 8, 0, 8)
-statusDot.Position = UDim2.new(0, 6, 0.5, -4)
-statusDot.BackgroundColor3 = TH.On
-statusDot.BorderSizePixel = 0
+statusDot.Size = UDim2.new(0, 6, 0, 6); statusDot.Position = UDim2.new(1, -12, 0.5, -3)
+statusDot.BackgroundColor3 = TH.On; statusDot.BorderSizePixel = 0
 Instance.new("UICorner", statusDot).CornerRadius = UDim.new(1, 0)
 
--- Divider under header
 local hDiv = Instance.new("Frame", Main)
-hDiv.Size = UDim2.new(1, 0, 0, 1)
-hDiv.Position = UDim2.new(0, 0, 0, HDR_H + 2)
-hDiv.BackgroundColor3 = TH.Sep
-hDiv.BorderSizePixel = 0
+hDiv.Size = UDim2.new(1, 0, 0, 1); hDiv.Position = UDim2.new(0, 0, 0, HH + 2)
+hDiv.BackgroundColor3 = TH.Sep; hDiv.BorderSizePixel = 0
 
--- Drag
 local dragging, dragS, posS = false, nil, nil
 Hdr.InputBegan:Connect(function(i)
     if i.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragS = i.Position
-        posS = Main.Position
+        dragging = true; dragS = i.Position; posS = Main.Position
     end
 end)
 UIS.InputChanged:Connect(function(i)
@@ -1669,258 +1269,206 @@ UIS.InputChanged:Connect(function(i)
     end
 end)
 UIS.InputEnded:Connect(function(i)
-    if i.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = false
-    end
+    if i.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
 end)
 
--- Tab sidebar
 local TabBar = Instance.new("Frame", Main)
-TabBar.Size = UDim2.new(0, TAB_W, 1, -(HDR_H + 3))
-TabBar.Position = UDim2.new(0, 0, 0, HDR_H + 3)
-TabBar.BackgroundColor3 = TH.Tab
-TabBar.BorderSizePixel = 0
+TabBar.Size = UDim2.new(0, TW, 1, -(HH + 3))
+TabBar.Position = UDim2.new(0, 0, 0, HH + 3)
+TabBar.BackgroundColor3 = TH.Tab; TabBar.BorderSizePixel = 0; TabBar.ClipsDescendants = true
 
-local tabLayout = Instance.new("UIListLayout", TabBar)
-tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
-tabLayout.Padding = UDim.new(0, 2)
-
+local tabLay = Instance.new("UIListLayout", TabBar)
+tabLay.SortOrder = Enum.SortOrder.LayoutOrder; tabLay.Padding = UDim.new(0, 1)
 local tabPad = Instance.new("UIPadding", TabBar)
-tabPad.PaddingTop = UDim.new(0, 6)
-tabPad.PaddingLeft = UDim.new(0, 4)
-tabPad.PaddingRight = UDim.new(0, 4)
+tabPad.PaddingTop = UDim.new(0, 8); tabPad.PaddingLeft = UDim.new(0, 6); tabPad.PaddingRight = UDim.new(0, 6)
 
--- Tab divider
 local tDiv = Instance.new("Frame", Main)
-tDiv.Size = UDim2.new(0, 1, 1, -(HDR_H + 3))
-tDiv.Position = UDim2.new(0, TAB_W, 0, HDR_H + 3)
-tDiv.BackgroundColor3 = TH.Sep
-tDiv.BorderSizePixel = 0
+tDiv.Size = UDim2.new(0, 1, 1, -(HH + 3))
+tDiv.Position = UDim2.new(0, TW, 0, HH + 3)
+tDiv.BackgroundColor3 = TH.Sep; tDiv.BorderSizePixel = 0
 
--- Content area
 local ContentArea = Instance.new("Frame", Main)
-ContentArea.Size = UDim2.new(1, -(TAB_W + 1), 1, -(HDR_H + 3))
-ContentArea.Position = UDim2.new(0, TAB_W + 1, 0, HDR_H + 3)
-ContentArea.BackgroundTransparency = 1
-ContentArea.BorderSizePixel = 0
-ContentArea.ClipsDescendants = true
+ContentArea.Size = UDim2.new(1, -(TW + 1), 1, -(HH + 3))
+ContentArea.Position = UDim2.new(0, TW + 1, 0, HH + 3)
+ContentArea.BackgroundTransparency = 1; ContentArea.BorderSizePixel = 0; ContentArea.ClipsDescendants = true
 
---------------------------------------------------------------
--- TAB SYSTEM
---------------------------------------------------------------
 local tabs = {}
 local activeTab = nil
 
 local TAB_DEFS = {
-    {name = "Aimbot",   icon = ""},
-    {name = "Silent",   icon = ""},
-    {name = "ESP",      icon = ""},
-    {name = "Chams",    icon = ""},
-    {name = "Visuals",  icon = ""},
-    {name = "Settings", icon = ""},
+    {name = "Aimbot",   ico = ""},
+    {name = "Silent",   ico = ""},
+    {name = "ESP",      ico = ""},
+    {name = "Chams",    ico = ""},
+    {name = "Visuals",  ico = ""},
+    {name = "Settings", ico = ""},
 }
 
 local function switchTab(name)
     if activeTab == name then return end
     activeTab = name
     for tName, tData in pairs(tabs) do
-        local isActive = tName == name
-        tData.page.Visible = isActive
-        TweenService:Create(tData.btn, TweenInfo.new(CFG.GUI.AnimSpeed), {
-            BackgroundColor3 = isActive and TH.Accent or TH.Tab,
-            BackgroundTransparency = isActive and 0 or 1
+        local isAct = tName == name
+        tData.page.Visible = isAct
+        local indicator = tData.btn:FindFirstChild("Indicator")
+        TweenService:Create(tData.btn, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {
+            BackgroundColor3 = isAct and TH.Hover or TH.Tab,
+            BackgroundTransparency = isAct and 0 or 1
         }):Play()
-        tData.lbl.TextColor3 = isActive and Color3.new(1, 1, 1) or TH.Sub
+        TweenService:Create(tData.lbl, TweenInfo.new(0.15), {
+            TextColor3 = isAct and Color3.new(1, 1, 1) or TH.Sub
+        }):Play()
+        if indicator then
+            TweenService:Create(indicator, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {
+                BackgroundTransparency = isAct and 0 or 1
+            }):Play()
+        end
     end
 end
 
 for idx, def in ipairs(TAB_DEFS) do
     local btn = Instance.new("TextButton", TabBar)
-    btn.Size = UDim2.new(1, 0, 0, math.floor(32 * CFG.GUI.Scale))
-    btn.BackgroundColor3 = TH.Tab
-    btn.BackgroundTransparency = 1
-    btn.BorderSizePixel = 0
-    btn.Text = ""
-    btn.LayoutOrder = idx
+    btn.Size = UDim2.new(1, 0, 0, math.floor(34 * SC))
+    btn.BackgroundColor3 = TH.Tab; btn.BackgroundTransparency = 1
+    btn.BorderSizePixel = 0; btn.Text = ""; btn.LayoutOrder = idx; btn.AutoButtonColor = false
     Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
 
+    local indicator = Instance.new("Frame", btn)
+    indicator.Name = "Indicator"
+    indicator.Size = UDim2.new(0, 3, 0.6, 0); indicator.Position = UDim2.new(0, 0, 0.2, 0)
+    indicator.BackgroundColor3 = TH.Accent; indicator.BorderSizePixel = 0; indicator.BackgroundTransparency = 1
+    Instance.new("UICorner", indicator).CornerRadius = UDim.new(0, 2)
+
     local lbl = Instance.new("TextLabel", btn)
-    lbl.Text = def.icon .. " " .. def.name
-    lbl.Font = Enum.Font.GothamBold
-    lbl.TextSize = math.floor(12 * CFG.GUI.Scale)
-    lbl.TextColor3 = TH.Sub
-    lbl.BackgroundTransparency = 1
-    lbl.Size = UDim2.new(1, 0, 1, 0)
-    lbl.TextXAlignment = Enum.TextXAlignment.Center
+    lbl.Text = def.name; lbl.Font = Enum.Font.GothamBold; lbl.TextSize = math.floor(12 * SC)
+    lbl.TextColor3 = TH.Sub; lbl.BackgroundTransparency = 1
+    lbl.Size = UDim2.new(1, -8, 1, 0); lbl.Position = UDim2.new(0, 8, 0, 0)
+    lbl.TextXAlignment = Enum.TextXAlignment.Left
 
     local page = Instance.new("ScrollingFrame", ContentArea)
-    page.Size = UDim2.new(1, 0, 1, 0)
-    page.BackgroundTransparency = 1
-    page.ScrollBarThickness = 3
-    page.ScrollBarImageColor3 = TH.Accent
-    page.BorderSizePixel = 0
-    page.CanvasSize = UDim2.new(0, 0, 0, 0)
-    page.AutomaticCanvasSize = Enum.AutomaticSize.Y
-    page.Visible = false
+    page.Size = UDim2.new(1, 0, 1, 0); page.BackgroundTransparency = 1
+    page.ScrollBarThickness = 3; page.ScrollBarImageColor3 = TH.Accent
+    page.BorderSizePixel = 0; page.CanvasSize = UDim2.new(0, 0, 0, 0)
+    page.AutomaticCanvasSize = Enum.AutomaticSize.Y; page.Visible = false
+    page.ClipsDescendants = true; page.ScrollingDirection = Enum.ScrollingDirection.Y
+    page.TopImage = "rbxassetid://7766642222"; page.MidImage = "rbxassetid://7766642222"; page.BottomImage = "rbxassetid://7766642222"
 
     local pLay = Instance.new("UIListLayout", page)
-    pLay.SortOrder = Enum.SortOrder.LayoutOrder
-    pLay.Padding = UDim.new(0, 4)
-
+    pLay.SortOrder = Enum.SortOrder.LayoutOrder; pLay.Padding = UDim.new(0, 3)
     local pPad = Instance.new("UIPadding", page)
-    pPad.PaddingTop = UDim.new(0, 6)
-    pPad.PaddingBottom = UDim.new(0, 10)
-    pPad.PaddingLeft = UDim.new(0, 6)
-    pPad.PaddingRight = UDim.new(0, 6)
+    pPad.PaddingTop = UDim.new(0, 6); pPad.PaddingBottom = UDim.new(0, 12)
+    pPad.PaddingLeft = UDim.new(0, 8); pPad.PaddingRight = UDim.new(0, 8)
 
     tabs[def.name] = {btn = btn, lbl = lbl, page = page, ord = 0}
 
     btn.MouseEnter:Connect(function()
         if activeTab ~= def.name then
-            TweenService:Create(btn, TweenInfo.new(0.1), {BackgroundTransparency = 0, BackgroundColor3 = TH.TabHov}):Play()
+            TweenService:Create(btn, TweenInfo.new(0.12), {BackgroundTransparency = 0, BackgroundColor3 = TH.TabHov}):Play()
         end
     end)
     btn.MouseLeave:Connect(function()
         if activeTab ~= def.name then
-            TweenService:Create(btn, TweenInfo.new(0.1), {BackgroundTransparency = 1}):Play()
+            TweenService:Create(btn, TweenInfo.new(0.12), {BackgroundTransparency = 1}):Play()
         end
     end)
     btn.MouseButton1Click:Connect(function() switchTab(def.name) end)
 end
 
---------------------------------------------------------------
--- UI COMPONENT BUILDERS
---------------------------------------------------------------
 local function getPage(tabName)
-    local t = tabs[tabName]
-    t.ord = t.ord + 1
-    return t.page, t.ord
+    local t = tabs[tabName]; t.ord = t.ord + 1; return t.page, t.ord
 end
 
 local function Section(tabName, name)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 24)
-    f.BackgroundTransparency = 1
-    f.LayoutOrder = order
-
+    f.Size = UDim2.new(1, 0, 0, 28); f.BackgroundTransparency = 1; f.LayoutOrder = order
+    local line = Instance.new("Frame", f)
+    line.Size = UDim2.new(1, -70, 0, 1); line.Position = UDim2.new(0, 0, 0.5, 0)
+    line.BackgroundColor3 = TH.Sep; line.BorderSizePixel = 0
     local l = Instance.new("TextLabel", f)
-    l.Text = "▸ " .. string.upper(name)
-    l.Font = Enum.Font.GothamBold
-    l.TextSize = math.floor(11 * CFG.GUI.Scale)
-    l.TextColor3 = TH.Accent
-    l.BackgroundTransparency = 1
-    l.Size = UDim2.new(1, 0, 1, 0)
-    l.TextXAlignment = Enum.TextXAlignment.Left
-    l.Position = UDim2.new(0, 4, 0, 0)
+    l.Text = string.upper(name); l.Font = Enum.Font.GothamBold; l.TextSize = math.floor(10 * SC)
+    l.TextColor3 = TH.Accent; l.BackgroundTransparency = 1
+    l.Size = UDim2.new(0, 70, 1, 0); l.Position = UDim2.new(1, -70, 0, 0)
+    l.TextXAlignment = Enum.TextXAlignment.Right
 end
 
 local function Toggle(tabName, label, tbl, key)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 30)
-    f.BackgroundColor3 = TH.Panel
-    f.BorderSizePixel = 0
-    f.LayoutOrder = order
+    f.Size = UDim2.new(1, 0, 0, 32); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
     Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label
-    l.Font = Enum.Font.Gotham
-    l.TextSize = math.floor(13 * CFG.GUI.Scale)
-    l.TextColor3 = TH.Text
-    l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 10, 0, 0)
-    l.Size = UDim2.new(0.7, 0, 1, 0)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(13 * SC)
+    l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
+    l.Position = UDim2.new(0, 12, 0, 0); l.Size = UDim2.new(0.7, 0, 1, 0)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
-    local bg = Instance.new("Frame", f)
-    bg.Size = UDim2.new(0, 38, 0, 18)
-    bg.Position = UDim2.new(1, -48, 0.5, -9)
-    bg.BackgroundColor3 = tbl[key] and TH.On or TH.Off
-    bg.BorderSizePixel = 0
-    Instance.new("UICorner", bg).CornerRadius = UDim.new(1, 0)
+    local track = Instance.new("Frame", f)
+    track.Size = UDim2.new(0, 40, 0, 20); track.Position = UDim2.new(1, -52, 0.5, -10)
+    track.BackgroundColor3 = tbl[key] and TH.On or TH.Off; track.BorderSizePixel = 0
+    Instance.new("UICorner", track).CornerRadius = UDim.new(1, 0)
 
-    local knob = Instance.new("Frame", bg)
-    knob.Size = UDim2.new(0, 14, 0, 14)
-    knob.Position = tbl[key] and UDim2.new(1, -16, 0.5, -7) or UDim2.new(0, 2, 0.5, -7)
-    knob.BackgroundColor3 = Color3.new(1, 1, 1)
-    knob.BorderSizePixel = 0
+    local knob = Instance.new("Frame", track)
+    knob.Size = UDim2.new(0, 16, 0, 16)
+    knob.Position = tbl[key] and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)
+    knob.BackgroundColor3 = Color3.new(1, 1, 1); knob.BorderSizePixel = 0
     Instance.new("UICorner", knob).CornerRadius = UDim.new(1, 0)
 
     local btn = Instance.new("TextButton", f)
-    btn.Size = UDim2.new(1, 0, 1, 0)
-    btn.BackgroundTransparency = 1
-    btn.Text = ""
+    btn.Size = UDim2.new(1, 0, 1, 0); btn.BackgroundTransparency = 1; btn.Text = ""; btn.ZIndex = 5
     btn.MouseButton1Click:Connect(function()
-        tbl[key] = not tbl[key]
-        local on = tbl[key]
-        TweenService:Create(bg, TweenInfo.new(0.15), {BackgroundColor3 = on and TH.On or TH.Off}):Play()
-        TweenService:Create(knob, TweenInfo.new(0.15), {Position = on and UDim2.new(1, -16, 0.5, -7) or UDim2.new(0, 2, 0.5, -7)}):Play()
+        tbl[key] = not tbl[key]; local on = tbl[key]
+        TweenService:Create(track, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {BackgroundColor3 = on and TH.On or TH.Off}):Play()
+        TweenService:Create(knob, TweenInfo.new(0.2, Enum.EasingStyle.Quart), {
+            Position = on and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)
+        }):Play()
     end)
+
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
 local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
-    sfx = sfx or ""
-    stp = stp or 1
+    sfx = sfx or ""; stp = stp or 1
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 44)
-    f.BackgroundColor3 = TH.Panel
-    f.BorderSizePixel = 0
-    f.LayoutOrder = order
+    f.Size = UDim2.new(1, 0, 0, 46); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
     Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label
-    l.Font = Enum.Font.Gotham
-    l.TextSize = math.floor(12 * CFG.GUI.Scale)
-    l.TextColor3 = TH.Text
-    l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 10, 0, 2)
-    l.Size = UDim2.new(0.5, 0, 0, 18)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(12 * SC)
+    l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
+    l.Position = UDim2.new(0, 12, 0, 3); l.Size = UDim2.new(0.5, 0, 0, 16)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local vl = Instance.new("TextLabel", f)
-    vl.Font = Enum.Font.GothamBold
-    vl.TextSize = math.floor(12 * CFG.GUI.Scale)
-    vl.TextColor3 = TH.Accent
-    vl.BackgroundTransparency = 1
-    vl.Position = UDim2.new(0.5, 0, 0, 2)
-    vl.Size = UDim2.new(0.5, -10, 0, 18)
-    vl.TextXAlignment = Enum.TextXAlignment.Right
+    vl.Font = Enum.Font.GothamBold; vl.TextSize = math.floor(12 * SC); vl.TextColor3 = TH.Accent
+    vl.BackgroundTransparency = 1; vl.Position = UDim2.new(0.5, 0, 0, 3)
+    vl.Size = UDim2.new(0.5, -12, 0, 16); vl.TextXAlignment = Enum.TextXAlignment.Right
 
     local trk = Instance.new("Frame", f)
-    trk.Size = UDim2.new(1, -20, 0, 6)
-    trk.Position = UDim2.new(0, 10, 0, 30)
-    trk.BackgroundColor3 = TH.SlBG
-    trk.BorderSizePixel = 0
+    trk.Size = UDim2.new(1, -24, 0, 6); trk.Position = UDim2.new(0, 12, 0, 30)
+    trk.BackgroundColor3 = TH.SlBG; trk.BorderSizePixel = 0
     Instance.new("UICorner", trk).CornerRadius = UDim.new(1, 0)
 
     local fill = Instance.new("Frame", trk)
-    fill.BackgroundColor3 = TH.SlFill
-    fill.BorderSizePixel = 0
-    fill.Size = UDim2.new(0, 0, 1, 0)
+    fill.BackgroundColor3 = TH.SlFill; fill.BorderSizePixel = 0; fill.Size = UDim2.new(0, 0, 1, 0)
     Instance.new("UICorner", fill).CornerRadius = UDim.new(1, 0)
-
     local fillGrad = Instance.new("UIGradient", fill)
     fillGrad.Color = ColorSequence.new(TH.Accent, TH.AccentAlt)
 
     local knob = Instance.new("Frame", trk)
-    knob.Size = UDim2.new(0, 10, 0, 10)
-    knob.AnchorPoint = Vector2.new(0.5, 0.5)
-    knob.Position = UDim2.new(0, 0, 0.5, 0)
-    knob.BackgroundColor3 = Color3.new(1, 1, 1)
-    knob.BorderSizePixel = 0
+    knob.Size = UDim2.new(0, 12, 0, 12); knob.AnchorPoint = Vector2.new(0.5, 0.5)
+    knob.Position = UDim2.new(0, 0, 0.5, 0); knob.BackgroundColor3 = Color3.new(1, 1, 1); knob.BorderSizePixel = 0
     Instance.new("UICorner", knob).CornerRadius = UDim.new(1, 0)
+    local knobStroke = Instance.new("UIStroke", knob)
+    knobStroke.Color = TH.Accent; knobStroke.Thickness = 2
 
     local function upd(v)
-        v = math.clamp(v, mn, mx)
-        v = math.floor(v / stp + 0.5) * stp
-        tbl[key] = v
+        v = math.clamp(v, mn, mx); v = math.floor(v / stp + 0.5) * stp; tbl[key] = v
         local frac = (v - mn) / (mx - mn)
-        fill.Size = UDim2.new(frac, 0, 1, 0)
-        knob.Position = UDim2.new(frac, 0, 0.5, 0)
+        fill.Size = UDim2.new(frac, 0, 1, 0); knob.Position = UDim2.new(frac, 0, 0.5, 0)
         vl.Text = tostring(math.floor(v * 1000 + 0.5) / 1000) .. sfx
     end
     upd(tbl[key])
@@ -1933,158 +1481,121 @@ local function Slider(tabName, label, tbl, key, mn, mx, stp, sfx)
         end
     end)
     UIS.InputEnded:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then
-            sliding = false
-        end
+        if i.UserInputType == Enum.UserInputType.MouseButton1 then sliding = false end
     end)
     UIS.InputChanged:Connect(function(i)
         if sliding and i.UserInputType == Enum.UserInputType.MouseMovement then
             upd(mn + (mx - mn) * math.clamp((i.Position.X - trk.AbsolutePosition.X) / trk.AbsoluteSize.X, 0, 1))
         end
     end)
+
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
+local activeDropdown = nil
 local function Dropdown(tabName, label, tbl, key, options)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 30)
-    f.BackgroundColor3 = TH.Panel
-    f.BorderSizePixel = 0
-    f.LayoutOrder = order
-    f.ClipsDescendants = false
+    f.Size = UDim2.new(1, 0, 0, 32); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0
+    f.LayoutOrder = order; f.ClipsDescendants = false; f.ZIndex = 2
     Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label
-    l.Font = Enum.Font.Gotham
-    l.TextSize = math.floor(12 * CFG.GUI.Scale)
-    l.TextColor3 = TH.Text
-    l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 10, 0, 0)
-    l.Size = UDim2.new(0.5, 0, 1, 0)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(12 * SC)
+    l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
+    l.Position = UDim2.new(0, 12, 0, 0); l.Size = UDim2.new(0.5, 0, 1, 0)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local dbtn = Instance.new("TextButton", f)
-    dbtn.Size = UDim2.new(0.45, -10, 0, 22)
-    dbtn.Position = UDim2.new(0.55, 0, 0.5, -11)
-    dbtn.BackgroundColor3 = TH.SlBG
-    dbtn.BorderSizePixel = 0
-    dbtn.Font = Enum.Font.Gotham
-    dbtn.TextSize = math.floor(11 * CFG.GUI.Scale)
-    dbtn.TextColor3 = TH.Text
-    dbtn.Text = tostring(tbl[key]) .. " ▾"
-    Instance.new("UICorner", dbtn).CornerRadius = UDim.new(0, 4)
+    dbtn.Size = UDim2.new(0.42, 0, 0, 24); dbtn.Position = UDim2.new(0.56, 0, 0.5, -12)
+    dbtn.BackgroundColor3 = TH.Input; dbtn.BorderSizePixel = 0
+    dbtn.Font = Enum.Font.Gotham; dbtn.TextSize = math.floor(11 * SC)
+    dbtn.TextColor3 = TH.Text; dbtn.Text = tostring(tbl[key]) .. "  ▾"; dbtn.AutoButtonColor = false
+    Instance.new("UICorner", dbtn).CornerRadius = UDim.new(0, 5)
+    Instance.new("UIStroke", dbtn).Color = TH.Bdr
 
     local dropFrame = Instance.new("Frame", f)
-    dropFrame.Size = UDim2.new(0.45, -10, 0, #options * 24 + 4)
-    dropFrame.Position = UDim2.new(0.55, 0, 1, 4)
-    dropFrame.BackgroundColor3 = TH.Header
-    dropFrame.BorderSizePixel = 0
-    dropFrame.Visible = false
-    dropFrame.ZIndex = 50
+    dropFrame.Size = UDim2.new(0.42, 0, 0, #options * 26 + 6)
+    dropFrame.Position = UDim2.new(0.56, 0, 1, 4)
+    dropFrame.BackgroundColor3 = TH.Header; dropFrame.BorderSizePixel = 0
+    dropFrame.Visible = false; dropFrame.ZIndex = 100; dropFrame.ClipsDescendants = true
     Instance.new("UICorner", dropFrame).CornerRadius = UDim.new(0, 6)
-    Instance.new("UIStroke", dropFrame).Color = TH.Bdr
+    local ds = Instance.new("UIStroke", dropFrame); ds.Color = TH.Accent; ds.Thickness = 1
 
     local dLay = Instance.new("UIListLayout", dropFrame)
-    dLay.SortOrder = Enum.SortOrder.LayoutOrder
-    dLay.Padding = UDim.new(0, 0)
-
+    dLay.SortOrder = Enum.SortOrder.LayoutOrder; dLay.Padding = UDim.new(0, 0)
     local dPad = Instance.new("UIPadding", dropFrame)
-    dPad.PaddingTop = UDim.new(0, 2)
+    dPad.PaddingTop = UDim.new(0, 3); dPad.PaddingBottom = UDim.new(0, 3)
 
     for oi, opt in ipairs(options) do
         local ob = Instance.new("TextButton", dropFrame)
-        ob.Size = UDim2.new(1, -4, 0, 24)
-        ob.Position = UDim2.new(0, 2, 0, 0)
-        ob.BackgroundColor3 = TH.Header
-        ob.BackgroundTransparency = 1
-        ob.BorderSizePixel = 0
-        ob.Font = Enum.Font.Gotham
-        ob.TextSize = math.floor(11 * CFG.GUI.Scale)
-        ob.TextColor3 = TH.Text
-        ob.Text = opt
-        ob.LayoutOrder = oi
-        ob.ZIndex = 51
-
+        ob.Size = UDim2.new(1, -6, 0, 26); ob.Position = UDim2.new(0, 3, 0, 0)
+        ob.BackgroundColor3 = TH.Header; ob.BackgroundTransparency = 1
+        ob.BorderSizePixel = 0; ob.Font = Enum.Font.Gotham; ob.TextSize = math.floor(11 * SC)
+        ob.TextColor3 = TH.Text; ob.Text = opt; ob.LayoutOrder = oi; ob.ZIndex = 101; ob.AutoButtonColor = false
+        Instance.new("UICorner", ob).CornerRadius = UDim.new(0, 4)
         ob.MouseEnter:Connect(function()
-            ob.BackgroundTransparency = 0
-            ob.BackgroundColor3 = TH.Hover
+            TweenService:Create(ob, TweenInfo.new(0.1), {BackgroundTransparency = 0, BackgroundColor3 = TH.Accent}):Play()
         end)
         ob.MouseLeave:Connect(function()
-            ob.BackgroundTransparency = 1
+            TweenService:Create(ob, TweenInfo.new(0.1), {BackgroundTransparency = 1}):Play()
         end)
         ob.MouseButton1Click:Connect(function()
-            tbl[key] = opt
-            dbtn.Text = opt .. " ▾"
-            dropFrame.Visible = false
+            tbl[key] = opt; dbtn.Text = opt .. "  ▾"; dropFrame.Visible = false; activeDropdown = nil
         end)
     end
 
     dbtn.MouseButton1Click:Connect(function()
+        if activeDropdown and activeDropdown ~= dropFrame then activeDropdown.Visible = false end
         dropFrame.Visible = not dropFrame.Visible
+        activeDropdown = dropFrame.Visible and dropFrame or nil
     end)
+
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
 local function ColorPick(tabName, label, tbl, key)
     local page, order = getPage(tabName)
     local f = Instance.new("Frame", page)
-    f.Size = UDim2.new(1, 0, 0, 56)
-    f.BackgroundColor3 = TH.Panel
-    f.BorderSizePixel = 0
-    f.LayoutOrder = order
+    f.Size = UDim2.new(1, 0, 0, 58); f.BackgroundColor3 = TH.Panel; f.BorderSizePixel = 0; f.LayoutOrder = order
     Instance.new("UICorner", f).CornerRadius = UDim.new(0, 6)
 
     local l = Instance.new("TextLabel", f)
-    l.Text = label
-    l.Font = Enum.Font.Gotham
-    l.TextSize = math.floor(12 * CFG.GUI.Scale)
-    l.TextColor3 = TH.Text
-    l.BackgroundTransparency = 1
-    l.Position = UDim2.new(0, 10, 0, 2)
-    l.Size = UDim2.new(0.6, 0, 0, 18)
+    l.Text = label; l.Font = Enum.Font.Gotham; l.TextSize = math.floor(12 * SC)
+    l.TextColor3 = TH.Text; l.BackgroundTransparency = 1
+    l.Position = UDim2.new(0, 12, 0, 3); l.Size = UDim2.new(0.5, 0, 0, 16)
     l.TextXAlignment = Enum.TextXAlignment.Left
 
     local prev = Instance.new("Frame", f)
-    prev.Size = UDim2.new(0, 22, 0, 12)
-    prev.Position = UDim2.new(1, -36, 0, 5)
-    prev.BackgroundColor3 = U.c3(tbl[key])
-    prev.BorderSizePixel = 0
+    prev.Size = UDim2.new(0, 24, 0, 14); prev.Position = UDim2.new(1, -40, 0, 4)
+    prev.BackgroundColor3 = U.c3(tbl[key]); prev.BorderSizePixel = 0
     Instance.new("UICorner", prev).CornerRadius = UDim.new(0, 4)
     Instance.new("UIStroke", prev).Color = TH.Bdr
 
     local hBar = Instance.new("Frame", f)
-    hBar.Size = UDim2.new(1, -20, 0, 8)
-    hBar.Position = UDim2.new(0, 10, 0, 22)
-    hBar.BackgroundColor3 = Color3.new(1, 1, 1)
-    hBar.BorderSizePixel = 0
+    hBar.Size = UDim2.new(1, -24, 0, 8); hBar.Position = UDim2.new(0, 12, 0, 22)
+    hBar.BackgroundColor3 = Color3.new(1, 1, 1); hBar.BorderSizePixel = 0
     Instance.new("UICorner", hBar).CornerRadius = UDim.new(1, 0)
     local hGrad = Instance.new("UIGradient", hBar)
     local pts = {}
-    for i = 0, 6 do
-        pts[#pts + 1] = ColorSequenceKeypoint.new(i / 6, Color3.fromHSV(i / 6, 1, 1))
-    end
+    for i = 0, 6 do pts[#pts + 1] = ColorSequenceKeypoint.new(i / 6, Color3.fromHSV(i / 6, 1, 1)) end
     hGrad.Color = ColorSequence.new(pts)
 
     local sBar = Instance.new("Frame", f)
-    sBar.Size = UDim2.new(0.47, -10, 0, 8)
-    sBar.Position = UDim2.new(0, 10, 0, 36)
-    sBar.BackgroundColor3 = Color3.new(1, 1, 1)
-    sBar.BorderSizePixel = 0
+    sBar.Size = UDim2.new(0.47, -12, 0, 8); sBar.Position = UDim2.new(0, 12, 0, 38)
+    sBar.BackgroundColor3 = Color3.new(1, 1, 1); sBar.BorderSizePixel = 0
     Instance.new("UICorner", sBar).CornerRadius = UDim.new(1, 0)
 
     local bBar = Instance.new("Frame", f)
-    bBar.Size = UDim2.new(0.47, -10, 0, 8)
-    bBar.Position = UDim2.new(0.53, 0, 0, 36)
-    bBar.BackgroundColor3 = Color3.new(1, 1, 1)
-    bBar.BorderSizePixel = 0
+    bBar.Size = UDim2.new(0.47, -12, 0, 8); bBar.Position = UDim2.new(0.53, 0, 0, 38)
+    bBar.BackgroundColor3 = Color3.new(1, 1, 1); bBar.BorderSizePixel = 0
     Instance.new("UICorner", bBar).CornerRadius = UDim.new(1, 0)
 
     local cH, cS, cV = Color3.new(tbl[key][1], tbl[key][2], tbl[key][3]):ToHSV()
-
     local function apply()
-        local c = Color3.fromHSV(cH, cS, cV)
-        tbl[key] = {c.R, c.G, c.B}
-        prev.BackgroundColor3 = c
+        local c = Color3.fromHSV(cH, cS, cV); tbl[key] = {c.R, c.G, c.B}; prev.BackgroundColor3 = c
         local sg = sBar:FindFirstChildOfClass("UIGradient") or Instance.new("UIGradient", sBar)
         sg.Color = ColorSequence.new(Color3.fromHSV(cH, 0, cV), Color3.fromHSV(cH, 1, cV))
         local bg2 = bBar:FindFirstChildOfClass("UIGradient") or Instance.new("UIGradient", bBar)
@@ -2093,40 +1604,21 @@ local function ColorPick(tabName, label, tbl, key)
     apply()
 
     local dH, dS, dV = false, false, false
-    hBar.InputBegan:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then dH = true end
-    end)
-    sBar.InputBegan:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then dS = true end
-    end)
-    bBar.InputBegan:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then dV = true end
-    end)
-    UIS.InputEnded:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then dH = false; dS = false; dV = false end
-    end)
+    hBar.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then dH = true end end)
+    sBar.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then dS = true end end)
+    bBar.InputBegan:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then dV = true end end)
+    UIS.InputEnded:Connect(function(i) if i.UserInputType == Enum.UserInputType.MouseButton1 then dH = false; dS = false; dV = false end end)
     UIS.InputChanged:Connect(function(i)
         if i.UserInputType ~= Enum.UserInputType.MouseMovement then return end
-        if dH then
-            cH = math.clamp((i.Position.X - hBar.AbsolutePosition.X) / hBar.AbsoluteSize.X, 0, 0.999)
-            apply()
-        end
-        if dS then
-            cS = math.clamp((i.Position.X - sBar.AbsolutePosition.X) / sBar.AbsoluteSize.X, 0, 1)
-            apply()
-        end
-        if dV then
-            cV = math.clamp((i.Position.X - bBar.AbsolutePosition.X) / bBar.AbsoluteSize.X, 0, 1)
-            apply()
-        end
+        if dH then cH = math.clamp((i.Position.X - hBar.AbsolutePosition.X) / hBar.AbsoluteSize.X, 0, 0.999); apply() end
+        if dS then cS = math.clamp((i.Position.X - sBar.AbsolutePosition.X) / sBar.AbsoluteSize.X, 0, 1); apply() end
+        if dV then cV = math.clamp((i.Position.X - bBar.AbsolutePosition.X) / bBar.AbsoluteSize.X, 0, 1); apply() end
     end)
+
+    f.MouseEnter:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Hover}):Play() end)
+    f.MouseLeave:Connect(function() TweenService:Create(f, TweenInfo.new(0.1), {BackgroundColor3 = TH.Panel}):Play() end)
 end
 
---------------------------------------------------------------
--- BUILD ALL TABS
---------------------------------------------------------------
-
--- ═══ AIMBOT TAB ═══
 Section("Aimbot", "Aimbot")
 Toggle("Aimbot", "Enabled", CFG.Aimbot, "On")
 Dropdown("Aimbot", "Mode", CFG.Aimbot, "Mode", {"Smooth", "Snap"})
@@ -2141,41 +1633,37 @@ Slider("Aimbot", "Predict Scale", CFG.Aimbot, "PredictScale", 0.01, 0.5, 0.005, 
 Toggle("Aimbot", "Team Check", CFG.Aimbot, "TeamCheck")
 Toggle("Aimbot", "Wall Check", CFG.Aimbot, "WallCheck")
 Toggle("Aimbot", "Visibility Check", CFG.Aimbot, "VisCheck")
-
-Section("Aimbot", "FOV Circle Style")
-Slider("Aimbot", "FOV Thickness", CFG.Aimbot, "FOVThick", 0.5, 5, 0.1, "")
-Slider("Aimbot", "FOV Opacity", CFG.Aimbot, "FOVAlpha", 0.1, 1.0, 0.05, "")
-Slider("Aimbot", "FOV Sides", CFG.Aimbot, "FOVSides", 12, 128, 1, "")
-Toggle("Aimbot", "FOV Filled", CFG.Aimbot, "FOVFilled")
+Section("Aimbot", "FOV Style")
+Slider("Aimbot", "Thickness", CFG.Aimbot, "FOVThick", 0.5, 5, 0.1, "")
+Slider("Aimbot", "Opacity", CFG.Aimbot, "FOVAlpha", 0.1, 1.0, 0.05, "")
+Slider("Aimbot", "Sides", CFG.Aimbot, "FOVSides", 12, 128, 1, "")
+Toggle("Aimbot", "Filled", CFG.Aimbot, "FOVFilled")
 ColorPick("Aimbot", "FOV Color", CFG.Aimbot, "FOVColor")
 
--- ═══ SILENT AIM TAB ═══
 Section("Silent", "Silent Aim")
 Toggle("Silent", "Enabled", CFG.SilentAim, "On")
 Dropdown("Silent", "Target Part", CFG.SilentAim, "Part", {"Head", "Torso", "Closest"})
 Slider("Silent", "FOV Radius", CFG.SilentAim, "FOV", 20, 500, 5, "px")
 Slider("Silent", "Hit Chance", CFG.SilentAim, "HitChance", 1, 100, 1, "%")
-Toggle("Silent", "Show FOV Circle", CFG.SilentAim, "ShowFOV")
+Toggle("Silent", "Show FOV", CFG.SilentAim, "ShowFOV")
 Toggle("Silent", "Prediction", CFG.SilentAim, "Predict")
 Slider("Silent", "Predict Scale", CFG.SilentAim, "PredictScale", 0.01, 0.5, 0.005, "")
 Toggle("Silent", "Wall Check", CFG.SilentAim, "WallCheck")
 Toggle("Silent", "Team Check", CFG.SilentAim, "TeamCheck")
-
-Section("Silent", "FOV Circle Style")
-Slider("Silent", "FOV Thickness", CFG.SilentAim, "FOVThick", 0.5, 5, 0.1, "")
-Slider("Silent", "FOV Opacity", CFG.SilentAim, "FOVAlpha", 0.1, 1.0, 0.05, "")
+Section("Silent", "FOV Style")
+Slider("Silent", "Thickness", CFG.SilentAim, "FOVThick", 0.5, 5, 0.1, "")
+Slider("Silent", "Opacity", CFG.SilentAim, "FOVAlpha", 0.1, 1.0, 0.05, "")
 ColorPick("Silent", "FOV Color", CFG.SilentAim, "FOVColor")
 
--- ═══ ESP TAB ═══
 Section("ESP", "Box ESP")
 Toggle("ESP", "Enabled", CFG.BoxESP, "On")
-Dropdown("ESP", "Box Mode", CFG.BoxESP, "Mode", {"Full", "Corner", "3D"})
+Dropdown("ESP", "Style", CFG.BoxESP, "Mode", {"Full", "Corner", "3D"})
 Toggle("ESP", "Names", CFG.BoxESP, "Name")
 Toggle("ESP", "Health Bars", CFG.BoxESP, "Health")
 Toggle("ESP", "Health Numbers", CFG.BoxESP, "HealthNum")
 Toggle("ESP", "Distance", CFG.BoxESP, "Dist")
-Toggle("ESP", "Weapon Name", CFG.BoxESP, "Weapon")
-Toggle("ESP", "Show Teammates", CFG.BoxESP, "ShowTeam")
+Toggle("ESP", "Weapon", CFG.BoxESP, "Weapon")
+Toggle("ESP", "Teammates", CFG.BoxESP, "ShowTeam")
 Toggle("ESP", "Outline", CFG.BoxESP, "Outline")
 Slider("ESP", "Max Distance", CFG.BoxESP, "MaxDist", 100, 5000, 50, "m")
 Slider("ESP", "Thickness", CFG.BoxESP, "Thick", 0.5, 5, 0.1, "")
@@ -2187,31 +1675,27 @@ ColorPick("ESP", "Team Color", CFG.BoxESP, "TeamColor")
 ColorPick("ESP", "Enemy Fill", CFG.BoxESP, "EnemyFill")
 ColorPick("ESP", "Team Fill", CFG.BoxESP, "TeamFill")
 ColorPick("ESP", "Outline Color", CFG.BoxESP, "OutlineColor")
-
 Section("ESP", "Tracers")
 Toggle("ESP", "Enabled", CFG.Tracers, "On")
 Dropdown("ESP", "Origin", CFG.Tracers, "Origin", {"Bottom", "Center", "Mouse"})
-Toggle("ESP", "Show Teammates", CFG.Tracers, "ShowTeam")
-Slider("ESP", "Tracer Thickness", CFG.Tracers, "Thick", 0.5, 4, 0.1, "")
+Toggle("ESP", "Teammates", CFG.Tracers, "ShowTeam")
+Slider("ESP", "Thickness", CFG.Tracers, "Thick", 0.5, 4, 0.1, "")
 Slider("ESP", "Max Distance", CFG.Tracers, "MaxDist", 100, 5000, 50, "m")
-ColorPick("ESP", "Enemy Tracer", CFG.Tracers, "EnemyColor")
-ColorPick("ESP", "Team Tracer", CFG.Tracers, "TeamColor")
-
+ColorPick("ESP", "Enemy", CFG.Tracers, "EnemyColor")
+ColorPick("ESP", "Team", CFG.Tracers, "TeamColor")
 Section("ESP", "Snaplines")
 Toggle("ESP", "Enabled", CFG.Snaplines, "On")
-Dropdown("ESP", "Target Part", CFG.Snaplines, "Part", {"Head", "Torso", "Closest"})
+Dropdown("ESP", "Part", CFG.Snaplines, "Part", {"Head", "Torso", "Closest"})
 Slider("ESP", "Thickness", CFG.Snaplines, "Thick", 0.3, 3, 0.1, "")
-ColorPick("ESP", "Snapline Color", CFG.Snaplines, "Color")
-
+ColorPick("ESP", "Color", CFG.Snaplines, "Color")
 Section("ESP", "Skeleton")
 Toggle("ESP", "Enabled", CFG.Skeleton, "On")
-Toggle("ESP", "Show Teammates", CFG.Skeleton, "ShowTeam")
+Toggle("ESP", "Teammates", CFG.Skeleton, "ShowTeam")
 Slider("ESP", "Max Distance", CFG.Skeleton, "MaxDist", 100, 3000, 50, "m")
 Slider("ESP", "Thickness", CFG.Skeleton, "Thick", 0.3, 4, 0.1, "")
 ColorPick("ESP", "Enemy Bones", CFG.Skeleton, "EnemyColor")
 ColorPick("ESP", "Team Bones", CFG.Skeleton, "TeamColor")
-
-Section("ESP", "Item ESP")
+Section("ESP", "Items")
 Toggle("ESP", "Enabled", CFG.ItemESP, "On")
 Toggle("ESP", "Names", CFG.ItemESP, "Names")
 Toggle("ESP", "Distance", CFG.ItemESP, "Dist")
@@ -2219,39 +1703,35 @@ Toggle("ESP", "Tracers", CFG.ItemESP, "Tracers")
 Toggle("ESP", "Icons", CFG.ItemESP, "Icon")
 Slider("ESP", "Max Distance", CFG.ItemESP, "MaxDist", 50, 2000, 50, "m")
 Slider("ESP", "Name Size", CFG.ItemESP, "NameSize", 8, 20, 1, "")
-Slider("ESP", "Tracer Thickness", CFG.ItemESP, "TracerThick", 0.5, 3, 0.1, "")
 ColorPick("ESP", "Item Color", CFG.ItemESP, "Color")
 ColorPick("ESP", "Tracer Color", CFG.ItemESP, "TracerColor")
 
--- ═══ CHAMS TAB ═══
 Section("Chams", "Chams")
 Toggle("Chams", "Enabled", CFG.Chams, "On")
-Dropdown("Chams", "Mode", CFG.Chams, "Mode", {"Standard", "Neon", "Rainbow", "Flat"})
-Dropdown("Chams", "Depth Mode", CFG.Chams, "DepthMode", {"AlwaysOnTop", "Occluded"})
+Dropdown("Chams", "Mode", CFG.Chams, "Mode", {"Glow", "Highlight", "X-Ray", "Neon", "Rainbow"})
+Dropdown("Chams", "Depth", CFG.Chams, "DepthMode", {"AlwaysOnTop", "Occluded"})
 Toggle("Chams", "Team Colors", CFG.Chams, "TeamCheck")
-Toggle("Chams", "Visible Only", CFG.Chams, "VisibleOnly")
-
-Section("Chams", "Standard Colors")
-Slider("Chams", "Fill Transparency", CFG.Chams, "FillAlpha", 0, 1, 0.05, "")
-Slider("Chams", "Outline Transparency", CFG.Chams, "OutAlpha", 0, 1, 0.05, "")
-ColorPick("Chams", "Fill Color", CFG.Chams, "FillColor")
-ColorPick("Chams", "Outline Color", CFG.Chams, "OutColor")
-
-Section("Chams", "Team-Based Colors")
-ColorPick("Chams", "Enemy Fill", CFG.Chams, "EnemyFill")
-ColorPick("Chams", "Team Fill", CFG.Chams, "TeamFill")
-ColorPick("Chams", "Enemy Outline", CFG.Chams, "EnemyOut")
-ColorPick("Chams", "Team Outline", CFG.Chams, "TeamOut")
-
-Section("Chams", "Neon Settings")
-Slider("Chams", "Neon Fill Alpha", CFG.Chams, "NeonAlpha", 0, 1, 0.05, "")
-Slider("Chams", "Neon Outline Alpha", CFG.Chams, "NeonOutAlpha", 0, 1, 0.05, "")
+Section("Chams", "Glow / Neon")
+Slider("Chams", "Glow Transparency", CFG.Chams, "GlowAlpha", 0, 1, 0.05, "")
+Slider("Chams", "Glow Size", CFG.Chams, "GlowSize", 0.01, 0.3, 0.01, "")
+Slider("Chams", "Neon Transparency", CFG.Chams, "NeonAlpha", 0, 1, 0.05, "")
+ColorPick("Chams", "Glow Color", CFG.Chams, "GlowColor")
 ColorPick("Chams", "Neon Color", CFG.Chams, "NeonColor")
-
-Section("Chams", "Rainbow Settings")
+Section("Chams", "Highlight")
+Slider("Chams", "Fill Alpha", CFG.Chams, "HighlightFillAlpha", 0, 1, 0.05, "")
+Slider("Chams", "Outline Alpha", CFG.Chams, "HighlightOutAlpha", 0, 1, 0.05, "")
+ColorPick("Chams", "Fill", CFG.Chams, "HighlightFill")
+ColorPick("Chams", "Outline", CFG.Chams, "HighlightOut")
+Section("Chams", "X-Ray")
+Slider("Chams", "Visible Alpha", CFG.Chams, "XRayVisibleAlpha", 0, 1, 0.05, "")
+Slider("Chams", "Occluded Alpha", CFG.Chams, "XRayOccludedAlpha", 0, 1, 0.05, "")
+ColorPick("Chams", "Visible Color", CFG.Chams, "XRayVisibleFill")
+ColorPick("Chams", "Occluded Color", CFG.Chams, "XRayOccludedFill")
+Section("Chams", "Team / Rainbow")
 Slider("Chams", "Rainbow Speed", CFG.Chams, "RainbowSpeed", 0.1, 5, 0.1, "x")
+ColorPick("Chams", "Enemy Color", CFG.Chams, "EnemyColor")
+ColorPick("Chams", "Team Color", CFG.Chams, "TeamColor")
 
--- ═══ VISUALS TAB ═══
 Section("Visuals", "Crosshair")
 Toggle("Visuals", "Enabled", CFG.Crosshair, "On")
 Dropdown("Visuals", "Style", CFG.Crosshair, "Style", {"Cross", "Circle", "Dot", "Diamond"})
@@ -2263,100 +1743,66 @@ Slider("Visuals", "Dot Size", CFG.Crosshair, "DotSize", 1, 6, 0.5, "")
 Toggle("Visuals", "Outline", CFG.Crosshair, "Outline")
 Toggle("Visuals", "Rotate", CFG.Crosshair, "Rotate")
 Slider("Visuals", "Rotate Speed", CFG.Crosshair, "RotateSpeed", 0.5, 10, 0.5, "")
-ColorPick("Visuals", "Crosshair Color", CFG.Crosshair, "Color")
-
+ColorPick("Visuals", "Color", CFG.Crosshair, "Color")
 Section("Visuals", "FOV Changer")
 Toggle("Visuals", "Enabled", CFG.FOVChanger, "On")
 Slider("Visuals", "Field of View", CFG.FOVChanger, "Value", 30, 120, 1, "")
-Toggle("Visuals", "Smooth Transition", CFG.FOVChanger, "Smooth")
+Toggle("Visuals", "Smooth", CFG.FOVChanger, "Smooth")
 Slider("Visuals", "Smooth Speed", CFG.FOVChanger, "SmoothSpeed", 0.01, 0.5, 0.01, "")
-
 Section("Visuals", "Watermark")
 Toggle("Visuals", "Enabled", CFG.Watermark, "On")
-Toggle("Visuals", "Show FPS", CFG.Watermark, "ShowFPS")
-Toggle("Visuals", "Show Ping", CFG.Watermark, "ShowPing")
-Toggle("Visuals", "Show Time", CFG.Watermark, "ShowTime")
-Toggle("Visuals", "Show Game Name", CFG.Watermark, "ShowGame")
+Toggle("Visuals", "FPS", CFG.Watermark, "ShowFPS")
+Toggle("Visuals", "Ping", CFG.Watermark, "ShowPing")
+Toggle("Visuals", "Time", CFG.Watermark, "ShowTime")
+Toggle("Visuals", "Game Name", CFG.Watermark, "ShowGame")
 
--- ═══ SETTINGS TAB ═══
 Section("Settings", "Menu")
-Slider("Settings", "Menu Scale", CFG.GUI, "Scale", 0.6, 1.5, 0.05, "x")
-Slider("Settings", "Menu Opacity", CFG.GUI, "Opacity", 0.5, 1.0, 0.01, "")
+Slider("Settings", "Scale", CFG.GUI, "Scale", 0.6, 1.5, 0.05, "x")
+Slider("Settings", "Opacity", CFG.GUI, "Opacity", 0.5, 1.0, 0.01, "")
 Slider("Settings", "Animation Speed", CFG.GUI, "AnimSpeed", 0.05, 0.5, 0.01, "s")
 Toggle("Settings", "Blur Background", CFG.GUI, "BlurBackground")
-ColorPick("Settings", "Accent Color", CFG.GUI, "Accent")
+ColorPick("Settings", "Accent", CFG.GUI, "Accent")
 ColorPick("Settings", "Accent Alt", CFG.GUI, "AccentAlt")
 
---------------------------------------------------------------
--- MENU TOGGLE + ANIMATION
---------------------------------------------------------------
 switchTab("Aimbot")
 
 UIS.InputBegan:Connect(function(input, gpe)
     if gpe then return end
     if input.KeyCode == CFG.GUI.MenuKey then
         menuOpen = not menuOpen
-
+        if activeDropdown then activeDropdown.Visible = false; activeDropdown = nil end
         if menuOpen then
-            Main.Visible = true
-            Main.Size = UDim2.new(0, MENU_W, 0, 0)
+            Main.Visible = true; Main.BackgroundTransparency = 1
             TweenService:Create(Main, TweenInfo.new(CFG.GUI.AnimSpeed, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {
-                Size = UDim2.new(0, MENU_W, 0, MENU_H)
+                BackgroundTransparency = 1 - CFG.GUI.Opacity
             }):Play()
-            if blur then
-                TweenService:Create(blur, TweenInfo.new(CFG.GUI.AnimSpeed), {Size = 6}):Play()
-            end
+            if blur then TweenService:Create(blur, TweenInfo.new(CFG.GUI.AnimSpeed), {Size = 8}):Play() end
         else
             TweenService:Create(Main, TweenInfo.new(CFG.GUI.AnimSpeed, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
-                Size = UDim2.new(0, MENU_W, 0, 0)
+                BackgroundTransparency = 1
             }):Play()
-            if blur then
-                TweenService:Create(blur, TweenInfo.new(CFG.GUI.AnimSpeed), {Size = 0}):Play()
-            end
-            task.delay(CFG.GUI.AnimSpeed, function()
-                if not menuOpen then Main.Visible = false end
-            end)
+            if blur then TweenService:Create(blur, TweenInfo.new(CFG.GUI.AnimSpeed), {Size = 0}):Play() end
+            task.delay(CFG.GUI.AnimSpeed, function() if not menuOpen then Main.Visible = false end end)
         end
     end
 end)
 
---------------------------------------------------------------
--- CLEANUP ON DESTROY
---------------------------------------------------------------
 local function cleanup()
     if blur then pcall(function() blur:Destroy() end) end
     for _, p in ipairs(Players:GetPlayers()) do killChams(p) end
-
     if ENV.Drawing then
-        Draw.Lines:destroy()
-        Draw.Texts:destroy()
-        Draw.Circles:destroy()
-        Draw.Squares:destroy()
-        Draw.Quads:destroy()
+        Draw.Lines:destroy(); Draw.Texts:destroy(); Draw.Circles:destroy(); Draw.Quads:destroy()
         pcall(function() Draw.AimbotFOV:Remove() end)
         pcall(function() Draw.SilentFOV:Remove() end)
         for _, ln in ipairs(Draw.CrossLines) do pcall(function() ln:Remove() end) end
         pcall(function() Draw.CrossDot:Remove() end)
-        pcall(function() Draw.WatermarkBG:Remove() end)
-        pcall(function() Draw.WatermarkBorder:Remove() end)
-        pcall(function() Draw.WatermarkAccent:Remove() end)
-        pcall(function() Draw.WatermarkText:Remove() end)
+        pcall(function() Draw.WmBG:Remove() end)
+        pcall(function() Draw.WmBorder:Remove() end)
+        pcall(function() Draw.WmAccent:Remove() end)
+        pcall(function() Draw.WmText:Remove() end)
     end
 end
-
 SG.Destroying:Connect(cleanup)
-LP.CharacterRemoving:Connect(function()
-    currentTarget = nil
-    silentTarget = nil
-end)
+LP.CharacterRemoving:Connect(function() currentTarget = nil; silentTarget = nil end)
 
---------------------------------------------------------------
--- DONE
---------------------------------------------------------------
-print(tag .. " ═══════════════════════════════════════")
-print(tag .. " Full build loaded successfully.")
-print(tag .. " Press Right Control to open menu.")
-print(tag .. " Features: " .. (ENV.Drawing and "Drawing OK" or "Drawing NO"))
-print(tag .. " Hook: " .. (ENV.Hook or "None (camera fallback)"))
-print(tag .. " GUI: " .. (ENV.GetHUI and "gethui" or ENV.CoreGui and "CoreGui" or "PlayerGui"))
-print(tag .. " ═══════════════════════════════════════")
+print("[Axiom] Loaded | RCtrl to open")
