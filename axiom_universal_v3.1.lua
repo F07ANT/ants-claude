@@ -227,10 +227,10 @@ local DEFAULT_CFG = {
         ShowTeam = true,
         ShowNames = false,
         Position = "TopRight",
-        BorderColor = {232, 67, 147},
+        BorderColor = {0.91, 0.26, 0.58},
         EnemyDot = {1, 0.15, 0.15},
         TeamDot = {0.15, 1, 0.15},
-        BackgroundColor = {10, 10, 14},
+        BackgroundColor = {0.04, 0.04, 0.055},
         CardinalMarkers = true,
         RotateWithCamera = true,
         PingDots = true,
@@ -814,68 +814,162 @@ function U.distanceToPlayer(p)
 end
 
 local Radar = {}
-Radar.active = false
+Radar.objects = {}
+Radar.maxDots = 40
 
-function Radar.render(ctr_x, ctr_y)
-    if not CFG.Radar.On or not ENV.Drawing then return end
+function Radar.init()
+    if not ENV.Drawing then return end
+    local o = Radar.objects
+    o.bg = Drawing.new("Circle")
+    o.bg.Filled = true; o.bg.NumSides = 60; o.bg.Visible = false
+    o.border = Drawing.new("Circle")
+    o.border.Filled = false; o.border.NumSides = 60; o.border.Thickness = 2; o.border.Visible = false
+    o.ring = Drawing.new("Circle")
+    o.ring.Filled = false; o.ring.NumSides = 40; o.ring.Thickness = 1; o.ring.Visible = false
+    o.crossH = Drawing.new("Line"); o.crossH.Visible = false; o.crossH.Thickness = 1
+    o.crossV = Drawing.new("Line"); o.crossV.Visible = false; o.crossV.Thickness = 1
+    o.center = Drawing.new("Circle")
+    o.center.Filled = true; o.center.NumSides = 16; o.center.Visible = false
+    o.cardinals = {}
+    for _, label in ipairs({"N", "S", "E", "W"}) do
+        local t = Drawing.new("Text")
+        t.Text = label; t.Size = 10; t.Font = 2; t.Center = true
+        t.Outline = true; t.Visible = false
+        o.cardinals[label] = t
+    end
+    o.dots = {}
+    o.arrows = {}
+    o.names = {}
+    for i = 1, Radar.maxDots do
+        local dot = Drawing.new("Circle")
+        dot.Filled = true; dot.NumSides = 12; dot.Visible = false
+        o.dots[i] = dot
+        local arrow = Drawing.new("Line")
+        arrow.Visible = false; arrow.Thickness = 1.5
+        o.arrows[i] = arrow
+        local name = Drawing.new("Text")
+        name.Size = 9; name.Font = 2; name.Center = true
+        name.Outline = true; name.Visible = false
+        o.names[i] = name
+    end
+    o.countText = Drawing.new("Text")
+    o.countText.Size = 9; o.countText.Font = 2; o.countText.Center = true
+    o.countText.Outline = true; o.countText.Visible = false
+end
+
+function Radar.hideAll()
+    local o = Radar.objects
+    if not o.bg then return end
+    o.bg.Visible = false
+    o.border.Visible = false
+    o.ring.Visible = false
+    o.crossH.Visible = false; o.crossV.Visible = false
+    o.center.Visible = false
+    o.countText.Visible = false
+    for _, t in pairs(o.cardinals) do t.Visible = false end
+    for i = 1, Radar.maxDots do
+        o.dots[i].Visible = false
+        o.arrows[i].Visible = false
+        o.names[i].Visible = false
+    end
+end
+
+function Radar.destroy()
+    local o = Radar.objects
+    for k, v in pairs(o) do
+        if type(v) == "table" then
+            for _, obj in pairs(v) do pcall(function() obj:Remove() end) end
+        else
+            pcall(function() v:Remove() end)
+        end
+    end
+    Radar.objects = {}
+end
+
+function Radar.render()
+    if not ENV.Drawing then return end
+    if not Radar.objects.bg then Radar.init() end
     local cfg = CFG.Radar
+    if not cfg.On then
+        Radar.hideAll()
+        return
+    end
+    local o = Radar.objects
     local size = cfg.Size
     local half = size / 2
-    local myP = U.myPos()
+
+    local myChar = LP.Character
+    local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+    if not myRoot then Radar.hideAll(); return end
+    local myP = myRoot.Position
+
     local myAngle = 0
     if cfg.RotateWithCamera then
         local look = Camera.CFrame.LookVector
         myAngle = math.atan2(look.X, look.Z)
     end
 
+    local vp = Camera.ViewportSize
     local rx, ry
     if cfg.Position == "TopRight" then
-        local vp = Camera.ViewportSize
-        rx = vp.X - size - 15
-        ry = 45
+        rx = vp.X - size - 15; ry = 45
     elseif cfg.Position == "TopLeft" then
-        rx = 15
-        ry = 45
+        rx = 15; ry = 45
     elseif cfg.Position == "BottomLeft" then
-        rx = 15
-        ry = Camera.ViewportSize.Y - size - 15
+        rx = 15; ry = vp.Y - size - 15
     else
-        local vp = Camera.ViewportSize
-        rx = vp.X - size - 15
-        ry = vp.Y - size - 15
+        rx = vp.X - size - 15; ry = vp.Y - size - 15
     end
-
     local cx, cy = rx + half, ry + half
+    local center = Vector2.new(cx, cy)
 
-    Draw.circle(Vector2.new(cx, cy), half, U.c3(cfg.BackgroundColor), 1, true, 40, cfg.Alpha)
-    Draw.circle(Vector2.new(cx, cy), half, U.c3(cfg.BorderColor), 1.5, false, 40, 1)
+    local bgCol = Color3.new(cfg.BackgroundColor[1], cfg.BackgroundColor[2], cfg.BackgroundColor[3])
+    o.bg.Position = center; o.bg.Radius = half; o.bg.Color = bgCol
+    o.bg.Transparency = cfg.Alpha; o.bg.Visible = true
+
+    local borderCol = Color3.new(cfg.BorderColor[1], cfg.BorderColor[2], cfg.BorderColor[3])
+    o.border.Position = center; o.border.Radius = half; o.border.Color = borderCol
+    o.border.Transparency = 1; o.border.Visible = true
+
+    o.ring.Position = center; o.ring.Radius = half / 2
+    o.ring.Color = Color3.fromRGB(35, 35, 45); o.ring.Transparency = 0.5; o.ring.Visible = true
 
     if cfg.CrosshairLines then
-        Draw.line(Vector2.new(cx - half, cy), Vector2.new(cx + half, cy), Color3.fromRGB(40, 40, 50), 1)
-        Draw.line(Vector2.new(cx, cy - half), Vector2.new(cx, cy + half), Color3.fromRGB(40, 40, 50), 1)
+        local lineCol = Color3.fromRGB(45, 45, 55)
+        o.crossH.From = Vector2.new(cx - half, cy); o.crossH.To = Vector2.new(cx + half, cy)
+        o.crossH.Color = lineCol; o.crossH.Visible = true
+        o.crossV.From = Vector2.new(cx, cy - half); o.crossV.To = Vector2.new(cx, cy + half)
+        o.crossV.Color = lineCol; o.crossV.Visible = true
+    else
+        o.crossH.Visible = false; o.crossV.Visible = false
     end
 
-    Draw.circle(Vector2.new(cx, cy), half / 2, Color3.fromRGB(30, 30, 40), 1, false, 30, 0.5)
+    local accent = U.c3rgb(CFG.GUI.Accent)
+    o.center.Position = center; o.center.Radius = 3; o.center.Color = accent; o.center.Visible = true
 
     if cfg.CardinalMarkers then
-        local markers = {{"N", 0, -1}, {"S", 0, 1}, {"E", 1, 0}, {"W", -1, 0}}
-        for _, m in ipairs(markers) do
-            local label, dx, dy = m[1], m[2], m[3]
-            local mdx, mdy = dx, dy
+        local dirs = {N = {0, -1}, S = {0, 1}, E = {1, 0}, W = {-1, 0}}
+        for label, d in pairs(dirs) do
+            local dx, dy = d[1], d[2]
             if cfg.RotateWithCamera then
-                local sin, cos = math.sin(-myAngle), math.cos(-myAngle)
-                mdx = dx * cos - dy * sin
-                mdy = dx * sin + dy * cos
+                local s, c = math.sin(-myAngle), math.cos(-myAngle)
+                dx, dy = d[1] * c - d[2] * s, d[1] * s + d[2] * c
             end
-            local mx = cx + mdx * (half - 10)
-            local my = cy + mdy * (half - 10)
-            Draw.text(Vector2.new(mx, my), label, Color3.fromRGB(120, 120, 140), 9, true)
+            local t = o.cardinals[label]
+            t.Position = Vector2.new(cx + dx * (half - 12), cy + dy * (half - 12))
+            t.Color = label == "N" and Color3.fromRGB(232, 67, 147) or Color3.fromRGB(130, 130, 150)
+            t.Visible = true
         end
+    else
+        for _, t in pairs(o.cardinals) do t.Visible = false end
     end
 
-    Draw.circle(Vector2.new(cx, cy), 3, U.c3rgb(CFG.GUI.Accent), 1, true, 12, 1)
+    local dotIdx = 0
+    local playerList = Players:GetPlayers()
+    local enemyCol = Color3.new(cfg.EnemyDot[1], cfg.EnemyDot[2], cfg.EnemyDot[3])
+    local teamCol = Color3.new(cfg.TeamDot[1], cfg.TeamDot[2], cfg.TeamDot[3])
 
-    for _, p in ipairs(Players:GetPlayers()) do
+    for _, p in ipairs(playerList) do
         if p == LP then continue end
         if not U.alive(p) then continue end
         local ch = p.Character
@@ -885,34 +979,70 @@ function Radar.render(ctr_x, ctr_y)
         if dist > cfg.MaxDist then continue end
         local isTeam = U.team(p)
         if not cfg.ShowTeam and isTeam then continue end
-        local px, py = U.worldToRadar(rp.Position, myP, myAngle, size, cfg.Zoom, cfg.RotateWithCamera)
+        if dotIdx >= Radar.maxDots then break end
+        dotIdx = dotIdx + 1
 
-        local inCircle = (px * px + py * py) <= (half - 4) * (half - 4)
-        if not inCircle then
-            local mag = math.sqrt(px * px + py * py)
-            if mag > 0 then
-                px = px / mag * (half - 6)
-                py = py / mag * (half - 6)
-            end
+        local px, py = U.worldToRadar(rp.Position, myP, myAngle, size, cfg.Zoom, cfg.RotateWithCamera)
+        local r2 = px * px + py * py
+        local maxR = half - 5
+        if r2 > maxR * maxR then
+            local mag = math.sqrt(r2)
+            px = px / mag * maxR
+            py = py / mag * maxR
         end
 
-        local dotCol = isTeam and U.c3(cfg.TeamDot) or U.c3(cfg.EnemyDot)
+        local dotCol = isTeam and teamCol or enemyCol
         local dotX, dotY = cx + px, cy + py
-        Draw.circle(Vector2.new(dotX, dotY), cfg.DotSize, dotCol, 1, true, 10, 1)
+        local dotObj = o.dots[dotIdx]
+        dotObj.Position = Vector2.new(dotX, dotY)
+        dotObj.Radius = cfg.DotSize
+        dotObj.Color = dotCol
+        dotObj.Visible = true
 
         if cfg.PingDots then
             local heading = U.getHeading(p)
             local relAngle = heading - myAngle
-            local arrowLen = 5
+            local arrowLen = cfg.DotSize + 4
             local ax = dotX + math.sin(relAngle) * arrowLen
             local ay = dotY - math.cos(relAngle) * arrowLen
-            Draw.line(Vector2.new(dotX, dotY), Vector2.new(ax, ay), dotCol, 1)
+            o.arrows[dotIdx].From = Vector2.new(dotX, dotY)
+            o.arrows[dotIdx].To = Vector2.new(ax, ay)
+            o.arrows[dotIdx].Color = dotCol
+            o.arrows[dotIdx].Visible = true
+        else
+            o.arrows[dotIdx].Visible = false
         end
 
         if cfg.ShowNames then
-            Draw.text(Vector2.new(dotX, dotY - 10), U.truncate(p.DisplayName, 10), Color3.fromRGB(180, 180, 190), 8, true)
+            o.names[dotIdx].Position = Vector2.new(dotX, dotY - cfg.DotSize - 11)
+            o.names[dotIdx].Text = U.truncate(p.DisplayName, 10)
+            o.names[dotIdx].Color = Color3.fromRGB(190, 190, 200)
+            o.names[dotIdx].Visible = true
+        else
+            o.names[dotIdx].Visible = false
         end
     end
+
+    for i = dotIdx + 1, Radar.maxDots do
+        o.dots[i].Visible = false
+        o.arrows[i].Visible = false
+        o.names[i].Visible = false
+    end
+
+    local totalNearby = 0
+    for _, p in ipairs(playerList) do
+        if p ~= LP and U.alive(p) then
+            local ch = p.Character
+            local rp = ch and ch:FindFirstChild("HumanoidRootPart")
+            if rp and (myP - rp.Position).Magnitude <= cfg.MaxDist then
+                totalNearby = totalNearby + 1
+            end
+        end
+    end
+    o.countText.Position = Vector2.new(cx, ry + size + 4)
+    o.countText.Text = totalNearby .. " nearby"
+    o.countText.Color = Color3.fromRGB(140, 140, 160)
+    o.countText.Visible = true
 end
 
 local Freecam = {}
@@ -1067,6 +1197,8 @@ function Spectate.prev()
     local prev = Spectate.getNextPlayer(false)
     if prev then Spectate.setTarget(prev) end
 end
+
+local Draw = {}
 
 local KillFeed = {}
 KillFeed.entries = {}
@@ -1571,6 +1703,7 @@ local AimIndicator = {}
 function AimIndicator.render(target, ctr)
     if not ENV.Drawing then return end
     if not target or not U.alive(target) then return end
+    if not Draw.line then return end
     local ch = target.Character
     if not ch then return end
     local part = getTargetPart(ch, CFG.Aimbot.Part)
@@ -1590,8 +1723,6 @@ function AimIndicator.render(target, ctr)
     local namePos = Vector2.new(sp.X, sp.Y - sz - 12)
     Draw.text(namePos, target.DisplayName, col, 11, true)
 end
-
-local Draw = {}
 if ENV.Drawing then
     local Pool = {}
     Pool.__index = Pool
@@ -2900,12 +3031,11 @@ RunService.RenderStepped:Connect(function()
     local doESP = frame % 2 == 0
     local doItem = frame % 8 == 0
     local doWM = frame % 15 == 0
-    local doRadar = frame % 3 == 0
     local doKillFeed = frame % 4 == 0
     local doTargetInfo = frame % 2 == 0
     local doPlayerList = frame % 3 == 0
 
-    if doRadar then Radar.render() end
+    Radar.render()
     if doKillFeed then KillFeed.render() end
     if doTargetInfo then
         local infoTarget = currentTarget or silentTarget
@@ -4944,6 +5074,7 @@ Button("settings", "Destroy Script", function()
         resetHitboxes()
         Freecam.disable()
         Spectate.disable()
+        Radar.destroy()
         for _, p in ipairs(Players:GetPlayers()) do killChams(p) end
         if ENV.Drawing then
             Draw.Lines:destroy(); Draw.Texts:destroy(); Draw.Circles:destroy(); Draw.Quads:destroy(); Draw.Triangles:destroy()
